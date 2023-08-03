@@ -32,7 +32,7 @@ bool SpaceGame::Initialize() {
 	kiko::g_audioSystem.AddAudio("laser", "Laser_Shoot.wav");
 
 	//creates window
-	kiko::g_renderer.CreateWindow("CSC196", 800, 600);
+	kiko::g_renderer.CreateWindow("GAT150", 800, 600);
 
 	//makes
 	m_scene = std::make_unique<kiko::Scene>();

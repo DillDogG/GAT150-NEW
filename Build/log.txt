@@ -1,1 +1,1 @@
-INFO : hello world
+INFO : Loaded Program
