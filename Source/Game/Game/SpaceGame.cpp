@@ -2,9 +2,10 @@
 #include "Player.h"
 #include "Enemy.h"
 #include "Item.h"
-
+#include "Framework/Components/SpriteComponent.h"
 #include "Framework/Scene.h"
 #include "Framework/Emitter.h"
+#include "Framework/Resource/ResourceManager.h"
 #include "Audio/AudioSystem.h"
 #include "Input/InputSystem.h"
 #include "Renderer/Renderer.h"
@@ -13,17 +14,17 @@
 
 bool SpaceGame::Initialize() {
 	//font and text initialize
-	m_font = std::make_shared<kiko::Font>("Freshman.ttf", 24);
-	m_scoreText = std::make_unique<kiko::Text>(m_font);
-	m_titleText = std::make_unique<kiko::Text>(m_font);
-	m_livesText = std::make_unique<kiko::Text>(m_font);
-	m_healthText = std::make_unique<kiko::Text>(m_font);
-	m_missileText = std::make_unique<kiko::Text>(m_font);
-	m_adrenalineText = std::make_unique<kiko::Text>(m_font);
-	m_gameOverText = std::make_unique<kiko::Text>(m_font);
-	m_diedText = std::make_unique<kiko::Text>(m_font);
-	m_levelText = std::make_unique<kiko::Text>(m_font);
-	m_levelCompleteText = std::make_unique<kiko::Text>(m_font);
+	m_font = kiko::g_resources.Get<kiko::Font>("Freshman.ttf", 24);
+	m_scoreText = std::make_unique<kiko::Text>(kiko::g_resources.Get<kiko::Font>("Freshman.ttf", 24));
+	m_titleText = std::make_unique<kiko::Text>(kiko::g_resources.Get<kiko::Font>("Freshman.ttf", 24));
+	m_livesText = std::make_unique<kiko::Text>(kiko::g_resources.Get<kiko::Font>("Freshman.ttf", 24));
+	m_healthText = std::make_unique<kiko::Text>(kiko::g_resources.Get<kiko::Font>("Freshman.ttf", 24));
+	m_missileText = std::make_unique<kiko::Text>(kiko::g_resources.Get<kiko::Font>("Freshman.ttf", 24));
+	m_adrenalineText = std::make_unique<kiko::Text>(kiko::g_resources.Get<kiko::Font>("Freshman.ttf", 24));
+	m_gameOverText = std::make_unique<kiko::Text>(kiko::g_resources.Get<kiko::Font>("Freshman.ttf", 24));
+	m_diedText = std::make_unique<kiko::Text>(kiko::g_resources.Get<kiko::Font>("Freshman.ttf", 24));
+	m_levelText = std::make_unique<kiko::Text>(kiko::g_resources.Get<kiko::Font>("Freshman.ttf", 24));
+	m_levelCompleteText = std::make_unique<kiko::Text>(kiko::g_resources.Get<kiko::Font>("Freshman.ttf", 24));
 
 
 	//initialize audio
@@ -60,10 +61,16 @@ void SpaceGame::Update(float dt) {
 		break;
 	case eState::StartLevel:
 		m_scene->RemoveAll(); {
+			// create player
 			std::unique_ptr<Player> player = std::make_unique<Player>(200.0f, kiko::Pi, kiko::Transform{ {400, 300}, 1.2f, 2 }, kiko::g_modelManager.Get("ship.txt"));
 			player->m_tag = "Player";
 			player->m_game = this;
 			player->SetDamping(0.9f);
+			// create components
+			std::unique_ptr<kiko::SpriteComponent> component = std::make_unique<kiko::SpriteComponent>();
+			component->m_texture = kiko::g_resources.Get<kiko::Texture>("Spaceship.png", kiko::g_renderer);
+			player->AddComponent(std::move(component));
+
 			m_scene->Add(std::move(player));
 			enemiesSpawned = 0;
 			m_state = eState::Game;
@@ -76,6 +83,10 @@ void SpaceGame::Update(float dt) {
 			std::unique_ptr<Enemy> enemy = std::make_unique<Enemy>(150.0f, kiko::Pi, kiko::Transform{{ (float)kiko::random(800), (float)kiko::random(600) }, kiko::randomf(3), 1.5f }, kiko::g_modelManager.Get("ship.txt"));
 			enemy->m_tag = "Enemy";
 			enemy->m_game = this;
+			// create componenets
+			std::unique_ptr<kiko::SpriteComponent> component = std::make_unique<kiko::SpriteComponent>();
+			component->m_texture = kiko::g_resources.Get<kiko::Texture>("Spaceship.png", kiko::g_renderer);
+			enemy->AddComponent(std::move(component));
 			m_scene->Add(std::move(enemy));
 			enemiesSpawned++;
 			if (enemiesSpawned % 5 == 3) {

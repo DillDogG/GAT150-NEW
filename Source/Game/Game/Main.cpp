@@ -7,6 +7,7 @@
 #include "Audio/AudioSystem.h"
 #include "Renderer/ModelManager.h"
 #include "Framework/Scene.h"
+#include "Framework/Resource/ResourceManager.h"
 #include "Renderer/Text.h"
 #include "SpaceGame.h"
 #include "Framework/Emitter.h"
@@ -44,51 +45,9 @@ public:
 	kiko::vec2 m_vel;
 };
 
-template <typename T>
-void print(const std::string& s, const T& container) {
-	std::cout << s << std::endl;
-		for (auto element : container) {
-			std::cout << element << " ";
-		}
-	std::cout << std::endl;
-}
-
 int main(int argc, char* argv[]) {
 	INFO_LOG("Loaded Program")
 
-#pragma region Containers
-	int n[4] = { 1, 2, 3, 4 };
-	print("array: ", n);
-	cout << n << endl;
-	cout << *(n + 3) << endl;
-
-	std::array<int, 4> na = { 1, 2, 3, 4 };
-	print("array class: ", na);
-	cout << na.front() << endl;
-	cout << na.back() << endl;
-	cout << na.max_size() << endl;
-
-	std::vector<int> nv = { 1, 2, 3, 4 };
-	print("vector: ", nv);
-	nv.insert(nv.begin() + 2, 0);
-	nv.push_back(5);
-	nv.pop_back();
-	auto iter = std::remove(nv.begin(), nv.end(), 2);
-	print("vector: ", nv);
-
-	std::list<int> nl = { 1, 2, 3, 4 };
-	print("list:", nl);
-	nl.push_front(0);
-	print("list:", nl);
-
-	std::map<std::string, int> ages;
-	ages["charles"] = 17;
-	ages["xane"] = 18;
-	ages["jacob"] = 19;
-
-	cout << ages["charles"] << endl;
-	cout << ages["xane"] << endl;
-#pragma endregion
 
 #pragma region Initialization
 	kiko::MemoryTracker::Initialize();
@@ -103,8 +62,7 @@ int main(int argc, char* argv[]) {
 	unique_ptr<SpaceGame> game = make_unique<SpaceGame>();
 	game->Initialize();
 
-	shared_ptr<kiko::Texture> texture = make_shared<kiko::Texture>();
-	texture->Load("Spaceship.png", kiko::g_renderer);
+	kiko::res_t<kiko::Texture> texture = kiko::g_resources.Get<kiko::Texture>("Spaceship.png", kiko::g_renderer);
 	
 	vector<Star> stars;
 	for (int i = 0; i < 1000; i++) {

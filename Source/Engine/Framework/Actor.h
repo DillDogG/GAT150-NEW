@@ -1,6 +1,7 @@
 #pragma once
 #include "Core/Core.h"
 #include "Renderer/Model.h"
+#include "Components/Component.h"
 #include <memory>
 
 
@@ -17,9 +18,12 @@ namespace kiko {
 		{}
 		virtual void Update(float dt);
 		virtual void Draw(kiko::Renderer& renderer);
+
+		void AddComponent(std::unique_ptr<Component> component);
+
 		virtual void OnCollision(Actor* other) {}
 
-		void AddForce(vec2 force) { m_velocity += force; }
+		void AddForce(const vec2 force) { m_velocity += force; }
 		void SetDamping(float damping) { m_damping = damping; }
 
 		class Game* m_game = nullptr;
@@ -31,6 +35,7 @@ namespace kiko {
 		std::string m_tag;
 		float m_lifespan = -1.0f;
 	protected:
+		std::vector <std::unique_ptr <Component>> m_components;
 		bool m_destroyed = false;
 		std::shared_ptr<Model> m_model;
 
