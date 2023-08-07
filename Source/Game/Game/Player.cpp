@@ -2,10 +2,14 @@
 #include "Weapon.h"
 #include "SpaceGame.h"
 #include "Framework/Scene.h"
+#include "Framework/Components/SpriteComponent.h"
+#include "Framework/Emitter.h"
+#include "Framework/Components/PhysicsComponent.h"
+#include "Renderer/Texture.h"
 #include "Input/InputSystem.h"
 #include "Renderer/Renderer.h"
-#include "Framework/Emitter.h"
 #include "Core/Logger.h"
+#include "Framework/Resource/ResourceManager.h"
 
 void Player::Update(float dt) {
 	Actor::Update(dt);
@@ -18,33 +22,44 @@ void Player::Update(float dt) {
 	if (kiko::g_inputSystem.GetKeyDown(SDL_SCANCODE_W)) thrust = 1;
 
 	kiko::vec2 forward = kiko::vec2{ 0, -1 }.Rotate(m_transform.rotation);
-	AddForce(forward * m_speed * thrust);
+	//AddForce(forward * m_speed * thrust);
+
+	auto physicsComponent = GetComponent<kiko::PhysicsComponent>();
+	physicsComponent->ApplyForce(forward * m_speed * thrust);
 	//m_transform.position += forward * m_speed * thrust * kiko::g_time.GetDeltaTime();
 	m_transform.position.x = kiko::Wrap(m_transform.position.x, (float)kiko::g_renderer.GetWidth());
 	m_transform.position.y = kiko::Wrap(m_transform.position.y, (float)kiko::g_renderer.GetHeight());
 	if (m_fireTimer < 0) {
 		if (kiko::g_inputSystem.GetKeyDown(SDL_SCANCODE_SPACE) && m_multi) {
 			kiko::Transform transform { m_transform.position, m_transform.rotation, 1 };
-			std::unique_ptr<Weapon> weapon = std::make_unique<Weapon>(400.0f, m_transform, m_model);
-			weapon->m_transform.scale /= 4;
+			std::unique_ptr<Weapon> weapon = std::make_unique<Weapon>(400.0f, m_transform);
 			weapon->m_tag = "pWeapon";
+			std::unique_ptr<kiko::SpriteComponent> component = std::make_unique<kiko::SpriteComponent>();
+			component->m_texture = kiko::g_resources.Get<kiko::Texture>("Bullet.png", kiko::g_renderer);
+			weapon->AddComponent(std::move(component));
 			m_scene->Add(std::move(weapon));
-			weapon = std::make_unique<Weapon>(400.0f, m_transform, m_model);
-			weapon->m_transform.scale /= 4;
+			weapon = std::make_unique<Weapon>(400.0f, m_transform);
 			weapon->m_transform.rotation += 0.15f;
 			weapon->m_tag = "pWeapon";
+			component = std::make_unique<kiko::SpriteComponent>();
+			component->m_texture = kiko::g_resources.Get<kiko::Texture>("Bullet.png", kiko::g_renderer);
+			weapon->AddComponent(std::move(component));
 			m_scene->Add(std::move(weapon));
-			weapon = std::make_unique<Weapon>(400.0f, m_transform, m_model);
-			weapon->m_transform.scale /= 4;
+			weapon = std::make_unique<Weapon>(400.0f, m_transform);
 			weapon->m_transform.rotation -= 0.15f;
 			weapon->m_tag = "pWeapon";
+			component = std::make_unique<kiko::SpriteComponent>();
+			component->m_texture = kiko::g_resources.Get<kiko::Texture>("Bullet.png", kiko::g_renderer);
+			weapon->AddComponent(std::move(component));
 			m_scene->Add(std::move(weapon));
 			m_fireTimer = m_fireRate;
 		} else if (kiko::g_inputSystem.GetKeyDown(SDL_SCANCODE_SPACE)) {
 			kiko::Transform transform { m_transform.position, m_transform.rotation, 1 };
-			std::unique_ptr<Weapon> weapon = std::make_unique<Weapon>(400.0f, m_transform, m_model);
-			weapon->m_transform.scale /= 4;
+			std::unique_ptr<Weapon> weapon = std::make_unique<Weapon>(400.0f, m_transform);
 			weapon->m_tag = "pWeapon";
+			std::unique_ptr<kiko::SpriteComponent> component = std::make_unique<kiko::SpriteComponent>();
+			component->m_texture = kiko::g_resources.Get<kiko::Texture>("Bullet.png", kiko::g_renderer);
+			weapon->AddComponent(std::move(component));
 			m_scene->Add(std::move(weapon));
 			m_fireTimer = m_fireRate;
 		}

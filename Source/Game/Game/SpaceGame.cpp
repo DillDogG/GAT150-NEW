@@ -6,6 +6,7 @@
 #include "Framework/Scene.h"
 #include "Framework/Emitter.h"
 #include "Framework/Resource/ResourceManager.h"
+#include "Framework/Components/EnginePhysicsComponent.h"
 #include "Audio/AudioSystem.h"
 #include "Input/InputSystem.h"
 #include "Renderer/Renderer.h"
@@ -62,14 +63,16 @@ void SpaceGame::Update(float dt) {
 	case eState::StartLevel:
 		m_scene->RemoveAll(); {
 			// create player
-			std::unique_ptr<Player> player = std::make_unique<Player>(200.0f, kiko::Pi, kiko::Transform{ {400, 300}, 1.2f, 2 }, kiko::g_modelManager.Get("ship.txt"));
+			std::unique_ptr<Player> player = std::make_unique<Player>(200.0f, kiko::Pi, kiko::Transform{ {400, 300}, 1.2f, 2 });
 			player->m_tag = "Player";
 			player->m_game = this;
-			player->SetDamping(0.9f);
+			//player->SetDamping(0.9f);
 			// create components
 			std::unique_ptr<kiko::SpriteComponent> component = std::make_unique<kiko::SpriteComponent>();
-			component->m_texture = kiko::g_resources.Get<kiko::Texture>("Spaceship.png", kiko::g_renderer);
+			component->m_texture = kiko::g_resources.Get<kiko::Texture>("PlayerShip.png", kiko::g_renderer);
 			player->AddComponent(std::move(component));
+			auto physicsComponent = std::make_unique<kiko::EnginePhysicsComponent>();
+			player->AddComponent(std::move(physicsComponent));
 
 			m_scene->Add(std::move(player));
 			enemiesSpawned = 0;
@@ -80,17 +83,20 @@ void SpaceGame::Update(float dt) {
 		m_spawnTimer += dt;
 		if (m_spawnTimer >= m_spawnTime) {
 			m_spawnTimer = 0;
-			std::unique_ptr<Enemy> enemy = std::make_unique<Enemy>(150.0f, kiko::Pi, kiko::Transform{{ (float)kiko::random(800), (float)kiko::random(600) }, kiko::randomf(3), 1.5f }, kiko::g_modelManager.Get("ship.txt"));
+			std::unique_ptr<Enemy> enemy = std::make_unique<Enemy>(150.0f, kiko::Pi, kiko::Transform{{ (float)kiko::random(800), (float)kiko::random(600) }, kiko::randomf(3), 1.5f });
 			enemy->m_tag = "Enemy";
 			enemy->m_game = this;
 			// create componenets
 			std::unique_ptr<kiko::SpriteComponent> component = std::make_unique<kiko::SpriteComponent>();
-			component->m_texture = kiko::g_resources.Get<kiko::Texture>("Spaceship.png", kiko::g_renderer);
+			component->m_texture = kiko::g_resources.Get<kiko::Texture>("EnemyShip.png", kiko::g_renderer);
 			enemy->AddComponent(std::move(component));
 			m_scene->Add(std::move(enemy));
 			enemiesSpawned++;
 			if (enemiesSpawned % 5 == 3) {
-				std::unique_ptr<Item> item = std::make_unique<Item>(kiko::Transform{{ (float)kiko::random(800), (float)kiko::random(600) }, kiko::randomf(3), 0.75f }, kiko::g_modelManager.Get("ship.txt"), kiko::randomf(3.0f, 7.0f));
+				std::unique_ptr<Item> item = std::make_unique<Item>(kiko::Transform{{ (float)kiko::random(800), (float)kiko::random(600) }, kiko::randomf(3), 0.75f }, kiko::randomf(3.0f, 7.0f));
+				component = std::make_unique<kiko::SpriteComponent>();
+				component->m_texture = kiko::g_resources.Get<kiko::Texture>("Bullet.png", kiko::g_renderer);
+				item->AddComponent(std::move(component));
 				switch (kiko::random(5)) {
 				case 0:
 					item->m_tag = "Health";

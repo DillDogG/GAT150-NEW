@@ -62,7 +62,6 @@ int main(int argc, char* argv[]) {
 	unique_ptr<SpaceGame> game = make_unique<SpaceGame>();
 	game->Initialize();
 
-	kiko::res_t<kiko::Texture> texture = kiko::g_resources.Get<kiko::Texture>("Spaceship.png", kiko::g_renderer);
 	
 	vector<Star> stars;
 	for (int i = 0; i < 1000; i++) {
@@ -114,7 +113,6 @@ int main(int argc, char* argv[]) {
 		
 		kiko::g_renderer.SetColor(0, 0, 0, 0);
 		kiko::g_renderer.BeginFrame();
-		kiko::g_renderer.DrawTexture(texture.get(), 200.0f, 200.0f, 0.0f);
 
 		kiko::vec2 vel(2, 1);
 		for (auto& star : stars) {

@@ -3,8 +3,8 @@
 
 class Item : public kiko::Actor {
 public:
-	Item(const kiko::Transform& transform, std::shared_ptr<kiko::Model> model, float lifeSpan) :
-		Actor{ transform, model }
+	Item(const kiko::Transform& transform, float lifeSpan) :
+		Actor{ transform }
 	{
 		m_lifespan = lifeSpan;
 	}

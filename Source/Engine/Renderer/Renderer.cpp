@@ -49,8 +49,8 @@ namespace kiko {
 		vec2 size = texture->GetSize();
 
 		SDL_Rect dest;
-		dest.x = (int)x;
-		dest.y = (int)y;
+		dest.x = (int)(x - (size.x * 0.5f));
+		dest.y = (int)(y - (size.x * 0.5f));
 		dest.w = (int)size.x;
 		dest.h = (int)size.y;
 

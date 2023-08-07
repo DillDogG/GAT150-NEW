@@ -1,5 +1,7 @@
 #include "Enemy.h"
 #include "Framework/Scene.h"
+#include "Framework/Components/SpriteComponent.h"
+#include "Framework/Resource/ResourceManager.h"
 #include "Player.h"
 #include "SpaceGame.h"
 #include "Weapon.h"
@@ -28,9 +30,11 @@ void Enemy::Update(float dt) {
 
 	if (m_fireTimer < 0 && angle < kiko::DegreesToRadians(30.0f)) {
 		kiko::Transform transform { m_transform.position, m_transform.rotation, 1 };
-		std::unique_ptr<Weapon> weapon = std::make_unique<Weapon>(400.0f, m_transform, m_model);
-		weapon->m_transform.scale /= 2;
+		std::unique_ptr<Weapon> weapon = std::make_unique<Weapon>(400.0f, m_transform);
 		weapon->m_tag = "eWeapon";
+		std::unique_ptr<kiko::SpriteComponent> component = std::make_unique<kiko::SpriteComponent>();
+		component->m_texture = kiko::g_resources.Get<kiko::Texture>("Bullet.png", kiko::g_renderer);
+		weapon->AddComponent(std::move(component));
 		m_scene->Add(std::move(weapon));
 		m_fireTimer = m_fireRate;
 	}
@@ -42,6 +46,7 @@ void Enemy::Update(float dt) {
 void Enemy::OnCollision(Actor* other) {
 	if (other->m_tag == "pWeapon") {
 		m_game->AddPoints(100);
+		m_destroyed = true;
 		kiko::EmitterData data;
 		data.burst = true;
 		data.burstCount = 100;
@@ -57,6 +62,5 @@ void Enemy::OnCollision(Actor* other) {
 		auto emitter = std::make_unique<kiko::Emitter>(m_transform, data);
 		emitter->m_lifespan = 1.0f;
 		m_scene->Add(std::move(emitter));
-		m_destroyed = true;
 	}
 }

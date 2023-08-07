@@ -7,8 +7,10 @@ namespace kiko {
 			m_lifespan -= dt;
 			if (m_lifespan <= 0) m_destroyed = true;
 		}
-		m_transform.position += m_velocity * dt;
-		m_velocity = std::pow(1 - m_damping, dt);
+		for (auto& component : m_components) {
+			component->Update(dt);
+		}
+		
 	}
 	void Actor::Draw(kiko::Renderer& renderer) {
 		for (auto& component : m_components) {
