@@ -16,7 +16,7 @@ namespace kiko {
 
 		va_start(args, filename);
 
-		int& fontSize = va_arg(args, int);
+		int fontSize = va_arg(args, int);
 
 		va_end(args);
 
