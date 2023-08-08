@@ -2,16 +2,10 @@
 #include "Player.h"
 #include "Enemy.h"
 #include "Item.h"
-#include "Framework/Components/SpriteComponent.h"
-#include "Framework/Scene.h"
-#include "Framework/Emitter.h"
-#include "Framework/Resource/ResourceManager.h"
-#include "Framework/Components/EnginePhysicsComponent.h"
+#include "Framework/Framework.h"
 #include "Audio/AudioSystem.h"
 #include "Input/InputSystem.h"
 #include "Renderer/Renderer.h"
-#include "Renderer/Text.h"
-#include "Renderer/ModelManager.h"
 
 bool SpaceGame::Initialize() {
 	//font and text initialize
@@ -52,6 +46,12 @@ void SpaceGame::Update(float dt) {
 	case eState::Title:
 		if (kiko::g_inputSystem.GetKeyDown(SDL_SCANCODE_SPACE)) {
 			m_state = eState::StartGame;
+			m_endless = false;
+		}
+		if (kiko::g_inputSystem.GetKeyDown(SDL_SCANCODE_E)) {
+			m_state = eState::StartGame;
+			m_endless = true;
+			m_spawnTime = 1.5f;
 		}
 		break;
 	case eState::StartGame:
@@ -76,7 +76,8 @@ void SpaceGame::Update(float dt) {
 
 			m_scene->Add(std::move(player));
 			enemiesSpawned = 0;
-			m_state = eState::Game;
+			if (m_endless) m_state = eState::Endless;
+			else m_state = eState::Game;
 		}
 		break;
 	case eState::Game:
@@ -93,9 +94,9 @@ void SpaceGame::Update(float dt) {
 			m_scene->Add(std::move(enemy));
 			enemiesSpawned++;
 			if (enemiesSpawned % 5 == 3) {
-				std::unique_ptr<Item> item = std::make_unique<Item>(kiko::Transform{{ (float)kiko::random(800), (float)kiko::random(600) }, kiko::randomf(3), 0.75f }, kiko::randomf(3.0f, 7.0f));
+				std::unique_ptr<Item> item = std::make_unique<Item>(kiko::Transform{{ (float)kiko::random(800), (float)kiko::random(600) }, 1.5f, 0.75f }, kiko::randomf(3.0f, 7.0f));
 				component = std::make_unique<kiko::SpriteComponent>();
-				component->m_texture = kiko::g_resources.Get<kiko::Texture>("Bullet.png", kiko::g_renderer);
+				component->m_texture = kiko::g_resources.Get<kiko::Texture>("Box.png", kiko::g_renderer);
 				item->AddComponent(std::move(component));
 				switch (kiko::random(5)) {
 				case 0:
@@ -188,6 +189,46 @@ void SpaceGame::Update(float dt) {
 			m_state = eState::Title;
 		} else {
 			m_stateTimer -= dt;
+		}
+		break;
+	case eState::Endless:
+		m_spawnTimer += dt;
+		if (m_spawnTimer >= m_spawnTime) {
+			m_spawnTimer = 0;
+			std::unique_ptr<Enemy> enemy = std::make_unique<Enemy>(150.0f, kiko::Pi, kiko::Transform{{ (float)kiko::random(800), (float)kiko::random(600) }, kiko::randomf(3), 1.5f });
+			enemy->m_tag = "Enemy";
+			enemy->m_game = this;
+			// create componenets
+			std::unique_ptr<kiko::SpriteComponent> component = std::make_unique<kiko::SpriteComponent>();
+			component->m_texture = kiko::g_resources.Get<kiko::Texture>("EnemyShip.png", kiko::g_renderer);
+			enemy->AddComponent(std::move(component));
+			m_scene->Add(std::move(enemy));
+			enemiesSpawned++;
+			if (enemiesSpawned % 6 == 3) {
+				std::unique_ptr<Item> item = std::make_unique<Item>(kiko::Transform{{ (float)kiko::random(800), (float)kiko::random(600) }, kiko::randomf(3), 0.75f }, kiko::randomf(3.0f, 7.0f));
+				component = std::make_unique<kiko::SpriteComponent>();
+				component->m_texture = kiko::g_resources.Get<kiko::Texture>("Box.png", kiko::g_renderer);
+				item->AddComponent(std::move(component));
+				switch (kiko::random(5)) {
+				case 0:
+					item->m_tag = "Health";
+					break;
+				case 1:
+					item->m_tag = "Rapid";
+					break;
+				case 2:
+					item->m_tag = "Missile";
+					break;
+				case 3:
+					item->m_tag = "Shield";
+					break;
+				case 4:
+					item->m_tag = "Multi";
+					break;
+				}
+				item->m_game = this;
+				m_scene->Add(std::move(item));
+			}
 		}
 		break;
 	}

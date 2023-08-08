@@ -83,13 +83,13 @@ void Player::Update(float dt) {
 			data.angleRange = kiko::Pi;
 			data.lifetimeMin = 0.25f;
 			data.lifetimeMax = 0.5f;
-			data.speedMin = 50;
-			data.speedMax = 250;
+			data.speedMin = 25;
+			data.speedMax = 150;
 			data.damping = 0.5f;
 			data.color = kiko::Color{ 1, 0, 0, 1 };
 			kiko::Transform transformer{ { kiko::g_inputSystem.GetMousePosition() }, 0, 1 };
 			auto emitter = std::make_unique<kiko::Emitter>(transformer, data);
-			emitter->m_lifespan = 1.0f;
+			emitter->m_lifespan = 0.5f;
 			emitter->m_tag = "pWeapon";
 			m_scene->Add(std::move(emitter));
 			m_missileCount--;

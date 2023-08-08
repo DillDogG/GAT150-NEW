@@ -1,18 +1,12 @@
 #include "Core/Core.h"
+#include "Framework/Framework.h"
 #include "Renderer/Renderer.h"
 #include "Input/InputSystem.h"
-#include "Framework/Actor.h"
 #include "Player.h"
 #include "Enemy.h"
 #include "Audio/AudioSystem.h"
-#include "Renderer/ModelManager.h"
-#include "Framework/Scene.h"
-#include "Framework/Resource/ResourceManager.h"
-#include "Renderer/Text.h"
 #include "SpaceGame.h"
-#include "Framework/Emitter.h"
 #include "Core/Logger.h"
-#include "Renderer/Texture.h"
 #include <iostream>
 #include <thread>
 #include <array>
@@ -45,7 +39,22 @@ public:
 	kiko::vec2 m_vel;
 };
 
+void zero(int v) { v = 0; }
+void zero(int* v) { *v = 0; }
+void zero_ref(int& v) { v = 0; }
+
 int main(int argc, char* argv[]) {
+	int i = 5;
+	zero(i);
+	cout << i << endl;
+
+	i = 5;
+	zero(&i);
+	cout << i << endl;
+
+	i = 5;
+	zero_ref(i);
+	cout << i << endl;
 	INFO_LOG("Loaded Program")
 
 

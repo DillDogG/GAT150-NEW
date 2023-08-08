@@ -1,5 +1,6 @@
 #include "Text.h"
 #include "Font.h"
+#include "Renderer.h"
 #include "include/SDL_ttf.h"
 
 namespace kiko {

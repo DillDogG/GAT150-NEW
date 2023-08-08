@@ -2,6 +2,8 @@
 
 void Item::Update(float dt) {
 	Actor::Update(dt);
+	m_transform.rotation -= 0.03125f;
+
 }
 
 void Item::OnCollision(Actor* other) {

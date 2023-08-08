@@ -14,7 +14,8 @@ public:
 		PlayerDeadStart,
 		PlayerDead,
 		GameOverStart,
-		GameOver
+		GameOver,
+		Endless
 	};
 public:
 	virtual bool Initialize() override;
@@ -39,6 +40,7 @@ private:
 	int enemiesR5 = 100;
 	int currentLevel = 1;
 	int enemiesSpawned = 0;
+	bool m_endless = false;
 
 	std::shared_ptr<kiko::Font> m_font;
 	std::shared_ptr<kiko::Text> m_scoreText;
