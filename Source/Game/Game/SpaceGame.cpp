@@ -2,6 +2,7 @@
 #include "Player.h"
 #include "Enemy.h"
 #include "Item.h"
+#include "Astroid.h"
 #include "Framework/Framework.h"
 #include "Audio/AudioSystem.h"
 #include "Input/InputSystem.h"
@@ -63,14 +64,19 @@ void SpaceGame::Update(float dt) {
 	case eState::StartLevel:
 		m_scene->RemoveAll(); {
 			// create player
-			std::unique_ptr<Player> player = std::make_unique<Player>(200.0f, kiko::Pi, kiko::Transform{ {400, 300}, 1.2f, 2 });
+			std::unique_ptr<Player> player = std::make_unique<Player>(200.0f, kiko::Pi, kiko::Transform{ {400, 300}, 1.2f });
 			player->m_tag = "Player";
 			player->m_game = this;
 			//player->SetDamping(0.9f);
 			// create components
+			/* Generating player with a model */
+			std::unique_ptr<kiko::ModelRenderComponent> component = std::make_unique<kiko::ModelRenderComponent>();
+			component->m_model = kiko::g_resources.Get<kiko::Model>("Ship.txt", kiko::g_renderer);
+			player->AddComponent(std::move(component)); 
+			/* Generating player with a sprite 
 			std::unique_ptr<kiko::SpriteComponent> component = std::make_unique<kiko::SpriteComponent>();
 			component->m_texture = kiko::g_resources.Get<kiko::Texture>("PlayerShip.png", kiko::g_renderer);
-			player->AddComponent(std::move(component));
+			player->AddComponent(std::move(component)); */
 			auto physicsComponent = std::make_unique<kiko::EnginePhysicsComponent>();
 			player->AddComponent(std::move(physicsComponent));
 
@@ -84,7 +90,7 @@ void SpaceGame::Update(float dt) {
 		m_spawnTimer += dt;
 		if (m_spawnTimer >= m_spawnTime) {
 			m_spawnTimer = 0;
-			std::unique_ptr<Enemy> enemy = std::make_unique<Enemy>(150.0f, kiko::Pi, kiko::Transform{{ (float)kiko::random(800), (float)kiko::random(600) }, kiko::randomf(3), 1.5f });
+			std::unique_ptr<Enemy> enemy = std::make_unique<Enemy>(150.0f, kiko::Pi, kiko::Transform{{ (float)kiko::random(800), (float)kiko::random(600) }, kiko::randomf(3) });
 			enemy->m_tag = "Enemy";
 			enemy->m_game = this;
 			// create componenets
@@ -94,7 +100,7 @@ void SpaceGame::Update(float dt) {
 			m_scene->Add(std::move(enemy));
 			enemiesSpawned++;
 			if (enemiesSpawned % 5 == 3) {
-				std::unique_ptr<Item> item = std::make_unique<Item>(kiko::Transform{{ (float)kiko::random(800), (float)kiko::random(600) }, 1.5f, 0.75f }, kiko::randomf(3.0f, 7.0f));
+				std::unique_ptr<Item> item = std::make_unique<Item>(kiko::Transform{{ (float)kiko::random(800), (float)kiko::random(600) }, 1.5f }, kiko::randomf(3.0f, 7.0f));
 				component = std::make_unique<kiko::SpriteComponent>();
 				component->m_texture = kiko::g_resources.Get<kiko::Texture>("Box.png", kiko::g_renderer);
 				item->AddComponent(std::move(component));
@@ -117,6 +123,16 @@ void SpaceGame::Update(float dt) {
 				}
 				item->m_game = this;
 				m_scene->Add(std::move(item));
+			}
+			if (enemiesSpawned % 7 == 1) {
+				std::unique_ptr<Astroid> astroid = std::make_unique<Astroid>(150.0f, kiko::Transform{{ (float)kiko::random(800), (float)kiko::random(600) }, kiko::randomf(3) });
+				astroid->m_tag = "Astroid";
+				astroid->m_game = this;
+				// create componenets
+				std::unique_ptr<kiko::SpriteComponent> component = std::make_unique<kiko::SpriteComponent>();
+				component->m_texture = kiko::g_resources.Get<kiko::Texture>("Astroid Small.png", kiko::g_renderer);
+				astroid->AddComponent(std::move(component));
+				m_scene->Add(std::move(astroid));
 			}
 		}
 		switch (currentLevel) {
@@ -228,6 +244,16 @@ void SpaceGame::Update(float dt) {
 				}
 				item->m_game = this;
 				m_scene->Add(std::move(item));
+			}
+			if (enemiesSpawned % 8 == 1) {
+				std::unique_ptr<Astroid> astroid = std::make_unique<Astroid>(150.0f, kiko::Transform{{ (float)kiko::random(800), (float)kiko::random(600) }, kiko::randomf(3) }, 3);
+				astroid->m_tag = "Astroid";
+				astroid->m_game = this;
+				// create componenets
+				std::unique_ptr<kiko::SpriteComponent> component = std::make_unique<kiko::SpriteComponent>();
+				component->m_texture = kiko::g_resources.Get<kiko::Texture>("Astroid Small.png", kiko::g_renderer);
+				astroid->AddComponent(std::move(component));
+				m_scene->Add(std::move(astroid));
 			}
 		}
 		break;

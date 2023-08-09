@@ -40,7 +40,16 @@ namespace kiko {
 	}
 
 	void Model::Draw(Renderer& renderer, const Transform& transform) {
-		Draw(renderer, transform.position, transform.rotation, transform.scale);
+		if (m_points.empty()) return;
+
+		mat2 mx = transform.GetMatrix();
+
+		renderer.SetColor(Color::toInt(m_color.r), Color::toInt(m_color.g), Color::toInt(m_color.b), Color::toInt(m_color.a));
+		for (int i = 0; i < m_points.size() - 1; i++) {
+			vec2 p1 = (mx * m_points[i]) + transform.position;
+			vec2 p2 = (mx * m_points[i + 1]) + transform.position;
+			renderer.DrawLine(p1.x, p1.y, p2.x, p2.y);
+		}
 	}
 	float Model::GetRadius() {
 		if (m_radius) return m_radius;

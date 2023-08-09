@@ -14,5 +14,5 @@ void Weapon::OnCollision(Actor* other) {
 	if (m_tag == "eWeapon" && other->m_tag == "Player") m_destroyed = true;
 	if (m_tag == "eWeapon" && other->m_tag == "pWeapon") m_destroyed = true;
 	if (m_tag == "pWeapon" && other->m_tag == "eWeapon") m_destroyed = true;
-	
+	if (other->m_tag == "Astroid") m_destroyed = true;
 }

@@ -6,9 +6,15 @@ namespace kiko {
 	public:
 		float x, y, z;
 	public:
-		Vector3() : x{ 0 }, y{ 0 } {}
-		Vector3(float v) : x{ v }, y{ v } {}
-		Vector3(float x, float y) : x{ x }, y{ y } {}
+		Vector3() : x{ 0 }, y{ 0 }, z{ 0 } {}
+		Vector3(float v) : x{ v }, y{ v }, z{ v } {}
+		Vector3(float x, float y) : x{ x }, y{ y }, z{ 0 } {}
+		Vector3(float x, float y, float z) : x{ x }, y{ y }, z{ z } {}
+
+		float operator [] (size_t index) const { return (&x)[index]; }
+		float& operator [] (size_t index) { return (&x)[index]; }
+
+		Vector3 operator - () const { return Vector3(-x, -y); }
 			  
 		Vector3 operator + (const Vector3& v) const { return Vector3(x + v.x, y + v.y); }
 		Vector3 operator - (const Vector3& v) const { return Vector3(x - v.x, y - v.y); }
