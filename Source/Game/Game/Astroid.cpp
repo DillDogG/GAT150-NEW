@@ -3,6 +3,7 @@
 #include "Framework/Components/SpriteComponent.h"
 #include "Framework/Resource/ResourceManager.h"
 #include "SpaceGame.h"
+#include "Weapon.h"
 #include "Renderer/Renderer.h"
 #include "Framework/Emitter.h"
 
@@ -16,7 +17,6 @@ void Astroid::Update(float dt) {
 
 void Astroid::OnCollision(Actor* other) {
 	if (other->m_tag == "pWeapon") {
-		m_game->AddPoints(50);
 		m_destroyed = true;
 		kiko::EmitterData data;
 		data.burst = true;
@@ -34,13 +34,22 @@ void Astroid::OnCollision(Actor* other) {
 		emitter->m_lifespan = 0.75f;
 		m_scene->Add(std::move(emitter));
 		for (int i = 0; i < m_size; i++) {
-			std::unique_ptr<Astroid> astroid = std::make_unique<Astroid>(150.0f, m_transform);
+			/*std::unique_ptr<Astroid> astroid = std::make_unique<Astroid>((m_speed + 100.0f), m_transform);
+			//astroid->m_transform.rotation -= 0.15f;
 			astroid->m_tag = "Astroid";
 			// create componenets
 			std::unique_ptr<kiko::SpriteComponent> component = std::make_unique<kiko::SpriteComponent>();
 			component->m_texture = kiko::g_resources.Get<kiko::Texture>("Astroid Small.png", kiko::g_renderer);
+			std::cout << component->m_texture << std::endl;
 			astroid->AddComponent(std::move(component));
-			m_scene->Add(std::move(astroid));
+			m_scene->Add(std::move(astroid)); */
+			std::unique_ptr<Weapon> weapon = std::make_unique<Weapon>(400.0f, m_transform);
+			weapon->m_tag = "eWeapon";
+			std::unique_ptr<kiko::SpriteComponent> component = std::make_unique<kiko::SpriteComponent>();
+			component->m_texture = kiko::g_resources.Get<kiko::Texture>("Bullet.png", kiko::g_renderer);
+			weapon->AddComponent(std::move(component));
+			std::cout << "Added" << std::endl;
+			m_scene->Add(std::move(weapon));
 		}
 	}
 }

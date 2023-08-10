@@ -69,14 +69,14 @@ void SpaceGame::Update(float dt) {
 			player->m_game = this;
 			//player->SetDamping(0.9f);
 			// create components
-			/* Generating player with a model */
+			/* Generating player with a model 
 			std::unique_ptr<kiko::ModelRenderComponent> component = std::make_unique<kiko::ModelRenderComponent>();
 			component->m_model = kiko::g_resources.Get<kiko::Model>("Ship.txt", kiko::g_renderer);
-			player->AddComponent(std::move(component)); 
-			/* Generating player with a sprite 
+			player->AddComponent(std::move(component)); */
+			/* Generating player with a sprite */
 			std::unique_ptr<kiko::SpriteComponent> component = std::make_unique<kiko::SpriteComponent>();
 			component->m_texture = kiko::g_resources.Get<kiko::Texture>("PlayerShip.png", kiko::g_renderer);
-			player->AddComponent(std::move(component)); */
+			player->AddComponent(std::move(component)); 
 			auto physicsComponent = std::make_unique<kiko::EnginePhysicsComponent>();
 			player->AddComponent(std::move(physicsComponent));
 
@@ -125,12 +125,13 @@ void SpaceGame::Update(float dt) {
 				m_scene->Add(std::move(item));
 			}
 			if (enemiesSpawned % 7 == 1) {
-				std::unique_ptr<Astroid> astroid = std::make_unique<Astroid>(150.0f, kiko::Transform{{ (float)kiko::random(800), (float)kiko::random(600) }, kiko::randomf(3) });
+				std::unique_ptr<Astroid> astroid = std::make_unique<Astroid>(150.0f, kiko::Transform{{ (float)kiko::random(800), (float)kiko::random(600) }, kiko::randomf(3) }, 3);
 				astroid->m_tag = "Astroid";
 				astroid->m_game = this;
 				// create componenets
 				std::unique_ptr<kiko::SpriteComponent> component = std::make_unique<kiko::SpriteComponent>();
 				component->m_texture = kiko::g_resources.Get<kiko::Texture>("Astroid Small.png", kiko::g_renderer);
+				std::cout << component->m_texture << std::endl;
 				astroid->AddComponent(std::move(component));
 				m_scene->Add(std::move(astroid));
 			}
