@@ -1,5 +1,6 @@
 #pragma once
 #include "Framework/Actor.h"
+#include "Framework/Components/PhysicsComponent.h"
 
 class Player : public kiko::Actor {
 public:
@@ -18,6 +19,8 @@ public:
 		m_immuneTimer = m_immuneTime;
 		m_health = 2;
 	}
+
+	bool Initialize() override;
 	void Update(float dt) override;
 	void OnCollision(Actor* other) override;
 	int GetHealth() { return m_health; }
@@ -41,4 +44,7 @@ private:
 
 	bool m_shield = false;
 	bool m_multi = false;
+	bool m_split = false;
+
+	kiko::PhysicsComponent* m_physicsComponent = nullptr;
 };

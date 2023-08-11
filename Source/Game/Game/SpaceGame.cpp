@@ -78,8 +78,14 @@ void SpaceGame::Update(float dt) {
 			component->m_texture = kiko::g_resources.Get<kiko::Texture>("PlayerShip.png", kiko::g_renderer);
 			player->AddComponent(std::move(component)); 
 			auto physicsComponent = std::make_unique<kiko::EnginePhysicsComponent>();
+			physicsComponent->m_damping = 0.9f;
 			player->AddComponent(std::move(physicsComponent));
 
+			auto collisionComponent = std::make_unique<kiko::CircleCollisionComponent>();
+			collisionComponent->m_radius = 30.f;
+			player->AddComponent(std::move(collisionComponent));
+
+			player->Initialize();
 			m_scene->Add(std::move(player));
 			enemiesSpawned = 0;
 			if (m_endless) m_state = eState::Endless;
@@ -97,6 +103,10 @@ void SpaceGame::Update(float dt) {
 			std::unique_ptr<kiko::SpriteComponent> component = std::make_unique<kiko::SpriteComponent>();
 			component->m_texture = kiko::g_resources.Get<kiko::Texture>("EnemyShip.png", kiko::g_renderer);
 			enemy->AddComponent(std::move(component));
+			auto collisionComponent = std::make_unique<kiko::CircleCollisionComponent>();
+			collisionComponent->m_radius = 30.f;
+			enemy->AddComponent(std::move(collisionComponent));
+			enemy->Initialize();
 			m_scene->Add(std::move(enemy));
 			enemiesSpawned++;
 			if (enemiesSpawned % 5 == 3) {
@@ -122,17 +132,27 @@ void SpaceGame::Update(float dt) {
 					break;
 				}
 				item->m_game = this;
+				auto collisionComponent = std::make_unique<kiko::CircleCollisionComponent>();
+				collisionComponent->m_radius = 30.f;
+				item->AddComponent(std::move(collisionComponent));
+				item->Initialize();
 				m_scene->Add(std::move(item));
 			}
 			if (enemiesSpawned % 7 == 1) {
-				std::unique_ptr<Astroid> astroid = std::make_unique<Astroid>(150.0f, kiko::Transform{{ (float)kiko::random(800), (float)kiko::random(600) }, kiko::randomf(3) }, 3);
+				int aSize = kiko::random(2, 7);
+				std::unique_ptr<Astroid> astroid = std::make_unique<Astroid>(150.0f, kiko::Transform{{ (float)kiko::random(800), (float)kiko::random(600) }, kiko::randomf(3) }, aSize);
 				astroid->m_tag = "Astroid";
 				astroid->m_game = this;
 				// create componenets
 				std::unique_ptr<kiko::SpriteComponent> component = std::make_unique<kiko::SpriteComponent>();
-				component->m_texture = kiko::g_resources.Get<kiko::Texture>("Astroid Small.png", kiko::g_renderer);
+				if (aSize > 4) component->m_texture = kiko::g_resources.Get<kiko::Texture>("Astroid Medium.png", kiko::g_renderer);
+				else component->m_texture = kiko::g_resources.Get<kiko::Texture>("Astroid Large.png", kiko::g_renderer);
 				std::cout << component->m_texture << std::endl;
 				astroid->AddComponent(std::move(component));
+				auto collisionComponent = std::make_unique<kiko::CircleCollisionComponent>();
+				collisionComponent->m_radius = 30.f;
+				astroid->AddComponent(std::move(collisionComponent));
+				astroid->Initialize();
 				m_scene->Add(std::move(astroid));
 			}
 		}
@@ -212,7 +232,7 @@ void SpaceGame::Update(float dt) {
 		m_spawnTimer += dt;
 		if (m_spawnTimer >= m_spawnTime) {
 			m_spawnTimer = 0;
-			std::unique_ptr<Enemy> enemy = std::make_unique<Enemy>(150.0f, kiko::Pi, kiko::Transform{{ (float)kiko::random(800), (float)kiko::random(600) }, kiko::randomf(3), 1.5f });
+			std::unique_ptr<Enemy> enemy = std::make_unique<Enemy>(150.0f, kiko::Pi, kiko::Transform{{ (float)kiko::random(800), (float)kiko::random(600) }, kiko::randomf(3) });
 			enemy->m_tag = "Enemy";
 			enemy->m_game = this;
 			// create componenets
@@ -244,16 +264,26 @@ void SpaceGame::Update(float dt) {
 					break;
 				}
 				item->m_game = this;
+				auto collisionComponent = std::make_unique<kiko::CircleCollisionComponent>();
+				collisionComponent->m_radius = 30.f;
+				item->AddComponent(std::move(collisionComponent));
+				item->Initialize();
 				m_scene->Add(std::move(item));
 			}
 			if (enemiesSpawned % 8 == 1) {
-				std::unique_ptr<Astroid> astroid = std::make_unique<Astroid>(150.0f, kiko::Transform{{ (float)kiko::random(800), (float)kiko::random(600) }, kiko::randomf(3) }, 3);
+				int aSize = kiko::random(2, 7);
+				std::unique_ptr<Astroid> astroid = std::make_unique<Astroid>(150.0f, kiko::Transform{{ (float)kiko::random(800), (float)kiko::random(600) }, kiko::randomf(3) }, aSize);
 				astroid->m_tag = "Astroid";
 				astroid->m_game = this;
 				// create componenets
 				std::unique_ptr<kiko::SpriteComponent> component = std::make_unique<kiko::SpriteComponent>();
-				component->m_texture = kiko::g_resources.Get<kiko::Texture>("Astroid Small.png", kiko::g_renderer);
+				if (aSize > 4) component->m_texture = kiko::g_resources.Get<kiko::Texture>("Astroid Medium.png", kiko::g_renderer);
+				else component->m_texture = kiko::g_resources.Get<kiko::Texture>("Astroid Large.png", kiko::g_renderer);
 				astroid->AddComponent(std::move(component));
+				auto collisionComponent = std::make_unique<kiko::CircleCollisionComponent>();
+				collisionComponent->m_radius = 30.f;
+				astroid->AddComponent(std::move(collisionComponent));
+				astroid->Initialize();
 				m_scene->Add(std::move(astroid));
 			}
 		}

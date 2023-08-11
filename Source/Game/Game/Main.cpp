@@ -44,17 +44,6 @@ void zero(int* v) { *v = 0; }
 void zero_ref(int& v) { v = 0; }
 
 int main(int argc, char* argv[]) {
-	int i = 5;
-	zero(i);
-	cout << i << endl;
-
-	i = 5;
-	zero(&i);
-	cout << i << endl;
-
-	i = 5;
-	zero_ref(i);
-	cout << i << endl;
 	INFO_LOG("Loaded Program")
 
 

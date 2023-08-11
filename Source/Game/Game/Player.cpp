@@ -1,15 +1,25 @@
 #include "Player.h"
 #include "Weapon.h"
 #include "SpaceGame.h"
-#include "Framework/Scene.h"
-#include "Framework/Components/SpriteComponent.h"
-#include "Framework/Emitter.h"
-#include "Framework/Components/PhysicsComponent.h"
+#include "Framework/Framework.h"
 #include "Renderer/Texture.h"
 #include "Input/InputSystem.h"
 #include "Renderer/Renderer.h"
 #include "Core/Logger.h"
-#include "Framework/Resource/ResourceManager.h"
+
+bool Player::Initialize() {
+	Actor::Initialize();
+	m_physicsComponent = GetComponent<kiko::PhysicsComponent>();
+	auto collisionComponent = GetComponent<kiko::CollisionComponent>();
+	if (collisionComponent) {
+		auto renderComponent = GetComponent<kiko::RenderComponent>();
+		if (renderComponent) {
+			float scale = m_transform.scale;
+			collisionComponent->m_radius = GetComponent<kiko::RenderComponent>()->GetRadius() * scale;
+		}
+	}
+	return true;
+}
 
 void Player::Update(float dt) {
 	Actor::Update(dt);
@@ -37,6 +47,10 @@ void Player::Update(float dt) {
 			std::unique_ptr<kiko::SpriteComponent> component = std::make_unique<kiko::SpriteComponent>();
 			component->m_texture = kiko::g_resources.Get<kiko::Texture>("Bullet.png", kiko::g_renderer);
 			weapon->AddComponent(std::move(component));
+			auto collisionComponent = std::make_unique<kiko::CircleCollisionComponent>();
+			collisionComponent->m_radius = 30.f;
+			weapon->AddComponent(std::move(collisionComponent));
+			weapon->Initialize();
 			m_scene->Add(std::move(weapon));
 			weapon = std::make_unique<Weapon>(400.0f, m_transform);
 			weapon->m_transform.rotation += 0.15f;
@@ -44,6 +58,10 @@ void Player::Update(float dt) {
 			component = std::make_unique<kiko::SpriteComponent>();
 			component->m_texture = kiko::g_resources.Get<kiko::Texture>("Bullet.png", kiko::g_renderer);
 			weapon->AddComponent(std::move(component));
+			collisionComponent = std::make_unique<kiko::CircleCollisionComponent>();
+			collisionComponent->m_radius = 30.f;
+			weapon->AddComponent(std::move(collisionComponent));
+			weapon->Initialize();
 			m_scene->Add(std::move(weapon));
 			weapon = std::make_unique<Weapon>(400.0f, m_transform);
 			weapon->m_transform.rotation -= 0.15f;
@@ -51,6 +69,10 @@ void Player::Update(float dt) {
 			component = std::make_unique<kiko::SpriteComponent>();
 			component->m_texture = kiko::g_resources.Get<kiko::Texture>("Bullet.png", kiko::g_renderer);
 			weapon->AddComponent(std::move(component));
+			collisionComponent = std::make_unique<kiko::CircleCollisionComponent>();
+			collisionComponent->m_radius = 30.f;
+			weapon->AddComponent(std::move(collisionComponent));
+			weapon->Initialize();
 			m_scene->Add(std::move(weapon));
 			m_fireTimer = m_fireRate;
 		} else if (kiko::g_inputSystem.GetKeyDown(SDL_SCANCODE_SPACE)) {
@@ -60,6 +82,10 @@ void Player::Update(float dt) {
 			std::unique_ptr<kiko::SpriteComponent> component = std::make_unique<kiko::SpriteComponent>();
 			component->m_texture = kiko::g_resources.Get<kiko::Texture>("Bullet.png", kiko::g_renderer);
 			weapon->AddComponent(std::move(component));
+			auto collisionComponent = std::make_unique<kiko::CircleCollisionComponent>();
+			collisionComponent->m_radius = 30.f;
+			weapon->AddComponent(std::move(collisionComponent));
+			weapon->Initialize();
 			m_scene->Add(std::move(weapon));
 			m_fireTimer = m_fireRate;
 		}
@@ -91,6 +117,10 @@ void Player::Update(float dt) {
 			auto emitter = std::make_unique<kiko::Emitter>(transformer, data);
 			emitter->m_lifespan = 0.5f;
 			emitter->m_tag = "pWeapon";
+			auto collisionComponent = std::make_unique<kiko::CircleCollisionComponent>();
+			collisionComponent->m_radius = 30.f;
+			emitter->AddComponent(std::move(collisionComponent));
+			emitter->Initialize();
 			m_scene->Add(std::move(emitter));
 			m_missileCount--;
 			m_missileTimer = m_missileRate;
@@ -102,6 +132,7 @@ void Player::Update(float dt) {
 	if (m_powerTimer < 0) {
 		m_fireRate = 1;
 		m_shield = false;
+		m_split = false;
 		m_multi = false;
 	} else {
 		m_powerTimer -= dt;
@@ -117,7 +148,7 @@ void Player::Update(float dt) {
 
 void Player::OnCollision(Actor* other) {
 	if (m_immuneTimer <= 0 && !m_shield) {
-		if (other->m_tag == "eWeapon" || other->m_tag == "Enemy") {
+		if (other->m_tag == "eWeapon" || other->m_tag == "Enemy" || other->m_tag == "eAstroid") {
 			m_health--;
 			m_immuneTimer = m_immuneTime;
 		}
@@ -145,5 +176,10 @@ void Player::OnCollision(Actor* other) {
 		m_health++;
 		if (m_health > 5) m_health = 5;
 		INFO_LOG("Health Pickup")
+	}
+	if (other->m_tag == "Dupe") {
+		m_powerTimer = 20;
+		m_split = true;
+		INFO_LOG("Dupe Powerup")
 	}
 }

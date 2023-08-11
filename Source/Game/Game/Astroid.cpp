@@ -16,7 +16,7 @@ void Astroid::Update(float dt) {
 }
 
 void Astroid::OnCollision(Actor* other) {
-	if (other->m_tag == "pWeapon") {
+	if (other->m_tag == "pWeapon" && m_tag != "pAstroid") {
 		m_destroyed = true;
 		kiko::EmitterData data;
 		data.burst = true;
@@ -34,22 +34,98 @@ void Astroid::OnCollision(Actor* other) {
 		emitter->m_lifespan = 0.75f;
 		m_scene->Add(std::move(emitter));
 		for (int i = 0; i < m_size; i++) {
-			/*std::unique_ptr<Astroid> astroid = std::make_unique<Astroid>((m_speed + 100.0f), m_transform);
-			//astroid->m_transform.rotation -= 0.15f;
-			astroid->m_tag = "Astroid";
+			std::unique_ptr<Astroid> astroid = std::make_unique<Astroid>((m_speed + 150.0f), m_transform);
+			astroid->m_transform.rotation = kiko::randomf((other->m_transform.rotation * 0.5f), (other->m_transform.rotation * 1.5f));
+			astroid->m_tag = "pAstroid";
 			// create componenets
 			std::unique_ptr<kiko::SpriteComponent> component = std::make_unique<kiko::SpriteComponent>();
 			component->m_texture = kiko::g_resources.Get<kiko::Texture>("Astroid Small.png", kiko::g_renderer);
-			std::cout << component->m_texture << std::endl;
 			astroid->AddComponent(std::move(component));
-			m_scene->Add(std::move(astroid)); */
-			std::unique_ptr<Weapon> weapon = std::make_unique<Weapon>(400.0f, m_transform);
-			weapon->m_tag = "eWeapon";
+			m_scene->Add(std::move(astroid));
+		}
+	}
+	if (other->m_tag == "eWeapon" && m_tag != "eAstroid") {
+		m_destroyed = true;
+		kiko::EmitterData data;
+		data.burst = true;
+		data.burstCount = 100;
+		data.spawnRate = 200;
+		data.angle = 0.0f;
+		data.angleRange = kiko::Pi;
+		data.lifetimeMin = 0.25f;
+		data.lifetimeMax = 0.5f;
+		data.speedMin = 50;
+		data.speedMax = 250;
+		data.damping = 0.5f;
+		data.color = kiko::Color{ 1, 1, 1, 1 };
+		auto emitter = std::make_unique<kiko::Emitter>(m_transform, data);
+		emitter->m_lifespan = 0.75f;
+		m_scene->Add(std::move(emitter));
+		for (int i = 0; i < m_size; i++) {
+			std::unique_ptr<Astroid> astroid = std::make_unique<Astroid>((m_speed + 150.0f), m_transform);
+			astroid->m_transform.rotation = kiko::randomf((other->m_transform.rotation * 0.5f), (other->m_transform.rotation * 1.5f));
+			astroid->m_tag = "eAstroid";
+			// create componenets
 			std::unique_ptr<kiko::SpriteComponent> component = std::make_unique<kiko::SpriteComponent>();
-			component->m_texture = kiko::g_resources.Get<kiko::Texture>("Bullet.png", kiko::g_renderer);
-			weapon->AddComponent(std::move(component));
-			std::cout << "Added" << std::endl;
-			m_scene->Add(std::move(weapon));
+			component->m_texture = kiko::g_resources.Get<kiko::Texture>("Astroid Small.png", kiko::g_renderer);
+			astroid->AddComponent(std::move(component));
+			m_scene->Add(std::move(astroid));
+		}
+	}
+	if (other->m_tag == "pWeapon" && m_tag == "eAstroid") {
+		m_destroyed = true;
+		kiko::EmitterData data;
+		data.burst = true;
+		data.burstCount = 100;
+		data.spawnRate = 200;
+		data.angle = 0.0f;
+		data.angleRange = kiko::Pi;
+		data.lifetimeMin = 0.25f;
+		data.lifetimeMax = 0.5f;
+		data.speedMin = 50;
+		data.speedMax = 250;
+		data.damping = 0.5f;
+		data.color = kiko::Color{ 1, 1, 1, 1 };
+		auto emitter = std::make_unique<kiko::Emitter>(m_transform, data);
+		emitter->m_lifespan = 0.75f;
+		m_scene->Add(std::move(emitter));
+		for (int i = 0; i < m_size; i++) {
+			std::unique_ptr<Astroid> astroid = std::make_unique<Astroid>((m_speed + 150.0f), m_transform);
+			astroid->m_transform.rotation = kiko::randomf((other->m_transform.rotation * 0.5f), (other->m_transform.rotation * 1.5f));
+			astroid->m_tag = "eAstroid";
+			// create componenets
+			std::unique_ptr<kiko::SpriteComponent> component = std::make_unique<kiko::SpriteComponent>();
+			component->m_texture = kiko::g_resources.Get<kiko::Texture>("Astroid Small.png", kiko::g_renderer);
+			astroid->AddComponent(std::move(component));
+			m_scene->Add(std::move(astroid));
+		}
+	}
+	if (other->m_tag == "eWeapon" && m_tag == "pAstroid") {
+		m_destroyed = true;
+		kiko::EmitterData data;
+		data.burst = true;
+		data.burstCount = 100;
+		data.spawnRate = 200;
+		data.angle = 0.0f;
+		data.angleRange = kiko::Pi;
+		data.lifetimeMin = 0.25f;
+		data.lifetimeMax = 0.5f;
+		data.speedMin = 50;
+		data.speedMax = 250;
+		data.damping = 0.5f;
+		data.color = kiko::Color{ 1, 1, 1, 1 };
+		auto emitter = std::make_unique<kiko::Emitter>(m_transform, data);
+		emitter->m_lifespan = 0.75f;
+		m_scene->Add(std::move(emitter));
+		for (int i = 0; i < m_size; i++) {
+			std::unique_ptr<Astroid> astroid = std::make_unique<Astroid>((m_speed + 150.0f), m_transform);
+			astroid->m_transform.rotation = kiko::randomf((other->m_transform.rotation * 0.5f), (other->m_transform.rotation * 1.5f));
+			astroid->m_tag = "eAstroid";
+			// create componenets
+			std::unique_ptr<kiko::SpriteComponent> component = std::make_unique<kiko::SpriteComponent>();
+			component->m_texture = kiko::g_resources.Get<kiko::Texture>("Astroid Small.png", kiko::g_renderer);
+			astroid->AddComponent(std::move(component));
+			m_scene->Add(std::move(astroid));
 		}
 	}
 }

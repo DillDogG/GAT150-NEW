@@ -1,13 +1,22 @@
 #include "Enemy.h"
-#include "Framework/Scene.h"
-#include "Framework/Components/SpriteComponent.h"
-#include "Framework/Resource/ResourceManager.h"
+#include "Framework/Framework.h"
 #include "Player.h"
 #include "SpaceGame.h"
 #include "Weapon.h"
 #include "Renderer/Renderer.h"
-#include "Framework/Emitter.h"
 
+bool Enemy::Initialize() {
+	Actor::Initialize();
+	auto collisionComponent = GetComponent<kiko::CollisionComponent>();
+	if (collisionComponent) {
+		auto renderComponent = GetComponent<kiko::RenderComponent>();
+		if (renderComponent) {
+			float scale = m_transform.scale;
+			collisionComponent->m_radius = GetComponent<kiko::RenderComponent>()->GetRadius() * scale;
+		}
+	}
+	return true;
+}
 void Enemy::Update(float dt) {
 	Actor::Update(dt);
 
@@ -35,6 +44,10 @@ void Enemy::Update(float dt) {
 		std::unique_ptr<kiko::SpriteComponent> component = std::make_unique<kiko::SpriteComponent>();
 		component->m_texture = kiko::g_resources.Get<kiko::Texture>("Bullet.png", kiko::g_renderer);
 		weapon->AddComponent(std::move(component));
+		auto collisionComponent = std::make_unique<kiko::CircleCollisionComponent>();
+		collisionComponent->m_radius = 30.f;
+		weapon->AddComponent(std::move(collisionComponent));
+		weapon->Initialize();
 		m_scene->Add(std::move(weapon));
 		m_fireTimer = m_fireRate;
 	}
@@ -44,7 +57,7 @@ void Enemy::Update(float dt) {
 }
 
 void Enemy::OnCollision(Actor* other) {
-	if (other->m_tag == "pWeapon") {
+	if (other->m_tag == "pWeapon" || other->m_tag == "Astroid" || other->m_tag == "pAstroid") {
 		m_game->AddPoints(100);
 		m_destroyed = true;
 		kiko::EmitterData data;
