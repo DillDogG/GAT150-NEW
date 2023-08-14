@@ -37,7 +37,7 @@ void Astroid::OnCollision(Actor* other) {
 			astroid->m_tag = "pAstroid";
 			// create componenets
 			std::unique_ptr<kiko::SpriteComponent> component = std::make_unique<kiko::SpriteComponent>();
-			component->m_texture = kiko::g_resources.Get<kiko::Texture>("Astroid Small.png", kiko::g_renderer);
+			component->m_texture = GET_RESOURCE(kiko::Texture, "Astroid Small.png", kiko::g_renderer);
 			astroid->AddComponent(std::move(component));
 			auto collisionComponent = std::make_unique<kiko::CircleCollisionComponent>();
 			collisionComponent->m_radius = 30.f;
@@ -68,7 +68,7 @@ void Astroid::OnCollision(Actor* other) {
 			astroid->m_tag = "eAstroid";
 			// create componenets
 			std::unique_ptr<kiko::SpriteComponent> component = std::make_unique<kiko::SpriteComponent>();
-			component->m_texture = kiko::g_resources.Get<kiko::Texture>("Astroid Small.png", kiko::g_renderer);
+			component->m_texture = GET_RESOURCE(kiko::Texture, "Astroid Small.png", kiko::g_renderer);
 			astroid->AddComponent(std::move(component));
 			auto collisionComponent = std::make_unique<kiko::CircleCollisionComponent>();
 			collisionComponent->m_radius = 30.f;

@@ -10,17 +10,17 @@
 
 bool SpaceGame::Initialize() {
 	//font and text initialize
-	m_font = kiko::g_resources.Get<kiko::Font>("Freshman.ttf", 24);
-	m_scoreText = std::make_unique<kiko::Text>(kiko::g_resources.Get<kiko::Font>("Freshman.ttf", 24));
-	m_titleText = std::make_unique<kiko::Text>(kiko::g_resources.Get<kiko::Font>("Freshman.ttf", 24));
-	m_livesText = std::make_unique<kiko::Text>(kiko::g_resources.Get<kiko::Font>("Freshman.ttf", 24));
-	m_healthText = std::make_unique<kiko::Text>(kiko::g_resources.Get<kiko::Font>("Freshman.ttf", 24));
-	m_missileText = std::make_unique<kiko::Text>(kiko::g_resources.Get<kiko::Font>("Freshman.ttf", 24));
-	m_adrenalineText = std::make_unique<kiko::Text>(kiko::g_resources.Get<kiko::Font>("Freshman.ttf", 24));
-	m_gameOverText = std::make_unique<kiko::Text>(kiko::g_resources.Get<kiko::Font>("Freshman.ttf", 24));
-	m_diedText = std::make_unique<kiko::Text>(kiko::g_resources.Get<kiko::Font>("Freshman.ttf", 24));
-	m_levelText = std::make_unique<kiko::Text>(kiko::g_resources.Get<kiko::Font>("Freshman.ttf", 24));
-	m_levelCompleteText = std::make_unique<kiko::Text>(kiko::g_resources.Get<kiko::Font>("Freshman.ttf", 24));
+	m_font = GET_RESOURCE(kiko::Font, "Freshman.ttf", 24);
+	m_scoreText = std::make_unique<kiko::Text>(GET_RESOURCE(kiko::Font, "Freshman.ttf", 24));
+	m_titleText = std::make_unique<kiko::Text>(GET_RESOURCE(kiko::Font, "Freshman.ttf", 24));
+	m_livesText = std::make_unique<kiko::Text>(GET_RESOURCE(kiko::Font, "Freshman.ttf", 24));
+	m_healthText = std::make_unique<kiko::Text>(GET_RESOURCE(kiko::Font, "Freshman.ttf", 24));
+	m_missileText = std::make_unique<kiko::Text>(GET_RESOURCE(kiko::Font, "Freshman.ttf", 24));
+	m_adrenalineText = std::make_unique<kiko::Text>(GET_RESOURCE(kiko::Font, "Freshman.ttf", 24));
+	m_gameOverText = std::make_unique<kiko::Text>(GET_RESOURCE(kiko::Font, "Freshman.ttf", 24));
+	m_diedText = std::make_unique<kiko::Text>(GET_RESOURCE(kiko::Font, "Freshman.ttf", 24));
+	m_levelText = std::make_unique<kiko::Text>(GET_RESOURCE(kiko::Font, "Freshman.ttf", 24));
+	m_levelCompleteText = std::make_unique<kiko::Text>(GET_RESOURCE(kiko::Font, "Freshman.ttf", 24));
 
 
 	//initialize audio
@@ -74,8 +74,9 @@ void SpaceGame::Update(float dt) {
 			component->m_model = kiko::g_resources.Get<kiko::Model>("Ship.txt", kiko::g_renderer);
 			player->AddComponent(std::move(component)); */
 			/* Generating player with a sprite */
-			std::unique_ptr<kiko::SpriteComponent> component = std::make_unique<kiko::SpriteComponent>();
-			component->m_texture = kiko::g_resources.Get<kiko::Texture>("PlayerShip.png", kiko::g_renderer);
+			//auto component = std::make_unique<kiko::SpriteComponent>();
+			auto component = kiko::Factory::Instance().Create<kiko::SpriteComponent>("SpriteComponent");
+			component->m_texture = GET_RESOURCE(kiko::Texture, "PlayerShip.png", kiko::g_renderer);
 			player->AddComponent(std::move(component)); 
 			auto physicsComponent = std::make_unique<kiko::EnginePhysicsComponent>();
 			physicsComponent->m_damping = 0.9f;
@@ -101,7 +102,7 @@ void SpaceGame::Update(float dt) {
 			enemy->m_game = this;
 			// create componenets
 			std::unique_ptr<kiko::SpriteComponent> component = std::make_unique<kiko::SpriteComponent>();
-			component->m_texture = kiko::g_resources.Get<kiko::Texture>("EnemyShip.png", kiko::g_renderer);
+			component->m_texture = GET_RESOURCE(kiko::Texture, "EnemyShip.png", kiko::g_renderer);
 			enemy->AddComponent(std::move(component));
 			auto collisionComponent = std::make_unique<kiko::CircleCollisionComponent>();
 			collisionComponent->m_radius = 30.f;
@@ -112,7 +113,7 @@ void SpaceGame::Update(float dt) {
 			if (enemiesSpawned % 5 == 3) {
 				std::unique_ptr<Item> item = std::make_unique<Item>(kiko::Transform{{ (float)kiko::random(800), (float)kiko::random(600) }, 1.5f }, kiko::randomf(3.0f, 7.0f));
 				component = std::make_unique<kiko::SpriteComponent>();
-				component->m_texture = kiko::g_resources.Get<kiko::Texture>("Box.png", kiko::g_renderer);
+				component->m_texture = GET_RESOURCE(kiko::Texture, "Box.png", kiko::g_renderer);
 				item->AddComponent(std::move(component));
 				switch (kiko::random(5)) {
 				case 0:
@@ -145,9 +146,8 @@ void SpaceGame::Update(float dt) {
 				astroid->m_game = this;
 				// create componenets
 				std::unique_ptr<kiko::SpriteComponent> component = std::make_unique<kiko::SpriteComponent>();
-				if (aSize > 4) component->m_texture = kiko::g_resources.Get<kiko::Texture>("Astroid Medium.png", kiko::g_renderer);
-				else component->m_texture = kiko::g_resources.Get<kiko::Texture>("Astroid Large.png", kiko::g_renderer);
-				std::cout << component->m_texture << std::endl;
+				if (aSize > 4) component->m_texture = GET_RESOURCE(kiko::Texture, "Astroid Medium.png", kiko::g_renderer);
+				else component->m_texture = GET_RESOURCE(kiko::Texture,"Astroid Large.png", kiko::g_renderer);
 				astroid->AddComponent(std::move(component));
 				auto collisionComponent = std::make_unique<kiko::CircleCollisionComponent>();
 				collisionComponent->m_radius = 30.f;
@@ -237,7 +237,7 @@ void SpaceGame::Update(float dt) {
 			enemy->m_game = this;
 			// create componenets
 			std::unique_ptr<kiko::SpriteComponent> component = std::make_unique<kiko::SpriteComponent>();
-			component->m_texture = kiko::g_resources.Get<kiko::Texture>("EnemyShip.png", kiko::g_renderer);
+			component->m_texture = GET_RESOURCE(kiko::Texture, "EnemyShip.png", kiko::g_renderer);
 			enemy->AddComponent(std::move(component));
 			auto collisionComponent = std::make_unique<kiko::CircleCollisionComponent>();
 			collisionComponent->m_radius = 30.f;
@@ -247,7 +247,7 @@ void SpaceGame::Update(float dt) {
 			if (enemiesSpawned % 6 == 3) {
 				std::unique_ptr<Item> item = std::make_unique<Item>(kiko::Transform{{ (float)kiko::random(800), (float)kiko::random(600) }, kiko::randomf(3), 0.75f }, kiko::randomf(3.0f, 7.0f));
 				component = std::make_unique<kiko::SpriteComponent>();
-				component->m_texture = kiko::g_resources.Get<kiko::Texture>("Box.png", kiko::g_renderer);
+				component->m_texture = GET_RESOURCE(kiko::Texture, "Box.png", kiko::g_renderer);
 				item->AddComponent(std::move(component));
 				switch (kiko::random(5)) {
 				case 0:
@@ -280,8 +280,8 @@ void SpaceGame::Update(float dt) {
 				astroid->m_game = this;
 				// create componenets
 				std::unique_ptr<kiko::SpriteComponent> component = std::make_unique<kiko::SpriteComponent>();
-				if (aSize > 4) component->m_texture = kiko::g_resources.Get<kiko::Texture>("Astroid Medium.png", kiko::g_renderer);
-				else component->m_texture = kiko::g_resources.Get<kiko::Texture>("Astroid Large.png", kiko::g_renderer);
+				if (aSize > 4) component->m_texture = GET_RESOURCE(kiko::Texture, "Astroid Medium.png", kiko::g_renderer);
+				else component->m_texture = GET_RESOURCE(kiko::Texture, "Astroid Large.png", kiko::g_renderer);
 				astroid->AddComponent(std::move(component));
 				auto collisionComponent = std::make_unique<kiko::CircleCollisionComponent>();
 				collisionComponent->m_radius = 30.f;

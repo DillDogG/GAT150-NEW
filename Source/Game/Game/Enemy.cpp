@@ -42,7 +42,7 @@ void Enemy::Update(float dt) {
 		std::unique_ptr<Weapon> weapon = std::make_unique<Weapon>(400.0f, m_transform);
 		weapon->m_tag = "eWeapon";
 		std::unique_ptr<kiko::SpriteComponent> component = std::make_unique<kiko::SpriteComponent>();
-		component->m_texture = kiko::g_resources.Get<kiko::Texture>("Bullet.png", kiko::g_renderer);
+		component->m_texture = GET_RESOURCE(kiko::Texture, "Bullet.png", kiko::g_renderer);
 		weapon->AddComponent(std::move(component));
 		auto collisionComponent = std::make_unique<kiko::CircleCollisionComponent>();
 		collisionComponent->m_radius = 15.f;

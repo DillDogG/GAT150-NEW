@@ -44,34 +44,35 @@ void zero(int* v) { *v = 0; }
 void zero_ref(int& v) { v = 0; }
 
 int main(int argc, char* argv[]) {
+	kiko::Factory::Instance().Register<kiko::SpriteComponent>("SpriteComponent");
 	INFO_LOG("Loaded Program")
-
 
 #pragma region Initialization
 	kiko::MemoryTracker::Initialize();
 	kiko::seedRandom((unsigned int)time(nullptr));
 	kiko::setFilePath("assets");
 
-	rapidjson::Document document;
-	kiko::Json::Load("json.txt", document);
-	int i1;
-	kiko::Json::Read(document, "integer1", i1);
-	std::cout << i1 << std::endl;
-	int i2;
-	kiko::Json::Read(document, "integer2", i2);
-	std::cout << i2 << std::endl;
-	float f;
-	kiko::Json::Read(document, "float", f);
-	std::cout << f << std::endl;
-	bool b;
-	kiko::Json::Read(document, "boolean", b);
-	std::cout << b << std::endl;
-	std::string str;
-	kiko::Json::Read(document, "string", str);
-	std::cout << str << std::endl;
-	kiko::vec2 v2;
-	kiko::Json::Read(document, "vector2", v2);
-	std::cout << v2 << std::endl;
+	//reading json files
+	//rapidjson::Document document;
+	//kiko::Json::Load("json.txt", document);
+	//int i1;
+	//kiko::Json::Read(document, "integer1", i1);
+	//std::cout << i1 << std::endl;
+	//int i2;
+	//kiko::Json::Read(document, "integer2", i2);
+	//std::cout << i2 << std::endl;
+	//float f;
+	//kiko::Json::Read(document, "float", f);
+	//std::cout << f << std::endl;
+	//bool b;
+	//kiko::Json::Read(document, "boolean", b);
+	//std::cout << b << std::endl;
+	//std::string str;
+	//kiko::Json::Read(document, "string", str);
+	//std::cout << str << std::endl;
+	//kiko::vec2 v2;
+	//kiko::Json::Read(document, "vector2", v2);
+	//std::cout << v2 << std::endl;
 
 	kiko::g_renderer.Initialize();
 	

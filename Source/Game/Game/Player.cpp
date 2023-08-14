@@ -45,7 +45,7 @@ void Player::Update(float dt) {
 			std::unique_ptr<Weapon> weapon = std::make_unique<Weapon>(400.0f, m_transform);
 			weapon->m_tag = "pWeapon";
 			std::unique_ptr<kiko::SpriteComponent> component = std::make_unique<kiko::SpriteComponent>();
-			component->m_texture = kiko::g_resources.Get<kiko::Texture>("Bullet.png", kiko::g_renderer);
+			component->m_texture = GET_RESOURCE(kiko::Texture, "Bullet.png", kiko::g_renderer);
 			weapon->AddComponent(std::move(component));
 			auto collisionComponent = std::make_unique<kiko::CircleCollisionComponent>();
 			collisionComponent->m_radius = 15.f;
@@ -56,7 +56,7 @@ void Player::Update(float dt) {
 			weapon->m_transform.rotation += 0.15f;
 			weapon->m_tag = "pWeapon";
 			component = std::make_unique<kiko::SpriteComponent>();
-			component->m_texture = kiko::g_resources.Get<kiko::Texture>("Bullet.png", kiko::g_renderer);
+			component->m_texture = GET_RESOURCE(kiko::Texture, "Bullet.png", kiko::g_renderer);
 			weapon->AddComponent(std::move(component));
 			collisionComponent = std::make_unique<kiko::CircleCollisionComponent>();
 			collisionComponent->m_radius = 15.f;
@@ -67,7 +67,7 @@ void Player::Update(float dt) {
 			weapon->m_transform.rotation -= 0.15f;
 			weapon->m_tag = "pWeapon";
 			component = std::make_unique<kiko::SpriteComponent>();
-			component->m_texture = kiko::g_resources.Get<kiko::Texture>("Bullet.png", kiko::g_renderer);
+			component->m_texture = GET_RESOURCE(kiko::Texture, "Bullet.png", kiko::g_renderer);
 			weapon->AddComponent(std::move(component));
 			collisionComponent = std::make_unique<kiko::CircleCollisionComponent>();
 			collisionComponent->m_radius = 15.f;
@@ -80,7 +80,7 @@ void Player::Update(float dt) {
 			std::unique_ptr<Weapon> weapon = std::make_unique<Weapon>(400.0f, m_transform);
 			weapon->m_tag = "pWeapon";
 			std::unique_ptr<kiko::SpriteComponent> component = std::make_unique<kiko::SpriteComponent>();
-			component->m_texture = kiko::g_resources.Get<kiko::Texture>("Bullet.png", kiko::g_renderer);
+			component->m_texture = GET_RESOURCE(kiko::Texture, "Bullet.png", kiko::g_renderer);
 			weapon->AddComponent(std::move(component));
 			auto collisionComponent = std::make_unique<kiko::CircleCollisionComponent>();
 			collisionComponent->m_radius = 15.f;
