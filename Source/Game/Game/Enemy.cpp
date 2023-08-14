@@ -45,7 +45,7 @@ void Enemy::Update(float dt) {
 		component->m_texture = kiko::g_resources.Get<kiko::Texture>("Bullet.png", kiko::g_renderer);
 		weapon->AddComponent(std::move(component));
 		auto collisionComponent = std::make_unique<kiko::CircleCollisionComponent>();
-		collisionComponent->m_radius = 30.f;
+		collisionComponent->m_radius = 15.f;
 		weapon->AddComponent(std::move(collisionComponent));
 		weapon->Initialize();
 		m_scene->Add(std::move(weapon));

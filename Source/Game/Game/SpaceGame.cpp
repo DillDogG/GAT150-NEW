@@ -239,6 +239,9 @@ void SpaceGame::Update(float dt) {
 			std::unique_ptr<kiko::SpriteComponent> component = std::make_unique<kiko::SpriteComponent>();
 			component->m_texture = kiko::g_resources.Get<kiko::Texture>("EnemyShip.png", kiko::g_renderer);
 			enemy->AddComponent(std::move(component));
+			auto collisionComponent = std::make_unique<kiko::CircleCollisionComponent>();
+			collisionComponent->m_radius = 30.f;
+			enemy->AddComponent(std::move(collisionComponent));
 			m_scene->Add(std::move(enemy));
 			enemiesSpawned++;
 			if (enemiesSpawned % 6 == 3) {
