@@ -47,6 +47,12 @@ namespace kiko {
 		static float Angle(const Vector2& v1, const Vector2& v2);
 		static float Dot(const Vector2& v1, const Vector2& v2);
 	};
+
+	inline std::ostream& operator<<(std::ostream& stream, const Vector2& v) {
+		stream << v.x << " " << v.y;
+		return stream;
+	}
+
 	inline Vector2 Vector2::Rotate(float radians) const {
 		float _x = x * std::cos(radians) - y * std::sin(radians);
 		float _y = x * std::sin(radians) + y * std::cos(radians);
