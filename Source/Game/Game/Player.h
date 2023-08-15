@@ -44,7 +44,6 @@ private:
 
 	bool m_shield = false;
 	bool m_multi = false;
-	bool m_split = false;
 
 	kiko::PhysicsComponent* m_physicsComponent = nullptr;
 };

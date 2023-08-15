@@ -58,22 +58,24 @@ void Enemy::Update(float dt) {
 
 void Enemy::OnCollision(Actor* other) {
 	if (other->m_tag == "pWeapon" || other->m_tag == "Astroid" || other->m_tag == "pAstroid") {
-		m_game->AddPoints(100);
-		m_destroyed = true;
-		kiko::EmitterData data;
-		data.burst = true;
-		data.burstCount = 100;
-		data.spawnRate = 200;
-		data.angle = 0;
-		data.angleRange = kiko::Pi;
-		data.lifetimeMin = 0.5f;
-		data.lifetimeMax = 1.5f;
-		data.speedMin = 50;
-		data.speedMax = 250;
-		data.damping = 0.5f;
-		data.color = kiko::Color{ 0, 1, 1, 1 };
-		auto emitter = std::make_unique<kiko::Emitter>(m_transform, data);
-		emitter->m_lifespan = 1.0f;
-		m_scene->Add(std::move(emitter));
+		if (!m_destroyed) {
+			m_game->AddPoints(100);
+			m_destroyed = true;
+			kiko::EmitterData data;
+			data.burst = true;
+			data.burstCount = 100;
+			data.spawnRate = 200;
+			data.angle = 0;
+			data.angleRange = kiko::Pi;
+			data.lifetimeMin = 0.5f;
+			data.lifetimeMax = 1.5f;
+			data.speedMin = 50;
+			data.speedMax = 250;
+			data.damping = 0.5f;
+			data.color = kiko::Color{ 0, 1, 1, 1 };
+			auto emitter = std::make_unique<kiko::Emitter>(m_transform, data);
+			emitter->m_lifespan = 1.0f;
+			m_scene->Add(std::move(emitter));
+		}
 	}
 }

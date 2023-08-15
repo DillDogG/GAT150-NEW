@@ -1,9 +1,12 @@
 #pragma once
 #include "Object.h"
+#include "Core/Logger.h"
 #include "Singleton.h"
 #include <memory>
 #include <map>
-//#include <string>
+#include <string>
+
+#define CREATE_CLASS(classname) kiko::Factory::Instance().Create<kiko::classname>(#classname);
 
 namespace kiko {
 	class CreatorBase {
@@ -27,12 +30,16 @@ namespace kiko {
 
 		template <typename T>
 		std::unique_ptr<T> Create(const std::string& key);
+		friend class Singleton;
+	protected:
+		Factory() = default;
 	private:
 		std::map<std::string, std::unique_ptr<CreatorBase>> m_registry;
 	};
 
 	template<typename T>
 	inline void Factory::Register(const std::string& key) {
+		//INFO_LOG("Class registered: " << key)
 		m_registry[key] = std::make_unique<Creator<T>>();
 	}
 	template<typename T>

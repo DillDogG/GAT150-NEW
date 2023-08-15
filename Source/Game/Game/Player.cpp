@@ -132,7 +132,6 @@ void Player::Update(float dt) {
 	if (m_powerTimer < 0) {
 		m_fireRate = 1;
 		m_shield = false;
-		m_split = false;
 		m_multi = false;
 	} else {
 		m_powerTimer -= dt;
@@ -176,10 +175,5 @@ void Player::OnCollision(Actor* other) {
 		m_health++;
 		if (m_health > 5) m_health = 5;
 		INFO_LOG("Health Pickup")
-	}
-	if (other->m_tag == "Dupe") {
-		m_powerTimer = 20;
-		m_split = true;
-		INFO_LOG("Dupe Powerup")
 	}
 }

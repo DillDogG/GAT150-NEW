@@ -44,7 +44,6 @@ void zero(int* v) { *v = 0; }
 void zero_ref(int& v) { v = 0; }
 
 int main(int argc, char* argv[]) {
-	kiko::Factory::Instance().Register<kiko::SpriteComponent>("SpriteComponent");
 	INFO_LOG("Loaded Program")
 
 #pragma region Initialization
