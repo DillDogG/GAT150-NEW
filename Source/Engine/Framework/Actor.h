@@ -13,7 +13,7 @@ namespace kiko {
 		CLASS_DECLARATION(Actor)
 		Actor() = default;
 		Actor(const kiko::Transform& transform) :
-			m_transform{ transform }
+			transform{ transform }
 		{}
 		
 		virtual bool Initialize() override;
@@ -34,17 +34,17 @@ namespace kiko {
 		float GetRadius() { return 30.0f; }
 		class Scene* m_scene = nullptr;
 		friend class Scene;
-		kiko::Transform m_transform;
-		std::string m_tag;
-		float m_lifespan = -1.0f;
+		kiko::Transform transform;
+		std::string tag;
+		float lifespan = -1.0f;
+		bool destroyed = false;
 	protected:
-		std::vector <std::unique_ptr <Component>> m_components;
-		bool m_destroyed = false;
+		std::vector <std::unique_ptr <Component>> components;
 	};
 
 	template<typename T>
 	inline T* Actor::GetComponent() {
-		for (auto& component : m_components) {
+		for (auto& component : components) {
 			T* result = dynamic_cast<T*>(component.get());
 			if (result) return result;
 		}

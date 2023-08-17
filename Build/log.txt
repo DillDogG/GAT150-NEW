@@ -1,1 +1,6 @@
+INFO : Class registered: SpriteComponent
+INFO : Class registered: ModelRenderComponent
+INFO : Class registered: EnginePhysicsComponent
+INFO : Class registered: CircleCollisionComponent
+INFO : Class registered: Actor
 INFO : Loaded Program

@@ -6,7 +6,8 @@
 #include <map>
 #include <string>
 
-#define CREATE_CLASS(classname) kiko::Factory::Instance().Create<kiko::classname>(#classname);
+#define CREATE_CLASS(classname) kiko::Factory::Instance().Create<kiko::classname>(#classname)
+#define CREATE_CLASS_BASE(classbase, classname) kiko::Factory::Instance().Create<kiko::classbase>(classname)
 
 namespace kiko {
 	class CreatorBase {
@@ -39,7 +40,7 @@ namespace kiko {
 
 	template<typename T>
 	inline void Factory::Register(const std::string& key) {
-		//INFO_LOG("Class registered: " << key)
+		INFO_LOG("Class registered: " << key)
 		m_registry[key] = std::make_unique<Creator<T>>();
 	}
 	template<typename T>

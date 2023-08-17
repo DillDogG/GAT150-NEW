@@ -1,12 +1,11 @@
 #pragma once
-#include "Framework/Actor.h"
-#include "Framework/Components/PhysicsComponent.h"
+#include "Framework/Framework.h"
 
 class Player : public kiko::Actor {
 public:
 	Player(float speed, float turnRate, const kiko::Transform& transform) :
 		Actor{ transform },
-		m_speed{ speed },
+		speed{ speed },
 		m_turnRate{ turnRate}
 	{
 		m_fireRate = 1;
@@ -28,7 +27,7 @@ public:
 	float GetAdrenaline() { return m_adrenaline; }
 
 private:
-	float m_speed = 0;
+	float speed = 0;
 	float m_turnRate = 0;
 	int m_health = 0;
 
@@ -46,4 +45,5 @@ private:
 	bool m_multi = false;
 
 	kiko::PhysicsComponent* m_physicsComponent = nullptr;
+	kiko::SpriteComponent* m_spriteComponent = nullptr;
 };

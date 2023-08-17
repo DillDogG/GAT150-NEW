@@ -31,8 +31,10 @@ bool SpaceGame::Initialize() {
 	//creates window
 	kiko::g_renderer.CreateWindow("GAT150", 800, 600);
 
-	//makes
+	//makes scene
 	m_scene = std::make_unique<kiko::Scene>();
+	m_scene->Load("scene.json");
+	m_scene->Initialize();
 
 	
 
@@ -65,7 +67,7 @@ void SpaceGame::Update(float dt) {
 		m_scene->RemoveAll(); {
 			// create player
 			std::unique_ptr<Player> player = std::make_unique<Player>(200.0f, kiko::Pi, kiko::Transform{ {400, 300}, 1.2f });
-			player->m_tag = "Player";
+			player->tag = "Player";
 			player->m_game = this;
 			//player->SetDamping(0.9f);
 			// create components
@@ -74,11 +76,11 @@ void SpaceGame::Update(float dt) {
 			component->m_model = kiko::g_resources.Get<kiko::Model>("Ship.txt", kiko::g_renderer);
 			player->AddComponent(std::move(component)); */
 			/* Generating player with a sprite */
-			auto component = CREATE_CLASS(SpriteComponent)
+			auto component = CREATE_CLASS(SpriteComponent);
 			component->m_texture = GET_RESOURCE(kiko::Texture, "PlayerShip.png", kiko::g_renderer);
 			player->AddComponent(std::move(component)); 
 
-			auto physicsComponent = CREATE_CLASS(EnginePhysicsComponent)
+			auto physicsComponent = CREATE_CLASS(EnginePhysicsComponent);
 			physicsComponent->m_damping = 0.9f;
 			player->AddComponent(std::move(physicsComponent));
 
@@ -98,7 +100,7 @@ void SpaceGame::Update(float dt) {
 		if (m_spawnTimer >= m_spawnTime) {
 			m_spawnTimer = 0;
 			std::unique_ptr<Enemy> enemy = std::make_unique<Enemy>(150.0f, kiko::Pi, kiko::Transform{{ (float)kiko::random(800), (float)kiko::random(600) }, kiko::randomf(3) });
-			enemy->m_tag = "Enemy";
+			enemy->tag = "Enemy";
 			enemy->m_game = this;
 			// create componenets
 			std::unique_ptr<kiko::SpriteComponent> component = std::make_unique<kiko::SpriteComponent>();
@@ -117,19 +119,19 @@ void SpaceGame::Update(float dt) {
 				item->AddComponent(std::move(component));
 				switch (kiko::random(5)) {
 				case 0:
-					item->m_tag = "Health";
+					item->tag = "Health";
 					break;
 				case 1:
-					item->m_tag = "Rapid";
+					item->tag = "Rapid";
 					break;
 				case 2:
-					item->m_tag = "Missile";
+					item->tag = "Missile";
 					break;
 				case 3:
-					item->m_tag = "Shield";
+					item->tag = "Shield";
 					break;
 				case 4:
-					item->m_tag = "Multi";
+					item->tag = "Multi";
 					break;
 				}
 				item->m_game = this;
@@ -142,7 +144,7 @@ void SpaceGame::Update(float dt) {
 			if (enemiesSpawned % 7 == 1) {
 				int aSize = kiko::random(2, 7);
 				std::unique_ptr<Astroid> astroid = std::make_unique<Astroid>(150.0f, kiko::Transform{{ (float)kiko::random(800), (float)kiko::random(600) }, kiko::randomf(3) }, aSize);
-				astroid->m_tag = "Astroid";
+				astroid->tag = "Astroid";
 				astroid->m_game = this;
 				// create componenets
 				std::unique_ptr<kiko::SpriteComponent> component = std::make_unique<kiko::SpriteComponent>();
@@ -233,7 +235,7 @@ void SpaceGame::Update(float dt) {
 		if (m_spawnTimer >= m_spawnTime) {
 			m_spawnTimer = 0;
 			std::unique_ptr<Enemy> enemy = std::make_unique<Enemy>(150.0f, kiko::Pi, kiko::Transform{{ (float)kiko::random(800), (float)kiko::random(600) }, kiko::randomf(3) });
-			enemy->m_tag = "Enemy";
+			enemy->tag = "Enemy";
 			enemy->m_game = this;
 			// create componenets
 			std::unique_ptr<kiko::SpriteComponent> component = std::make_unique<kiko::SpriteComponent>();
@@ -251,19 +253,19 @@ void SpaceGame::Update(float dt) {
 				item->AddComponent(std::move(component));
 				switch (kiko::random(5)) {
 				case 0:
-					item->m_tag = "Health";
+					item->tag = "Health";
 					break;
 				case 1:
-					item->m_tag = "Rapid";
+					item->tag = "Rapid";
 					break;
 				case 2:
-					item->m_tag = "Missile";
+					item->tag = "Missile";
 					break;
 				case 3:
-					item->m_tag = "Shield";
+					item->tag = "Shield";
 					break;
 				case 4:
-					item->m_tag = "Multi";
+					item->tag = "Multi";
 					break;
 				}
 				item->m_game = this;
@@ -276,7 +278,7 @@ void SpaceGame::Update(float dt) {
 			if (enemiesSpawned % 8 == 1) {
 				int aSize = kiko::random(2, 7);
 				std::unique_ptr<Astroid> astroid = std::make_unique<Astroid>(150.0f, kiko::Transform{{ (float)kiko::random(800), (float)kiko::random(600) }, kiko::randomf(3) }, aSize);
-				astroid->m_tag = "Astroid";
+				astroid->tag = "Astroid";
 				astroid->m_game = this;
 				// create componenets
 				std::unique_ptr<kiko::SpriteComponent> component = std::make_unique<kiko::SpriteComponent>();

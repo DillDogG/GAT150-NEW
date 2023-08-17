@@ -1,0 +1,19 @@
+{
+	"actors": [
+		{
+			"type": "Actor",
+			"name": "Background",
+			"transform": {
+				"position": [ 400, 525 ],
+				"scale": 0.6,
+				"rotation": 0
+			},
+			"components": [
+				{
+					"type": "SpriteComponent",
+					"textureName": "SpaceBackground.jpg"
+				}
+			]
+		}
+	]
+}

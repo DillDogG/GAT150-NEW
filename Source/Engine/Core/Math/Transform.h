@@ -1,6 +1,7 @@
 #pragma once
 #include "Vector2.h"
 #include "Matrix33.h"
+#include "Core/Json.h"
 
 namespace kiko {
 	class Transform {
@@ -24,5 +25,7 @@ namespace kiko {
 
 			return mx;
 		}
+
+		void Read(const json_t& value);
 	};
 }

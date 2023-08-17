@@ -1,18 +1,37 @@
 #include "Weapon.h"
 #include "Renderer/Renderer.h"
 
-void Weapon::Update(float dt) {
-	Actor::Update(dt);
-	kiko::vec2 forward = kiko::vec2{ 0, -1 }.Rotate(m_transform.rotation);
-	m_transform.position += forward * m_speed * kiko::g_time.GetDeltaTime();
-	m_transform.position.x = kiko::Wrap(m_transform.position.x, (float)kiko::g_renderer.GetWidth());
-	m_transform.position.y = kiko::Wrap(m_transform.position.y, (float)kiko::g_renderer.GetHeight());
-}
+namespace kiko {
+	bool Weapon::Initialize() {
+		Actor::Initialize();
+		m_physicsComponent = GetComponent<kiko::PhysicsComponent>();
+		auto collisionComponent = GetComponent<kiko::CollisionComponent>();
+		if (collisionComponent) {
+			auto renderComponent = GetComponent<kiko::RenderComponent>();
+			if (renderComponent) {
+				float scale = transform.scale;
+				collisionComponent->m_radius = GetComponent<kiko::RenderComponent>()->GetRadius() * scale;
+			}
+		}
+		return true;
+	}
 
-void Weapon::OnCollision(Actor* other) {
-	if (m_tag == "pWeapon" && other->m_tag == "Enemy") m_destroyed = true;
-	if (m_tag == "eWeapon" && other->m_tag == "Player") m_destroyed = true;
-	if (m_tag == "eWeapon" && other->m_tag == "pWeapon") m_destroyed = true;
-	if (m_tag == "pWeapon" && other->m_tag == "eWeapon") m_destroyed = true;
-	if (other->m_tag == "Astroid") m_destroyed = true;
+	void Weapon::Update(float dt) {
+		kiko::vec2 forward = kiko::vec2{ 0, -1 }.Rotate(transform.rotation);
+		transform.position += forward * speed * kiko::g_time.GetDeltaTime();
+		transform.position.x = kiko::Wrap(transform.position.x, (float)kiko::g_renderer.GetWidth());
+		transform.position.y = kiko::Wrap(transform.position.y, (float)kiko::g_renderer.GetHeight());
+	}
+
+	//void Weapon::OnCollision(Actor* other) {
+	//	if (tag == "pWeapon" && other->tag == "Enemy") destroyed = true;
+	//	if (tag == "eWeapon" && other->tag == "Player") destroyed = true;
+	//	if (tag == "eWeapon" && other->tag == "pWeapon") destroyed = true;
+	//	if (tag == "pWeapon" && other->tag == "eWeapon") destroyed = true;
+	//	if (other->tag == "Astroid") destroyed = true;
+	//}
+
+	void Weapon::Read(const json_t& value) {
+		READ_DATA(value, speed);
+	}
 }
