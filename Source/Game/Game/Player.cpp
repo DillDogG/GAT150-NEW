@@ -39,55 +39,27 @@ void Player::Update(float dt) {
 	transform.position.x = kiko::Wrap(transform.position.x, (float)kiko::g_renderer.GetWidth());
 	transform.position.y = kiko::Wrap(transform.position.y, (float)kiko::g_renderer.GetHeight());
 	if (m_fireTimer < 0) {
-		/*if (kiko::g_inputSystem.GetKeyDown(SDL_SCANCODE_SPACE) && m_multi) {
-			kiko::Transform transform { this->transform.position, this->transform.rotation, 1 };
-			std::unique_ptr<Weapon> weapon = std::make_unique<Weapon>(400.0f, transform);
-			weapon->tag = "pWeapon";
-			std::unique_ptr<kiko::SpriteComponent> component = std::make_unique<kiko::SpriteComponent>();
-			component->m_texture = GET_RESOURCE(kiko::Texture, "Bullet.png", kiko::g_renderer);
-			weapon->AddComponent(std::move(component));
-			auto collisionComponent = std::make_unique<kiko::CircleCollisionComponent>();
-			collisionComponent->m_radius = 15.f;
-			weapon->AddComponent(std::move(collisionComponent));
+		if (kiko::g_inputSystem.GetKeyDown(SDL_SCANCODE_SPACE) && m_multi) {
+			auto weapon = INSTANTIATE(Weapon, "RocketP");
+			weapon->transform = { transform.position, transform.rotation, 1 };
 			weapon->Initialize();
 			m_scene->Add(std::move(weapon));
-			weapon = std::make_unique<Weapon>(400.0f, transform);
-			weapon->transform.rotation += 0.15f;
-			weapon->tag = "pWeapon";
-			component = std::make_unique<kiko::SpriteComponent>();
-			component->m_texture = GET_RESOURCE(kiko::Texture, "Bullet.png", kiko::g_renderer);
-			weapon->AddComponent(std::move(component));
-			collisionComponent = std::make_unique<kiko::CircleCollisionComponent>();
-			collisionComponent->m_radius = 15.f;
-			weapon->AddComponent(std::move(collisionComponent));
+			weapon = INSTANTIATE(Weapon, "RocketP");
+			weapon->transform = { transform.position, transform.rotation, 1 };
 			weapon->Initialize();
 			m_scene->Add(std::move(weapon));
-			weapon = std::make_unique<Weapon>(400.0f, transform);
-			weapon->transform.rotation -= 0.15f;
-			weapon->tag = "pWeapon";
-			component = std::make_unique<kiko::SpriteComponent>();
-			component->m_texture = GET_RESOURCE(kiko::Texture, "Bullet.png", kiko::g_renderer);
-			weapon->AddComponent(std::move(component));
-			collisionComponent = std::make_unique<kiko::CircleCollisionComponent>();
-			collisionComponent->m_radius = 15.f;
-			weapon->AddComponent(std::move(collisionComponent));
+			weapon = INSTANTIATE(Weapon, "RocketP");
+			weapon->transform = { transform.position, transform.rotation, 1 };
 			weapon->Initialize();
 			m_scene->Add(std::move(weapon));
 			m_fireTimer = m_fireRate;
 		} else if (kiko::g_inputSystem.GetKeyDown(SDL_SCANCODE_SPACE)) {
-			kiko::Transform transform { this->transform.position, this->transform.rotation, 1 };
-			std::unique_ptr<Weapon> weapon = std::make_unique<Weapon>(400.0f, transform);
-			weapon->tag = "pWeapon";
-			std::unique_ptr<kiko::SpriteComponent> component = std::make_unique<kiko::SpriteComponent>();
-			component->m_texture = GET_RESOURCE(kiko::Texture, "Bullet.png", kiko::g_renderer);
-			weapon->AddComponent(std::move(component));
-			auto collisionComponent = std::make_unique<kiko::CircleCollisionComponent>();
-			collisionComponent->m_radius = 15.f;
-			weapon->AddComponent(std::move(collisionComponent));
+			auto weapon = INSTANTIATE(Weapon, "RocketP");
+			weapon->transform = { this->transform.position, this->transform.rotation, 1 };
 			weapon->Initialize();
 			m_scene->Add(std::move(weapon));
 			m_fireTimer = m_fireRate;
-		} */
+		}
 	} else {
 		m_fireTimer -= dt;
 	}

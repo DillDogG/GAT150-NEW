@@ -15,6 +15,7 @@ namespace kiko {
 		Actor(const kiko::Transform& transform) :
 			transform{ transform }
 		{}
+		Actor(const Actor& other);
 		
 		virtual bool Initialize() override;
 		virtual void OnDestroy() override;
@@ -38,8 +39,10 @@ namespace kiko {
 		std::string tag;
 		float lifespan = -1.0f;
 		bool destroyed = false;
+		bool persistent = false;
+		bool prototype = false;
 	protected:
-		std::vector <std::unique_ptr <Component>> components;
+		std::vector <std::unique_ptr<Component>> components;
 	};
 
 	template<typename T>

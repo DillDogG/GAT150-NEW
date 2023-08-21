@@ -33,7 +33,7 @@ bool SpaceGame::Initialize() {
 
 	//makes scene
 	m_scene = std::make_unique<kiko::Scene>();
-	m_scene->Load("scene.json");
+	m_scene->Load("Scene.json");
 	m_scene->Initialize();
 
 	
@@ -49,10 +49,12 @@ void SpaceGame::Update(float dt) {
 	case eState::Title:
 		if (kiko::g_inputSystem.GetKeyDown(SDL_SCANCODE_SPACE)) {
 			m_state = eState::StartGame;
+			//m_scene->GetActorByName("Background")->active = false;
 			m_endless = false;
 		}
 		if (kiko::g_inputSystem.GetKeyDown(SDL_SCANCODE_E)) {
 			m_state = eState::StartGame;
+			//m_scene->GetActorByName("Background")->active = false;
 			m_endless = true;
 			m_spawnTime = 1.5f;
 		}
@@ -311,6 +313,7 @@ void SpaceGame::Update(float dt) {
 }
 
 void SpaceGame::Draw(kiko::Renderer& renderer) {
+	m_scene->Draw(renderer);
 	if (m_state == eState::Title) m_titleText->Draw(renderer, 200, 250);
 	if (m_state == eState::LevelComplete) m_levelCompleteText->Draw(renderer, 200, 250);
 	if (m_state == eState::PlayerDead) m_diedText->Draw(renderer, 200, 250);
@@ -321,5 +324,4 @@ void SpaceGame::Draw(kiko::Renderer& renderer) {
 	m_healthText->Draw(renderer, 20, 80);
 	m_missileText->Draw(renderer, 550, 50);
 	m_adrenalineText->Draw(renderer, 550, 80);
-	m_scene->Draw(renderer);
 }

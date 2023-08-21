@@ -1,5 +1,4 @@
 #include "Enemy.h"
-#include "Framework/Framework.h"
 #include "Player.h"
 #include "SpaceGame.h"
 #include "Weapon.h"
@@ -38,6 +37,11 @@ void Enemy::Update(float dt) {
 	transform.position.y = kiko::Wrap(transform.position.y, (float)kiko::g_renderer.GetHeight());
 
 	if (m_fireTimer < 0 && angle < kiko::DegreesToRadians(30.0f)) {
+		auto weapon = INSTANTIATE(Weapon, "RocketE");
+		weapon->transform = { this->transform.position, this->transform.rotation, 1 };
+		weapon->Initialize();
+		m_scene->Add(std::move(weapon));
+		m_fireTimer = m_fireRate;
 		/* kiko::Transform transform { this->transform.position, this->transform.rotation, 1 };
 		std::unique_ptr<Weapon> weapon = std::make_unique<Weapon>(400.0f, transform);
 		weapon->tag = "eWeapon";
