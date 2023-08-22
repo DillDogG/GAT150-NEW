@@ -28,7 +28,9 @@ void Player::Update(float dt) {
 	transform.rotation += rotate * m_turnRate * kiko::g_time.GetDeltaTime();
 
 	float thrust = 0;
-	if (kiko::g_inputSystem.GetKeyDown(SDL_SCANCODE_W)) thrust = 1;
+	if (kiko::g_inputSystem.GetKeyDown(SDL_SCANCODE_W) && kiko::g_inputSystem.GetKeyDown(SDL_SCANCODE_S)) thrust = 0.5f;
+	else if (kiko::g_inputSystem.GetKeyDown(SDL_SCANCODE_W)) thrust = 1;
+	else if (kiko::g_inputSystem.GetKeyDown(SDL_SCANCODE_S)) thrust = -0.5f;
 
 	kiko::vec2 forward = kiko::vec2{ 0, -1 }.Rotate(transform.rotation);
 	//AddForce(forward * speed * thrust);
@@ -110,9 +112,10 @@ void Player::Update(float dt) {
 	if (m_adrenaline < 50) m_adrenaline += kiko::g_time.GetUnscaledDeltaTime();
 
 	if (m_health < 1) {
-		m_game->SetLives(m_game->GetLives() - 1);
-		dynamic_cast<SpaceGame*>(m_game)->SetState(SpaceGame::eState::PlayerDeadStart);
+		//m_game->SetLives(m_game->GetLives() - 1);
+		//dynamic_cast<SpaceGame*>(m_game)->SetState(SpaceGame::eState::PlayerDeadStart);
 		destroyed = true;
+		kiko::EventManager::Instance().DispatchEvent("OnPlayerDead", 0);
 	}
 }
 

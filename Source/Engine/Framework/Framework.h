@@ -13,11 +13,13 @@
 #include "Components/SpriteComponent.h"
 #include "Components/PhysicsComponent.h"
 #include "Components/EnginePhysicsComponent.h"
+#include "Components/TextRenderComponent.h"
 
 #include "Components/CollisionComponent.h"
 #include "Components/CircleCollisionComponent.h"
 
-#include "Resource/Resource.h"
 #include "Resource/ResourceManager.h"
+
+#include "Event/EventManager.h"
 
 #include "Factory.h"

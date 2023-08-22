@@ -8,3 +8,5 @@ INFO : Class registered: Actor
 INFO : Loaded Program
 INFO : Class registered: RocketP
 INFO : Class registered: RocketE
+INFO : Event Subscribed: OnAddPoints
+INFO : Event Subscribed: OnPlayerDead

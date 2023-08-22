@@ -12,6 +12,7 @@
 #include <thread>
 #include <array>
 #include <map>
+#include <functional>
 
 using namespace std;
 
@@ -40,13 +41,16 @@ public:
 	kiko::vec2 m_vel;
 };
 
-void zero(int v) { v = 0; }
-void zero(int* v) { *v = 0; }
-void zero_ref(int& v) { v = 0; }
+union Data {
+	int i;
+	bool b;
+	char str[6];
+};
 
 int main(int argc, char* argv[]) {
-	INFO_LOG("Loaded Program")
-
+	INFO_LOG("Loaded Program");
+	Data data;
+	data.i = 0;
 #pragma region Initialization
 	kiko::MemoryTracker::Initialize();
 	kiko::seedRandom((unsigned int)time(nullptr));

@@ -83,7 +83,7 @@
 			"name": "LevelComplete",
 			"persistent": true,
 			"transform": {
-				"position": [ 400, 300 ],
+				"position": [ 400, 500 ],
 				"scale": 1,
 				"rotation": 0
 			},
@@ -137,7 +137,7 @@
 			"name": "Level",
 			"persistent": true,
 			"transform": {
-				"position": [ 550, 20 ],
+				"position": [ 610, 75 ],
 				"scale": 1,
 				"rotation": 0
 			},
@@ -155,7 +155,7 @@
 			"name": "Score",
 			"persistent": true,
 			"transform": {
-				"position": [ 20, 20 ],
+				"position": [ 80, 75 ],
 				"scale": 1,
 				"rotation": 0
 			},
@@ -173,7 +173,7 @@
 			"name": "Lives",
 			"persistent": true,
 			"transform": {
-				"position": [ 20, 50 ],
+				"position": [ 75, 100 ],
 				"scale": 1,
 				"rotation": 0
 			},
@@ -191,7 +191,7 @@
 			"name": "Health",
 			"persistent": true,
 			"transform": {
-				"position": [ 20, 80 ],
+				"position": [ 90, 140 ],
 				"scale": 1,
 				"rotation": 0
 			},
@@ -209,7 +209,7 @@
 			"name": "Missile",
 			"persistent": true,
 			"transform": {
-				"position": [ 550, 50 ],
+				"position": [ 625, 125 ],
 				"scale": 1,
 				"rotation": 0
 			},
@@ -227,7 +227,7 @@
 			"name": "Adrenaline",
 			"persistent": true,
 			"transform": {
-				"position": [ 550, 80 ],
+				"position": [ 650, 175 ],
 				"scale": 1,
 				"rotation": 0
 			},

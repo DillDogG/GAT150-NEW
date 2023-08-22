@@ -63,7 +63,8 @@ void Enemy::Update(float dt) {
 void Enemy::OnCollision(Actor* other) {
 	if (other->tag == "pWeapon" || other->tag == "Astroid" || other->tag == "pAstroid") {
 		if (!destroyed) {
-			m_game->AddPoints(100);
+			//m_game->AddPoints(100);
+			kiko::EventManager::Instance().DispatchEvent("AddPoints", 100);
 			destroyed = true;
 			kiko::EmitterData data;
 			data.burst = true;

@@ -1,8 +1,9 @@
 #pragma once
 #include "Framework/Game.h"
+#include "Framework/Event/EventManager.h"
 #include "Renderer/Text.h"
 
-class SpaceGame : public kiko::Game {
+class SpaceGame : public kiko::Game, kiko::IEventListener {
 public:
 	enum eState {
 		Title,
@@ -25,6 +26,8 @@ public:
 	virtual void Draw(kiko::Renderer& renderer) override;
 
 	void SetState(eState state) { m_state = state; }
+	void OnAddPoints(const kiko::Event& event);
+	void OnPlayerDead(const kiko::Event& event);
 private:
 	eState m_state = eState::Title;
 	float m_spawnTimer = 0;
@@ -42,7 +45,7 @@ private:
 	int enemiesSpawned = 0;
 	bool m_endless = false;
 
-	std::shared_ptr<kiko::Font> m_font;
+	/* std::shared_ptr<kiko::Font> m_font;
 	std::shared_ptr<kiko::Text> m_scoreText;
 	std::shared_ptr<kiko::Text> m_titleText;
 	std::shared_ptr<kiko::Text> m_livesText;
@@ -52,5 +55,5 @@ private:
 	std::shared_ptr<kiko::Text> m_missileText;
 	std::shared_ptr<kiko::Text> m_adrenalineText;
 	std::shared_ptr<kiko::Text> m_levelText;
-	std::shared_ptr<kiko::Text> m_levelCompleteText;
+	std::shared_ptr<kiko::Text> m_levelCompleteText; */
 };

@@ -10,7 +10,7 @@
 
 bool SpaceGame::Initialize() {
 	//font and text initialize
-	m_font = GET_RESOURCE(kiko::Font, "Freshman.ttf", 24);
+	/* m_font = GET_RESOURCE(kiko::Font, "Freshman.ttf", 24);
 	m_scoreText = std::make_unique<kiko::Text>(GET_RESOURCE(kiko::Font, "Freshman.ttf", 24));
 	m_titleText = std::make_unique<kiko::Text>(GET_RESOURCE(kiko::Font, "Freshman.ttf", 24));
 	m_livesText = std::make_unique<kiko::Text>(GET_RESOURCE(kiko::Font, "Freshman.ttf", 24));
@@ -20,7 +20,7 @@ bool SpaceGame::Initialize() {
 	m_gameOverText = std::make_unique<kiko::Text>(GET_RESOURCE(kiko::Font, "Freshman.ttf", 24));
 	m_diedText = std::make_unique<kiko::Text>(GET_RESOURCE(kiko::Font, "Freshman.ttf", 24));
 	m_levelText = std::make_unique<kiko::Text>(GET_RESOURCE(kiko::Font, "Freshman.ttf", 24));
-	m_levelCompleteText = std::make_unique<kiko::Text>(GET_RESOURCE(kiko::Font, "Freshman.ttf", 24));
+	m_levelCompleteText = std::make_unique<kiko::Text>(GET_RESOURCE(kiko::Font, "Freshman.ttf", 24)); */
 
 
 	//initialize audio
@@ -35,6 +35,10 @@ bool SpaceGame::Initialize() {
 	m_scene = std::make_unique<kiko::Scene>();
 	m_scene->Load("Scene.json");
 	m_scene->Initialize();
+
+	// add events
+	EVENT_SUBSCRIBE("OnAddPoints", SpaceGame::OnAddPoints);
+	EVENT_SUBSCRIBE("OnPlayerDead", SpaceGame::OnPlayerDead);
 
 	return true;
 }
@@ -325,17 +329,23 @@ void SpaceGame::Update(float dt) {
 	}
 	Player* player = m_scene->GetActor<Player>();
 	if (player) {
-		m_healthText->Create(kiko::g_renderer, "HEALTH: " + std::to_string(player->GetHealth()), {1, 1, 1, 1});
+		/* m_healthText->Create(kiko::g_renderer, "HEALTH: " + std::to_string(player->GetHealth()), {1, 1, 1, 1});
 		m_missileText->Create(kiko::g_renderer, "MISSILES: " + std::to_string(player->GetMissile()), {1, 1, 1, 1});
-		m_adrenalineText->Create(kiko::g_renderer, "ADRENALINE: " + std::to_string(player->GetAdrenaline()), {1, 1, 1, 1});
+		m_adrenalineText->Create(kiko::g_renderer, "ADRENALINE: " + std::to_string(player->GetAdrenaline()), {1, 1, 1, 1}); */
+		/* m_scene->GetActorByName("Health")->
+		m_scene->GetActorByName("Missile")->
+		m_scene->GetActorByName("Adrenaline")-> */
 	}
-	m_titleText->Create(kiko::g_renderer, "ASTROIDS! PRESS SPACE TO BEGIN", { 1, 1, 1, 1 });
+	/* m_scene->GetActorByName("Level")->
+	m_scene->GetActorByName("Score")->
+	m_scene->GetActorByName("Lives")-> */
+	/* m_titleText->Create(kiko::g_renderer, "ASTROIDS! PRESS SPACE TO BEGIN", {1, 1, 1, 1});
 	m_levelCompleteText->Create(kiko::g_renderer, "LEVEL COMPLETE! STARTING NEXT LEVEL", { 1, 1, 1, 1 });
 	m_scoreText->Create(kiko::g_renderer, "SCORE: " + std::to_string(m_score), {1, 1, 1, 1});
 	m_livesText->Create(kiko::g_renderer, "LIVES: " + std::to_string(m_lives), {1, 1, 1, 1});
 	m_gameOverText->Create(kiko::g_renderer, "GAME OVER", kiko::Color{ 1, 1, 1, 1 });
 	m_diedText->Create(kiko::g_renderer, "YOU DIED", kiko::Color{ 1, 1, 1, 1 });
-	m_levelText->Create(kiko::g_renderer, "LEVEL: " + std::to_string(currentLevel), kiko::Color{ 1, 1, 1, 1});
+	m_levelText->Create(kiko::g_renderer, "LEVEL: " + std::to_string(currentLevel), kiko::Color{ 1, 1, 1, 1}); */
 	m_scene->Update(dt);
 }
 
@@ -351,4 +361,11 @@ void SpaceGame::Draw(kiko::Renderer& renderer) {
 	//m_healthText->Draw(renderer, 20, 80);
 	//m_missileText->Draw(renderer, 550, 50);
 	//m_adrenalineText->Draw(renderer, 550, 80);
+}
+
+void SpaceGame::OnAddPoints(const kiko::Event& event) { m_score += std::get<int>(event.data); }
+
+void SpaceGame::OnPlayerDead(const kiko::Event& event) {
+	m_lives--;
+	m_state = eState::PlayerDeadStart;
 }
