@@ -20,7 +20,7 @@
 			"type": "Weapon",
 			"name": "RocketP",
 			"tag": "pWeapon",
-			"prototype":  true,
+			"prototype": true,
 			"lifespan": 2,
 			"speed": 400,
 			"transform": {
@@ -42,7 +42,7 @@
 			"type": "Weapon",
 			"name": "RocketE",
 			"tag": "eWeapon",
-			"prototype":  true,
+			"prototype": true,
 			"lifespan": 2,
 			"speed": 400,
 			"transform": {
@@ -57,6 +57,186 @@
 				},
 				{
 					"type": "CircleCollisionComponent"
+				}
+			]
+		},
+		{
+			"type": "Actor",
+			"name": "Title",
+			"persistent": true,
+			"transform": {
+				"position": [ 400, 300 ],
+				"scale": 1,
+				"rotation": 0
+			},
+			"components": [
+				{
+					"type": "TextRenderComponent",
+					"fontName": "Freshman.ttf",
+					"fontSize": 24,
+					"text": "ASTROIDS!"
+				}
+			]
+		},
+		{
+			"type": "Actor",
+			"name": "LevelComplete",
+			"persistent": true,
+			"transform": {
+				"position": [ 400, 300 ],
+				"scale": 1,
+				"rotation": 0
+			},
+			"components": [
+				{
+					"type": "TextRenderComponent",
+					"fontName": "Freshman.ttf",
+					"fontSize": 24,
+					"text": "LEVEL COMPLETE! STARTING NEXT LEVEL"
+				}
+			]
+		},
+		{
+			"type": "Actor",
+			"name": "PlayerDied",
+			"persistent": true,
+			"transform": {
+				"position": [ 400, 300 ],
+				"scale": 1,
+				"rotation": 0
+			},
+			"components": [
+				{
+					"type": "TextRenderComponent",
+					"fontName": "Freshman.ttf",
+					"fontSize": 24,
+					"text": "YOU DIED"
+				}
+			]
+		},
+		{
+			"type": "Actor",
+			"name": "GameOver",
+			"persistent": true,
+			"transform": {
+				"position": [ 400, 300 ],
+				"scale": 1,
+				"rotation": 0
+			},
+			"components": [
+				{
+					"type": "TextRenderComponent",
+					"fontName": "Freshman.ttf",
+					"fontSize": 24,
+					"text": "GAME OVER"
+				}
+			]
+		},
+		{
+			"type": "Actor",
+			"name": "Level",
+			"persistent": true,
+			"transform": {
+				"position": [ 550, 20 ],
+				"scale": 1,
+				"rotation": 0
+			},
+			"components": [
+				{
+					"type": "TextRenderComponent",
+					"fontName": "Freshman.ttf",
+					"fontSize": 24,
+					"text": "LEVEL: "
+				}
+			]
+		},
+		{
+			"type": "Actor",
+			"name": "Score",
+			"persistent": true,
+			"transform": {
+				"position": [ 20, 20 ],
+				"scale": 1,
+				"rotation": 0
+			},
+			"components": [
+				{
+					"type": "TextRenderComponent",
+					"fontName": "Freshman.ttf",
+					"fontSize": 24,
+					"text": "SCORE: "
+				}
+			]
+		},
+		{
+			"type": "Actor",
+			"name": "Lives",
+			"persistent": true,
+			"transform": {
+				"position": [ 20, 50 ],
+				"scale": 1,
+				"rotation": 0
+			},
+			"components": [
+				{
+					"type": "TextRenderComponent",
+					"fontName": "Freshman.ttf",
+					"fontSize": 24,
+					"text": "LIVES: "
+				}
+			]
+		},
+		{
+			"type": "Actor",
+			"name": "Health",
+			"persistent": true,
+			"transform": {
+				"position": [ 20, 80 ],
+				"scale": 1,
+				"rotation": 0
+			},
+			"components": [
+				{
+					"type": "TextRenderComponent",
+					"fontName": "Freshman.ttf",
+					"fontSize": 24,
+					"text": "HEALTH: "
+				}
+			]
+		},
+		{
+			"type": "Actor",
+			"name": "Missile",
+			"persistent": true,
+			"transform": {
+				"position": [ 550, 50 ],
+				"scale": 1,
+				"rotation": 0
+			},
+			"components": [
+				{
+					"type": "TextRenderComponent",
+					"fontName": "Freshman.ttf",
+					"fontSize": 24,
+					"text": "MISSILES: "
+				}
+			]
+		},
+		{
+			"type": "Actor",
+			"name": "Adrenaline",
+			"persistent": true,
+			"transform": {
+				"position": [ 550, 80 ],
+				"scale": 1,
+				"rotation": 0
+			},
+			"components": [
+				{
+					"type": "TextRenderComponent",
+					"fontName": "Freshman.ttf",
+					"fontSize": 24,
+					"text": "ADRENALINE: "
 				}
 			]
 		}

@@ -36,8 +36,6 @@ bool SpaceGame::Initialize() {
 	m_scene->Load("Scene.json");
 	m_scene->Initialize();
 
-	
-
 	return true;
 }
 
@@ -47,13 +45,37 @@ void SpaceGame::Shutdown() {
 void SpaceGame::Update(float dt) {
 	switch (m_state) {
 	case eState::Title:
+		m_scene->GetActorByName("Title")->active = true;
+		m_scene->GetActorByName("LevelComplete")->active = false;
+		m_scene->GetActorByName("PlayerDied")->active = false;
+		m_scene->GetActorByName("GameOver")->active = false;
+		m_scene->GetActorByName("Level")->active = false;
+		m_scene->GetActorByName("Score")->active = false;
+		m_scene->GetActorByName("Lives")->active = false;
+		m_scene->GetActorByName("Health")->active = false;
+		m_scene->GetActorByName("Missile")->active = false;
+		m_scene->GetActorByName("Adrenaline")->active = false;
 		if (kiko::g_inputSystem.GetKeyDown(SDL_SCANCODE_SPACE)) {
 			m_state = eState::StartGame;
+			m_scene->GetActorByName("Title")->active = false;
+			m_scene->GetActorByName("Level")->active = true;
+			m_scene->GetActorByName("Score")->active = true;
+			m_scene->GetActorByName("Lives")->active = true;
+			m_scene->GetActorByName("Health")->active = true;
+			m_scene->GetActorByName("Missile")->active = true;
+			m_scene->GetActorByName("Adrenaline")->active = true;
 			//m_scene->GetActorByName("Background")->active = false;
 			m_endless = false;
 		}
 		if (kiko::g_inputSystem.GetKeyDown(SDL_SCANCODE_E)) {
 			m_state = eState::StartGame;
+			m_scene->GetActorByName("Title")->active = false;
+			m_scene->GetActorByName("Level")->active = true;
+			m_scene->GetActorByName("Score")->active = true;
+			m_scene->GetActorByName("Lives")->active = true;
+			m_scene->GetActorByName("Health")->active = true;
+			m_scene->GetActorByName("Missile")->active = true;
+			m_scene->GetActorByName("Adrenaline")->active = true;
 			//m_scene->GetActorByName("Background")->active = false;
 			m_endless = true;
 			m_spawnTime = 1.5f;
@@ -66,6 +88,7 @@ void SpaceGame::Update(float dt) {
 		currentLevel = 1;
 		break;
 	case eState::StartLevel:
+		m_scene->GetActorByName("LevelComplete")->active = false;
 		m_scene->RemoveAll(); {
 			// create player
 			std::unique_ptr<Player> player = std::make_unique<Player>(200.0f, kiko::Pi, kiko::Transform{ {400, 300}, 1.2f });
@@ -200,6 +223,7 @@ void SpaceGame::Update(float dt) {
 		break;
 	case eState::LevelCompleteStart:
 		m_stateTimer = 3;
+		m_scene->GetActorByName("LevelComplete")->active = true;
 		m_state = eState::LevelComplete;
 		break;
 	case eState::LevelComplete:
@@ -211,18 +235,21 @@ void SpaceGame::Update(float dt) {
 		break;
 	case eState::PlayerDeadStart:
 		m_stateTimer = 3;
+		m_scene->GetActorByName("PlayerDied")->active = true;
 		m_state = eState::PlayerDead;
 		break;
 	case eState::PlayerDead:
 		if (m_stateTimer < 0) {
 			m_state = eState::StartLevel;
-			if (m_lives == 0) m_state = eState::GameOver;
+			m_scene->GetActorByName("PlayerDied")->active = false;
+			if (m_lives == 0) m_state = eState::GameOverStart;
 		} else {
 			m_stateTimer -= dt;
 		}
 		break;
 	case eState::GameOverStart:
 		m_stateTimer = 5;
+		m_scene->GetActorByName("GameOver")->active = true;
 		m_state = eState::GameOver;
 		break;
 	case eState::GameOver:
@@ -314,14 +341,14 @@ void SpaceGame::Update(float dt) {
 
 void SpaceGame::Draw(kiko::Renderer& renderer) {
 	m_scene->Draw(renderer);
-	if (m_state == eState::Title) m_titleText->Draw(renderer, 200, 250);
-	if (m_state == eState::LevelComplete) m_levelCompleteText->Draw(renderer, 200, 250);
-	if (m_state == eState::PlayerDead) m_diedText->Draw(renderer, 200, 250);
-	if (m_state == eState::GameOver) m_gameOverText->Draw(renderer, 200, 250);
-	if (m_state == eState::Game) m_levelText->Draw(renderer, 550, 20);
-	m_scoreText->Draw(renderer, 20, 20);
-	m_livesText->Draw(renderer, 20, 50);
-	m_healthText->Draw(renderer, 20, 80);
-	m_missileText->Draw(renderer, 550, 50);
-	m_adrenalineText->Draw(renderer, 550, 80);
+	//if (m_state == eState::Title) m_titleText->Draw(renderer, 200, 250);
+	//if (m_state == eState::LevelComplete) m_levelCompleteText->Draw(renderer, 200, 250);
+	//if (m_state == eState::PlayerDead) m_diedText->Draw(renderer, 200, 250);
+	//if (m_state == eState::GameOver) m_gameOverText->Draw(renderer, 200, 250);
+	//if (m_state == eState::Game) m_levelText->Draw(renderer, 550, 20);
+	//m_scoreText->Draw(renderer, 20, 20);
+	//m_livesText->Draw(renderer, 20, 50);
+	//m_healthText->Draw(renderer, 20, 80);
+	//m_missileText->Draw(renderer, 550, 50);
+	//m_adrenalineText->Draw(renderer, 550, 80);
 }

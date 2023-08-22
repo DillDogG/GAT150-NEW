@@ -1,4 +1,5 @@
 INFO : Class registered: Weapon
+INFO : Class registered: TextRenderComponent
 INFO : Class registered: SpriteComponent
 INFO : Class registered: ModelRenderComponent
 INFO : Class registered: EnginePhysicsComponent
@@ -7,4 +8,3 @@ INFO : Class registered: Actor
 INFO : Loaded Program
 INFO : Class registered: RocketP
 INFO : Class registered: RocketE
-INFO : Missile Pickup
