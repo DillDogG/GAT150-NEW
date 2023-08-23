@@ -6,7 +6,7 @@
 #include "Enemy.h"
 #include "Audio/AudioSystem.h"
 #include "SpaceGame.h"
-#include "Core/Logger.h"
+//#include "Core/Logger.h"
 #include "Physics/PhysicsSystem.h"
 #include <iostream>
 #include <thread>
@@ -92,7 +92,7 @@ int main(int argc, char* argv[]) {
 		if (kiko::g_inputSystem.GetKeyDown(SDL_SCANCODE_ESCAPE)) {
 			quit = true;
 		}
-
+		kiko::PhysicsSystem::Instance().Update(kiko::g_time.GetDeltaTime());
 		kiko::g_audioSystem.Update();
 		
 		float rotate = 0;

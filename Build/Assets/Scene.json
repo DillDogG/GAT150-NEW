@@ -239,6 +239,65 @@
 					"text": "ADRENALINE: "
 				}
 			]
+		},
+		{
+			"type": "Player",
+			"name": "Player",
+			"tag": "Player",
+			"prototype": true,
+			"speed": 2.0,
+			"turnrate": 5,
+			"health": 2,
+			"transform": {
+				"position": [ 400, 525 ],
+				"scale": 1,
+				"rotation": 0
+			},
+			"components": [
+				{
+					"type": "SpriteComponent",
+					"textureName": "PlayerShip.png"
+				},
+				{
+					"type": "Box2DPhysicsComponent",
+					"damping": 0.98,
+					"angularDamping": 2,
+					"gravityScale": 0
+				},
+				{
+					"type": "Box2DCollisionComponent",
+					"size": [ 32, 32 ]
+				}
+			]
+		},
+		{
+			"type": "Enemy",
+			"name": "Enemy",
+			"tag": "Enemy",
+			"prototype": true,
+			"speed": 1.5,
+			"turnrate": 1,
+			"transform": {
+				"position": [ 400, 525 ],
+				"scale": 1,
+				"rotation": 0
+			},
+			"components": [
+				{
+					"type": "SpriteComponent",
+					"textureName": "EnemyShip.png"
+				},
+				{
+					"type": "Box2DPhysicsComponent",
+					"damping": 0.98,
+					"angularDamping": 2,
+					"gravityScale": 0
+				},
+				{
+					"type": "Box2DCollisionComponent",
+					"size": [ 32, 32 ]
+				}
+			]
 		}
 	]
 }

@@ -1,4 +1,6 @@
 C:\Users\dyarbrough\source\repos\GAT150 NEW\Source\Engine\Framework\Actor.cpp
+C:\Users\dyarbrough\source\repos\GAT150 NEW\Source\Engine\Framework\Components\Box2DCollisionComponent.cpp
+C:\Users\dyarbrough\source\repos\GAT150 NEW\Source\Engine\Framework\Components\Box2DPhysicsComponent.cpp
 C:\Users\dyarbrough\source\repos\GAT150 NEW\Source\Engine\Framework\Components\CircleCollisionComponent.cpp
 C:\Users\dyarbrough\source\repos\GAT150 NEW\Source\Engine\Framework\Components\EnginePhysicsComponent.cpp
 C:\Users\dyarbrough\source\repos\GAT150 NEW\Source\Engine\Framework\Components\ModelRenderComponent.cpp

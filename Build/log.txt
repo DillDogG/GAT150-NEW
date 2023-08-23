@@ -1,12 +1,18 @@
+INFO : Class registered: Enemy
+INFO : Class registered: Player
 INFO : Class registered: Weapon
 INFO : Class registered: TextRenderComponent
 INFO : Class registered: SpriteComponent
 INFO : Class registered: ModelRenderComponent
 INFO : Class registered: EnginePhysicsComponent
 INFO : Class registered: CircleCollisionComponent
+INFO : Class registered: Box2DPhysicsComponent
+INFO : Class registered: Box2DCollisionComponent
 INFO : Class registered: Actor
 INFO : Loaded Program
 INFO : Class registered: RocketP
 INFO : Class registered: RocketE
+INFO : Class registered: Player
+INFO : Class registered: Enemy
 INFO : Event Subscribed: OnAddPoints
 INFO : Event Subscribed: OnPlayerDead
