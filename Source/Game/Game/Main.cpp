@@ -13,7 +13,7 @@
 #include <array>
 #include <map>
 #include <functional>
-
+// TO USE, DROPDOWN ON LOCAL WINDOWS DEBUGGER CONFIGURE STARTUP PROJECTS AND SELECT THE STARTUP
 using namespace std;
 
 class Star {
