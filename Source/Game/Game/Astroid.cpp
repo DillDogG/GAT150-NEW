@@ -59,8 +59,12 @@ namespace kiko {
 				//collisionComponent->m_radius = 30.f;
 				//astroid->AddComponent(std::move(collisionComponent));
 				//m_scene->Add(std::move(astroid));
-				auto astroid = INSTANTIATE(Astroid, "AstroidSmallP");
+				/* auto astroid = INSTANTIATE(Astroid, "AstroidSmallP");
 				astroid->transform = { this->transform.position, this->transform.rotation, 1 };
+				astroid->Initialize();
+				m_scene->Add(std::move(astroid)); */
+				auto astroid = INSTANTIATE(Astroid, "AstroidSmallP");
+				astroid->transform = { this->transform.position, this->transform.rotation };
 				astroid->Initialize();
 				m_scene->Add(std::move(astroid));
 			}

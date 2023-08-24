@@ -1,8 +1,3 @@
-INFO : Class registered: Astroid
-INFO : Class registered: Enemy
-INFO : Class registered: Item
-INFO : Class registered: Player
-INFO : Class registered: Weapon
 INFO : Class registered: TextRenderComponent
 INFO : Class registered: SpriteComponent
 INFO : Class registered: ModelRenderComponent
@@ -12,18 +7,3 @@ INFO : Class registered: Box2DPhysicsComponent
 INFO : Class registered: Box2DCollisionComponent
 INFO : Class registered: Actor
 INFO : Loaded Program
-INFO : Class registered: RocketP
-INFO : Class registered: RocketE
-INFO : Class registered: Player
-INFO : Class registered: Enemy
-INFO : Class registered: MissileItem
-INFO : Class registered: RapidItem
-INFO : Class registered: MultiItem
-INFO : Class registered: ShieldItem
-INFO : Class registered: HealthItem
-INFO : Class registered: AstroidSmallP
-INFO : Class registered: AstroidSmallE
-INFO : Class registered: AstroidMedium
-INFO : Class registered: AstroidLarge
-INFO : Event Subscribed: OnAddPoints
-INFO : Event Subscribed: OnPlayerDead
