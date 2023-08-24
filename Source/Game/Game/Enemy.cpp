@@ -93,5 +93,6 @@ namespace kiko {
 		Actor::Read(value);
 		READ_DATA(value, speed);
 		READ_NAME_DATA(value, "turnrate", m_turnRate);
+		READ_NAME_DATA(value, "firerate", m_fireRate);
 	}
 }

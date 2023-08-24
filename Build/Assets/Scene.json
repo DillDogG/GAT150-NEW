@@ -253,6 +253,10 @@
 				"scale": 1,
 				"rotation": 0
 			},
+			"firerate": 1,
+			"missiles": 5,
+			"adrenaline": 50,
+			"immunetime": 2.5,
 			"components": [
 				{
 					"type": "SpriteComponent",
@@ -282,10 +286,233 @@
 				"scale": 1,
 				"rotation": 0
 			},
+			"firerate": 2,
 			"components": [
 				{
 					"type": "SpriteComponent",
 					"textureName": "EnemyShip.png"
+				},
+				{
+					"type": "Box2DPhysicsComponent",
+					"damping": 0.98,
+					"angularDamping": 2,
+					"gravityScale": 0
+				},
+				{
+					"type": "Box2DCollisionComponent",
+					"size": [ 32, 32 ]
+				}
+			]
+		},
+		{
+			"type": "Item",
+			"name": "MissileItem",
+			"tag": "Missile",
+			"prototype": true,
+			"transform": {
+				"position": [ 400, 525 ],
+				"scale": 1,
+				"rotation": 0
+			},
+			"components": [
+				{
+					"type": "SpriteComponent",
+					"textureName": "Box.png"
+				},
+				{
+					"type": "Box2DPhysicsComponent",
+					"damping": 0.98,
+					"angularDamping": 2,
+					"gravityScale": 0
+				},
+				{
+					"type": "Box2DCollisionComponent",
+					"size": [ 32, 32 ]
+				}
+			]
+		},
+		{
+			"type": "Item",
+			"name": "RapidItem",
+			"tag": "Rapid",
+			"prototype": true,
+			"transform": {
+				"position": [ 400, 525 ],
+				"scale": 1,
+				"rotation": 0
+			},
+			"components": [
+				{
+					"type": "SpriteComponent",
+					"textureName": "Box.png"
+				},
+				{
+					"type": "Box2DPhysicsComponent",
+					"damping": 0.98,
+					"angularDamping": 2,
+					"gravityScale": 0
+				},
+				{
+					"type": "Box2DCollisionComponent",
+					"size": [ 32, 32 ]
+				}
+			]
+		},
+		{
+			"type": "Item",
+			"name": "MultiItem",
+			"tag": "Multi",
+			"prototype": true,
+			"transform": {
+				"position": [ 400, 525 ],
+				"scale": 1,
+				"rotation": 0
+			},
+			"components": [
+				{
+					"type": "SpriteComponent",
+					"textureName": "Box.png"
+				},
+				{
+					"type": "Box2DPhysicsComponent",
+					"damping": 0.98,
+					"angularDamping": 2,
+					"gravityScale": 0
+				},
+				{
+					"type": "Box2DCollisionComponent",
+					"size": [ 32, 32 ]
+				}
+			]
+		},
+		{
+			"type": "Item",
+			"name": "ShieldItem",
+			"tag": "Shield",
+			"prototype": true,
+			"transform": {
+				"position": [ 400, 525 ],
+				"scale": 1,
+				"rotation": 0
+			},
+			"components": [
+				{
+					"type": "SpriteComponent",
+					"textureName": "Box.png"
+				},
+				{
+					"type": "Box2DPhysicsComponent",
+					"damping": 0.98,
+					"angularDamping": 2,
+					"gravityScale": 0
+				},
+				{
+					"type": "Box2DCollisionComponent",
+					"size": [ 32, 32 ]
+				}
+			]
+		},
+		{
+			"type": "Item",
+			"name": "HealthItem",
+			"tag": "Health",
+			"prototype": true,
+			"transform": {
+				"position": [ 400, 525 ],
+				"scale": 1,
+				"rotation": 0
+			},
+			"components": [
+				{
+					"type": "SpriteComponent",
+					"textureName": "Box.png"
+				},
+				{
+					"type": "Box2DPhysicsComponent",
+					"damping": 0.98,
+					"angularDamping": 2,
+					"gravityScale": 0
+				},
+				{
+					"type": "Box2DCollisionComponent",
+					"size": [ 32, 32 ]
+				}
+			]
+		},
+		{
+			"type": "Astroid",
+			"name": "AstroidSmall",
+			"tag": "Astroid",
+			"prototype": true,
+			"speed": 2,
+			"size": 0,
+			"transform": {
+				"position": [ 400, 525 ],
+				"scale": 1,
+				"rotation": 0
+			},
+			"components": [
+				{
+					"type": "SpriteComponent",
+					"textureName": "Astroid Small.png"
+				},
+				{
+					"type": "Box2DPhysicsComponent",
+					"damping": 0.98,
+					"angularDamping": 2,
+					"gravityScale": 0
+				},
+				{
+					"type": "Box2DCollisionComponent",
+					"size": [ 32, 32 ]
+				}
+			]
+		},
+		{
+			"type": "Astroid",
+			"name": "AstroidMedium",
+			"tag": "Astroid",
+			"prototype": true,
+			"speed": 1.5,
+			"size": 4,
+			"transform": {
+				"position": [ 400, 525 ],
+				"scale": 1,
+				"rotation": 0
+			},
+			"components": [
+				{
+					"type": "SpriteComponent",
+					"textureName": "Astroid Medium.png"
+				},
+				{
+					"type": "Box2DPhysicsComponent",
+					"damping": 0.98,
+					"angularDamping": 2,
+					"gravityScale": 0
+				},
+				{
+					"type": "Box2DCollisionComponent",
+					"size": [ 32, 32 ]
+				}
+			]
+		},
+		{
+			"type": "Astroid",
+			"name": "AstroidLarge",
+			"tag": "Astroid",
+			"prototype": true,
+			"speed": 1,
+			"size": 8,
+			"transform": {
+				"position": [ 400, 525 ],
+				"scale": 1,
+				"rotation": 0
+			},
+			"components": [
+				{
+					"type": "SpriteComponent",
+					"textureName": "Astroid Large.png"
 				},
 				{
 					"type": "Box2DPhysicsComponent",

@@ -167,5 +167,9 @@ namespace kiko {
 		READ_DATA(value, speed);
 		READ_NAME_DATA(value, "turnrate", m_turnRate);
 		READ_NAME_DATA(value, "health", m_health);
+		READ_NAME_DATA(value, "firerate", m_fireRate);
+		READ_NAME_DATA(value, "missiles", m_missileCount);
+		READ_NAME_DATA(value, "adrenaline", m_adrenaline);
+		READ_NAME_DATA(value, "immunetime", m_immuneTime);
 	}
 }

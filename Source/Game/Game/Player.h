@@ -33,13 +33,13 @@ namespace kiko {
 		float m_turnRate = 0;
 		int m_health = 0;
 
-		float m_fireRate = 1;
+		float m_fireRate = 0;
 		float m_fireTimer = 0;
-		int m_missileCount = 5;
+		int m_missileCount = 0;
 		float m_missileRate = 0;
 		float m_missileTimer = 0;
-		float m_adrenaline = 50;
-		float m_immuneTime = 2.5f;
+		float m_adrenaline = 0;
+		float m_immuneTime = 0;
 		float m_immuneTimer = 0;
 		float m_powerTimer = 0;
 

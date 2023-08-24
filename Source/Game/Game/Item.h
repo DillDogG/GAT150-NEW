@@ -1,13 +1,15 @@
 #pragma once
 #include "Framework/Framework.h"
 
-class Item : public kiko::Actor {
-public:
-	Item(const kiko::Transform& transform, float lifeSpan) :
-		Actor{ transform }
-	{
-		lifespan = lifeSpan;
-	}
-	void Update(float dt) override;
-	void OnCollision(Actor* other) override;
-};
+namespace kiko {
+	class Item : public kiko::Actor {
+	public:
+		CLASS_DECLARATION(Item);
+		bool Initialize() override;
+		void Update(float dt) override;
+		void OnCollision(Actor* other) override;
+	private:
+		PhysicsComponent* m_physicsComponent = nullptr;
+		SpriteComponent* m_spriteComponent = nullptr;
+	};
+}
