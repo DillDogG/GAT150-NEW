@@ -28,11 +28,11 @@ namespace kiko {
 		template<typename T>
 		T* GetComponent();
 
-		virtual void OnCollision(Actor* other) {}
+		virtual void OnCollisionEnter(Actor* other) {}
+		virtual void OnCollisionExit(Actor* other) {}
 
 		class Game* m_game = nullptr;
 
-		float GetRadius() { return 30.0f; }
 		class Scene* m_scene = nullptr;
 		friend class Scene;
 		kiko::Transform transform;

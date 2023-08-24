@@ -7,7 +7,7 @@ namespace kiko {
 		CLASS_DECLARATION(Weapon)
 		bool Initialize() override;
 		void Update(float dt) override;
-		void OnCollision(Actor* other) override;
+		void OnCollisionEnter(Actor* other) override;
 		//void Read(const json_t& value);
 	private:
 		float speed = 0;

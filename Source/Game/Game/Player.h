@@ -23,7 +23,7 @@ namespace kiko {
 
 		bool Initialize() override;
 		void Update(float dt) override;
-		void OnCollision(Actor* other) override;
+		void OnCollisionEnter(Actor* other) override;
 		int GetHealth() { return m_health; }
 		int GetMissile() { return m_missileCount; }
 		float GetAdrenaline() { return m_adrenaline; }

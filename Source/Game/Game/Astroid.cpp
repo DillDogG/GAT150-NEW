@@ -29,7 +29,7 @@ namespace kiko {
 		transform.position.y = kiko::Wrap(transform.position.y, (float)kiko::g_renderer.GetHeight());
 	}
 
-	void Astroid::OnCollision(Actor* other) {
+	void Astroid::OnCollisionEnter(Actor* other) {
 		if (other->tag == "pWeapon" && tag != "pAstroid") {
 			destroyed = true;
 			kiko::EmitterData data;
@@ -59,7 +59,7 @@ namespace kiko {
 				//collisionComponent->m_radius = 30.f;
 				//astroid->AddComponent(std::move(collisionComponent));
 				//m_scene->Add(std::move(astroid));
-				auto astroid = INSTANTIATE(Astroid, "AstroidSmall");
+				auto astroid = INSTANTIATE(Astroid, "AstroidSmallP");
 				astroid->transform = { this->transform.position, this->transform.rotation, 1 };
 				astroid->Initialize();
 				m_scene->Add(std::move(astroid));
@@ -94,7 +94,7 @@ namespace kiko {
 				//collisionComponent->m_radius = 30.f;
 				//astroid->AddComponent(std::move(collisionComponent));
 				//m_scene->Add(std::move(astroid));
-				auto astroid = INSTANTIATE(Astroid, "AstroidSmall");
+				auto astroid = INSTANTIATE(Astroid, "AstroidSmallE");
 				astroid->transform = { this->transform.position, this->transform.rotation, 1 };
 				astroid->Initialize();
 				m_scene->Add(std::move(astroid));

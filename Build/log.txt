@@ -21,7 +21,8 @@ INFO : Class registered: RapidItem
 INFO : Class registered: MultiItem
 INFO : Class registered: ShieldItem
 INFO : Class registered: HealthItem
-INFO : Class registered: AstroidSmall
+INFO : Class registered: AstroidSmallP
+INFO : Class registered: AstroidSmallE
 INFO : Class registered: AstroidMedium
 INFO : Class registered: AstroidLarge
 INFO : Event Subscribed: OnAddPoints

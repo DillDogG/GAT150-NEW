@@ -15,7 +15,7 @@ namespace kiko {
 		} */
 		bool Initialize() override;
 		void Update(float dt) override;
-		void OnCollision(Actor* other) override;
+		void OnCollisionEnter(Actor* other) override;
 		float m_fireRate = 0;
 	private:
 		float speed = 0;

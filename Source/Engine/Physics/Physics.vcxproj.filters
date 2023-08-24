@@ -10,9 +10,15 @@
     <ClInclude Include="PhysicsSystem.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="ContactListener.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PhysicsSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ContactListener.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

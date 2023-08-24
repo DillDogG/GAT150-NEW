@@ -7,7 +7,7 @@ namespace kiko {
 		CLASS_DECLARATION(Item);
 		bool Initialize() override;
 		void Update(float dt) override;
-		void OnCollision(Actor* other) override;
+		void OnCollisionEnter(Actor* other) override;
 	private:
 		PhysicsComponent* m_physicsComponent = nullptr;
 		SpriteComponent* m_spriteComponent = nullptr;

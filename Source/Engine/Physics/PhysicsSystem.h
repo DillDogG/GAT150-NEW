@@ -1,5 +1,6 @@
 #pragma once
 #include "Framework/Singleton.h"
+#include "ContactListener.h"
 #include "include/box2d/b2_world.h"
 #include "include/box2d/box2d.h"
 #include "Core/Math/Vector2.h"
@@ -43,7 +44,9 @@ namespace kiko {
 	private:
 		PhysicsSystem() = default;
 	private:
-		std::unique_ptr<b2World> m_world;
 		float m_pixelsPerUnit = 48.0f;
+
+		std::unique_ptr<b2World> m_world;
+		std::unique_ptr<ContactListener> m_contactListener;
 	};
 }

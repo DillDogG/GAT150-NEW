@@ -30,7 +30,7 @@ namespace kiko {
 			Vector2 direction = player->transform.position - transform.position;
 			float turnAngle = vec2::SignedAngle(forward, direction.Normalized());
 			//transform.rotation += turnAngle * 3 * dt;
-			m_physicsComponent->ApplyTorque(turnAngle);
+			m_physicsComponent->ApplyTorque(turnAngle * 0.3f);
 
 			angle = vec2::Angle(forward, direction.Normalized());
 
@@ -64,7 +64,7 @@ namespace kiko {
 		}
 	}
 
-	void Enemy::OnCollision(Actor* other) {
+	void Enemy::OnCollisionEnter(Actor* other) {
 		if (other->tag == "pWeapon" || other->tag == "Astroid" || other->tag == "pAstroid") {
 			if (!destroyed) {
 				//m_game->AddPoints(100);

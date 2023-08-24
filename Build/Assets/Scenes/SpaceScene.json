@@ -22,7 +22,7 @@
 			"tag": "pWeapon",
 			"prototype": true,
 			"lifespan": 2,
-			"speed": 400,
+			"speed": 4,
 			"transform": {
 				"position": [ 400, 525 ],
 				"scale": 1,
@@ -34,7 +34,16 @@
 					"textureName": "Bullet.png"
 				},
 				{
-					"type": "CircleCollisionComponent"
+					"type": "Box2DPhysicsComponent",
+					"damping": 0,
+					"angularDamping": 2,
+					"gravityScale": 0
+				},
+				{
+					"type": "Box2DCollisionComponent",
+					"size": [ 32, 32 ],
+					"isTrigger": true,
+					"constrainAngle": true
 				}
 			]
 		},
@@ -44,7 +53,7 @@
 			"tag": "eWeapon",
 			"prototype": true,
 			"lifespan": 2,
-			"speed": 400,
+			"speed": 4,
 			"transform": {
 				"position": [ 400, 525 ],
 				"scale": 1,
@@ -56,7 +65,16 @@
 					"textureName": "Bullet.png"
 				},
 				{
-					"type": "CircleCollisionComponent"
+					"type": "Box2DPhysicsComponent",
+					"damping": 0,
+					"angularDamping": 2,
+					"gravityScale": 0
+				},
+				{
+					"type": "Box2DCollisionComponent",
+					"size": [ 32, 32 ],
+					"isTrigger": true,
+					"constrainAngle": true
 				}
 			]
 		},
@@ -245,8 +263,8 @@
 			"name": "Player",
 			"tag": "Player",
 			"prototype": true,
-			"speed": 2.0,
-			"turnrate": 5,
+			"speed": 1.5,
+			"turnrate": 0.5,
 			"health": 2,
 			"transform": {
 				"position": [ 400, 525 ],
@@ -254,6 +272,7 @@
 				"rotation": 0
 			},
 			"firerate": 1,
+			"missilerate": 0.25,
 			"missiles": 5,
 			"adrenaline": 50,
 			"immunetime": 2.5,
@@ -279,8 +298,8 @@
 			"name": "Enemy",
 			"tag": "Enemy",
 			"prototype": true,
-			"speed": 1.5,
-			"turnrate": 1,
+			"speed": 1,
+			"turnrate": 0.5,
 			"transform": {
 				"position": [ 400, 525 ],
 				"scale": 1,
@@ -308,6 +327,7 @@
 			"type": "Item",
 			"name": "MissileItem",
 			"tag": "Missile",
+			"lifespan": 7,
 			"prototype": true,
 			"transform": {
 				"position": [ 400, 525 ],
@@ -323,7 +343,7 @@
 					"type": "Box2DPhysicsComponent",
 					"damping": 0.98,
 					"angularDamping": 2,
-					"gravityScale": 0
+					"gravityScale": 0.1
 				},
 				{
 					"type": "Box2DCollisionComponent",
@@ -335,6 +355,7 @@
 			"type": "Item",
 			"name": "RapidItem",
 			"tag": "Rapid",
+			"lifespan": 7,
 			"prototype": true,
 			"transform": {
 				"position": [ 400, 525 ],
@@ -350,7 +371,7 @@
 					"type": "Box2DPhysicsComponent",
 					"damping": 0.98,
 					"angularDamping": 2,
-					"gravityScale": 0
+					"gravityScale": 0.1
 				},
 				{
 					"type": "Box2DCollisionComponent",
@@ -362,6 +383,7 @@
 			"type": "Item",
 			"name": "MultiItem",
 			"tag": "Multi",
+			"lifespan": 7,
 			"prototype": true,
 			"transform": {
 				"position": [ 400, 525 ],
@@ -377,7 +399,7 @@
 					"type": "Box2DPhysicsComponent",
 					"damping": 0.98,
 					"angularDamping": 2,
-					"gravityScale": 0
+					"gravityScale": 0.1
 				},
 				{
 					"type": "Box2DCollisionComponent",
@@ -388,6 +410,7 @@
 		{
 			"type": "Item",
 			"name": "ShieldItem",
+			"lifespan": 7,
 			"tag": "Shield",
 			"prototype": true,
 			"transform": {
@@ -404,7 +427,7 @@
 					"type": "Box2DPhysicsComponent",
 					"damping": 0.98,
 					"angularDamping": 2,
-					"gravityScale": 0
+					"gravityScale": 0.1
 				},
 				{
 					"type": "Box2DCollisionComponent",
@@ -416,6 +439,7 @@
 			"type": "Item",
 			"name": "HealthItem",
 			"tag": "Health",
+			"lifespan": 7,
 			"prototype": true,
 			"transform": {
 				"position": [ 400, 525 ],
@@ -431,6 +455,35 @@
 					"type": "Box2DPhysicsComponent",
 					"damping": 0.98,
 					"angularDamping": 2,
+					"gravityScale": 0.1
+				},
+				{
+					"type": "Box2DCollisionComponent",
+					"size": [ 32, 32 ]
+				}
+			]
+		},
+		{
+			"type": "Astroid",
+			"name": "AstroidSmallP",
+			"tag": "pAstroid",
+			"prototype": true,
+			"speed": 2,
+			"size": 0,
+			"transform": {
+				"position": [ 400, 525 ],
+				"scale": 1,
+				"rotation": 0
+			},
+			"components": [
+				{
+					"type": "SpriteComponent",
+					"textureName": "Astroid Small.png"
+				},
+				{
+					"type": "Box2DPhysicsComponent",
+					"damping": 0.98,
+					"angularDamping": 2,
 					"gravityScale": 0
 				},
 				{
@@ -441,8 +494,8 @@
 		},
 		{
 			"type": "Astroid",
-			"name": "AstroidSmall",
-			"tag": "Astroid",
+			"name": "AstroidSmallE",
+			"tag": "eAstroid",
 			"prototype": true,
 			"speed": 2,
 			"size": 0,

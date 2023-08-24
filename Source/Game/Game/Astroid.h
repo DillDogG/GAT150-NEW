@@ -7,7 +7,7 @@ namespace kiko {
 		CLASS_DECLARATION(Astroid);
 		bool Initialize() override;
 		void Update(float dt) override;
-		void OnCollision(Actor* other) override;
+		void OnCollisionEnter(Actor* other) override;
 	private:
 		float speed = 0;
 		int m_size = 0;

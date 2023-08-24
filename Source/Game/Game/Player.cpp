@@ -29,7 +29,7 @@ namespace kiko {
 		if (kiko::g_inputSystem.GetKeyDown(SDL_SCANCODE_A)) rotate = -1;
 		if (kiko::g_inputSystem.GetKeyDown(SDL_SCANCODE_D)) rotate = 1;
 		//transform.rotation += rotate * m_turnRate * kiko::g_time.GetDeltaTime();
-		m_physicsComponent->ApplyTorque(rotate * 0.5f);
+		m_physicsComponent->ApplyTorque(rotate * 0.3f);
 
 		float thrust = 0;
 		if (kiko::g_inputSystem.GetKeyDown(SDL_SCANCODE_W) && kiko::g_inputSystem.GetKeyDown(SDL_SCANCODE_S)) thrust = 0.5f;
@@ -47,22 +47,22 @@ namespace kiko {
 		if (m_fireTimer < 0) {
 			if (kiko::g_inputSystem.GetKeyDown(SDL_SCANCODE_SPACE) && m_multi) {
 				auto weapon = INSTANTIATE(Weapon, "RocketP");
-				weapon->transform = { transform.position, transform.rotation, 1 };
+				weapon->transform = { transform.position + forward * 30, transform.rotation, 1};
 				weapon->Initialize();
 				m_scene->Add(std::move(weapon));
 				weapon = INSTANTIATE(Weapon, "RocketP");
-				weapon->transform = { transform.position, transform.rotation, 1 };
+				weapon->transform = { transform.position + forward * 30, transform.rotation + DegreesToRadians(15.0f), 1 };
 				weapon->Initialize();
 				m_scene->Add(std::move(weapon));
 				weapon = INSTANTIATE(Weapon, "RocketP");
-				weapon->transform = { transform.position, transform.rotation, 1 };
+				weapon->transform = { transform.position + forward * 30, transform.rotation - DegreesToRadians(15.0f), 1 };
 				weapon->Initialize();
 				m_scene->Add(std::move(weapon));
 				m_fireTimer = m_fireRate;
 			}
 			else if (kiko::g_inputSystem.GetKeyDown(SDL_SCANCODE_SPACE)) {
 				auto weapon = INSTANTIATE(Weapon, "RocketP");
-				weapon->transform = { this->transform.position, this->transform.rotation, 1 };
+				weapon->transform = { this->transform.position + forward * 30, this->transform.rotation, 1 };
 				weapon->Initialize();
 				m_scene->Add(std::move(weapon));
 				m_fireTimer = m_fireRate;
@@ -128,7 +128,7 @@ namespace kiko {
 		}
 	}
 
-	void Player::OnCollision(Actor* other) {
+	void Player::OnCollisionEnter(Actor* other) {
 		if (m_immuneTimer <= 0 && !m_shield) {
 			if (other->tag == "eWeapon" || other->tag == "Enemy" || other->tag == "eAstroid") {
 				m_health--;
@@ -168,6 +168,7 @@ namespace kiko {
 		READ_NAME_DATA(value, "turnrate", m_turnRate);
 		READ_NAME_DATA(value, "health", m_health);
 		READ_NAME_DATA(value, "firerate", m_fireRate);
+		READ_NAME_DATA(value, "missilerate", m_missileRate);
 		READ_NAME_DATA(value, "missiles", m_missileCount);
 		READ_NAME_DATA(value, "adrenaline", m_adrenaline);
 		READ_NAME_DATA(value, "immunetime", m_immuneTime);

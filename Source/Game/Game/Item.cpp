@@ -22,7 +22,7 @@ namespace kiko {
 
 	}
 
-	void Item::OnCollision(Actor* other) {
+	void Item::OnCollisionEnter(Actor* other) {
 		if (other->tag == "Player") destroyed = true;
 	}
 
