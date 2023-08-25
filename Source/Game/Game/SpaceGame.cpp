@@ -24,9 +24,9 @@ bool SpaceGame::Initialize() {
 
 
 	//initialize audio
-	kiko::g_audioSystem.AddAudio("thrusters", "Thrusters.wav");
-	kiko::g_audioSystem.AddAudio("explosion", "Explosion.wav");
-	kiko::g_audioSystem.AddAudio("laser", "Laser_Shoot.wav");
+	kiko::g_audioSystem.AddAudio("thrusters", "audio/Thrusters.wav");
+	kiko::g_audioSystem.AddAudio("explosion", "audio/Explosion.wav");
+	kiko::g_audioSystem.AddAudio("laser", "audio/Laser_Shoot.wav");
 
 	//creates window
 	kiko::g_renderer.CreateWindow("GAT150", 800, 600);

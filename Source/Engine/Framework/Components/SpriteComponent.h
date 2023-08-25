@@ -16,5 +16,6 @@ namespace kiko {
 	public:
 		std::string textureName;
 		res_t<Texture> m_texture;
+		Rect source;
 	};
 }

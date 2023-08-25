@@ -20,7 +20,7 @@ int main(int argc, char* argv[]) {
 #pragma region Initialization
 	kiko::MemoryTracker::Initialize();
 	kiko::seedRandom((unsigned int)time(nullptr));
-	kiko::setFilePath("assets");
+	kiko::setFilePath("assets/platformer");
 
 	kiko::g_renderer.Initialize();
 

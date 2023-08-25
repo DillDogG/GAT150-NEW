@@ -12,7 +12,7 @@
 			"components": [
 				{
 					"type": "SpriteComponent",
-					"textureName": "SpaceBackground.jpg"
+					"textureName": "textures/SpaceBackground.jpg"
 				}
 			]
 		},
@@ -31,7 +31,7 @@
 			"components": [
 				{
 					"type": "SpriteComponent",
-					"textureName": "Bullet.png"
+					"textureName": "textures/Bullet.png"
 				},
 				{
 					"type": "Box2DPhysicsComponent",
@@ -62,7 +62,7 @@
 			"components": [
 				{
 					"type": "SpriteComponent",
-					"textureName": "Bullet.png"
+					"textureName": "textures/Bullet.png"
 				},
 				{
 					"type": "Box2DPhysicsComponent",
@@ -90,9 +90,10 @@
 			"components": [
 				{
 					"type": "TextRenderComponent",
-					"fontName": "Freshman.ttf",
+					"fontName": "fonts/Freshman.ttf",
 					"fontSize": 24,
-					"text": "ASTROIDS!"
+					"text": "ASTROIDS!",
+					"color": [ 1, 0, 0, 1 ]
 				}
 			]
 		},
@@ -110,7 +111,8 @@
 					"type": "TextRenderComponent",
 					"fontName": "Freshman.ttf",
 					"fontSize": 24,
-					"text": "LEVEL COMPLETE! STARTING NEXT LEVEL"
+					"text": "LEVEL COMPLETE! STARTING NEXT LEVEL",
+					"color": [ 1, 0, 0, 1 ]
 				}
 			]
 		},
@@ -128,7 +130,8 @@
 					"type": "TextRenderComponent",
 					"fontName": "Freshman.ttf",
 					"fontSize": 24,
-					"text": "YOU DIED"
+					"text": "YOU DIED",
+					"color": [ 1, 0, 0, 1 ]
 				}
 			]
 		},
@@ -146,7 +149,8 @@
 					"type": "TextRenderComponent",
 					"fontName": "Freshman.ttf",
 					"fontSize": 24,
-					"text": "GAME OVER"
+					"text": "GAME OVER",
+					"color": [ 1, 0, 0, 1 ]
 				}
 			]
 		},
@@ -164,7 +168,8 @@
 					"type": "TextRenderComponent",
 					"fontName": "Freshman.ttf",
 					"fontSize": 24,
-					"text": "LEVEL: "
+					"text": "LEVEL: ",
+					"color": [ 1, 0, 0, 1 ]
 				}
 			]
 		},
@@ -182,7 +187,8 @@
 					"type": "TextRenderComponent",
 					"fontName": "Freshman.ttf",
 					"fontSize": 24,
-					"text": "SCORE: "
+					"text": "SCORE: ",
+					"color": [ 1, 0, 0, 1 ]
 				}
 			]
 		},
@@ -200,7 +206,8 @@
 					"type": "TextRenderComponent",
 					"fontName": "Freshman.ttf",
 					"fontSize": 24,
-					"text": "LIVES: "
+					"text": "LIVES: ",
+					"color": [ 1, 0, 0, 1 ]
 				}
 			]
 		},
@@ -218,7 +225,8 @@
 					"type": "TextRenderComponent",
 					"fontName": "Freshman.ttf",
 					"fontSize": 24,
-					"text": "HEALTH: "
+					"text": "HEALTH: ",
+					"color": [ 1, 0, 0, 1 ]
 				}
 			]
 		},
@@ -236,7 +244,8 @@
 					"type": "TextRenderComponent",
 					"fontName": "Freshman.ttf",
 					"fontSize": 24,
-					"text": "MISSILES: "
+					"text": "MISSILES: ",
+					"color": [ 1, 0, 0, 1 ]
 				}
 			]
 		},
@@ -254,7 +263,8 @@
 					"type": "TextRenderComponent",
 					"fontName": "Freshman.ttf",
 					"fontSize": 24,
-					"text": "ADRENALINE: "
+					"text": "ADRENALINE: ",
+					"color": [ 1, 0, 0, 1 ]
 				}
 			]
 		},
@@ -279,7 +289,7 @@
 			"components": [
 				{
 					"type": "SpriteComponent",
-					"textureName": "PlayerShip.png"
+					"textureName": "textures/PlayerShip.png"
 				},
 				{
 					"type": "Box2DPhysicsComponent",
@@ -309,7 +319,7 @@
 			"components": [
 				{
 					"type": "SpriteComponent",
-					"textureName": "EnemyShip.png"
+					"textureName": "textures/EnemyShip.png"
 				},
 				{
 					"type": "Box2DPhysicsComponent",
@@ -337,7 +347,7 @@
 			"components": [
 				{
 					"type": "SpriteComponent",
-					"textureName": "Box.png"
+					"textureName": "textures/Box.png"
 				},
 				{
 					"type": "Box2DPhysicsComponent",
@@ -365,7 +375,7 @@
 			"components": [
 				{
 					"type": "SpriteComponent",
-					"textureName": "Box.png"
+					"textureName": "textures/Box.png"
 				},
 				{
 					"type": "Box2DPhysicsComponent",
@@ -393,7 +403,7 @@
 			"components": [
 				{
 					"type": "SpriteComponent",
-					"textureName": "Box.png"
+					"textureName": "textures/Box.png"
 				},
 				{
 					"type": "Box2DPhysicsComponent",
@@ -421,7 +431,7 @@
 			"components": [
 				{
 					"type": "SpriteComponent",
-					"textureName": "Box.png"
+					"textureName": "textures/Box.png"
 				},
 				{
 					"type": "Box2DPhysicsComponent",
@@ -449,7 +459,7 @@
 			"components": [
 				{
 					"type": "SpriteComponent",
-					"textureName": "Box.png"
+					"textureName": "textures/Box.png"
 				},
 				{
 					"type": "Box2DPhysicsComponent",
@@ -478,7 +488,7 @@
 			"components": [
 				{
 					"type": "SpriteComponent",
-					"textureName": "Astroid Small.png"
+					"textureName": "textures/Astroid Small.png"
 				},
 				{
 					"type": "Box2DPhysicsComponent",
@@ -507,7 +517,7 @@
 			"components": [
 				{
 					"type": "SpriteComponent",
-					"textureName": "Astroid Small.png"
+					"textureName": "textures/Astroid Small.png"
 				},
 				{
 					"type": "Box2DPhysicsComponent",
@@ -536,7 +546,7 @@
 			"components": [
 				{
 					"type": "SpriteComponent",
-					"textureName": "Astroid Medium.png"
+					"textureName": "textures/Astroid Medium.png"
 				},
 				{
 					"type": "Box2DPhysicsComponent",
@@ -565,7 +575,7 @@
 			"components": [
 				{
 					"type": "SpriteComponent",
-					"textureName": "Astroid Large.png"
+					"textureName": "textures/Astroid Large.png"
 				},
 				{
 					"type": "Box2DPhysicsComponent",

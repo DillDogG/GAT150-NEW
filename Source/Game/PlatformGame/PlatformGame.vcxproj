@@ -135,9 +135,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <None Include="..\..\..\Build\Assets\Scenes\PlatformerScene.json" />
-  </ItemGroup>
-  <ItemGroup>
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="PlatformGame.cpp" />
   </ItemGroup>
@@ -163,6 +160,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PlatformGame.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\Build\Assets\Platformer\Scenes\PlatformerScene.json" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
