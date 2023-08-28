@@ -60,6 +60,189 @@
 
 						}
 					]
+				},
+				{
+					"type": "Box2DPhysicsComponent",
+					"constrainAngle": true
+				},
+				{
+					"type": "Box2DCollisionComponent",
+					"restitution": 0.75
 				}
+			]
+		},
+		{
+			"type": "Player",
+			"name": "Player",
+			"tag": "Player",
+			"persistent": true,
+			"health": 100,
+			"speed": 10,
+			"jump": 8,
+			"immunetime": 2.5,
+			"transform": {
+				"position": [ 400, 400 ],
+				"scale": 1,
+				"rotation": 0
+			},
+			"components": [
+				{
+					"type": "SpriteAnimComponent",
+					"defaultSequenceName": "run",
+					"sequences": [
+						{
+							"name": "idle",
+							"fps": 12,
+							"numColumns": 8,
+							"numRows": 9,
+							"startFrame": 1,
+							"endFrame": 2,
+							"textureName": "Textures/Hooded Player.png"
+						},
+						{
+							"name": "idleAnim",
+							"fps": 12,
+							"numColumns": 8,
+							"numRows": 9,
+							"startFrame": 9,
+							"endFrame": 10,
+							"textureName": "Textures/Hooded Player.png",
+							"loop": false
+						},
+						{
+							"name": "walk",
+							"fps": 12,
+							"numColumns": 8,
+							"numRows": 9,
+							"startFrame": 17,
+							"endFrame": 20,
+							"textureName": "Textures/Hooded Player.png"
+						},
+						{
+							"name": "run",
+							"fps": 12,
+							"numColumns": 8,
+							"numRows": 9,
+							"startFrame": 25,
+							"endFrame": 32,
+							"textureName": "Textures/Hooded Player.png"
+						},
+						{
+							"name": "jump",
+							"fps": 12,
+							"numColumns": 8,
+							"numRows": 9,
+							"startFrame": 41,
+							"endFrame": 48,
+							"textureName": "Textures/Hooded Player.png",
+							"loop": false
+						},
+						{
+							"name": "attack",
+							"fps": 12,
+							"numColumns": 8,
+							"numRows": 9,
+							"startFrame": 65,
+							"endFrame": 72,
+							"textureName": "Textures/Hooded Player.png",
+							"loop": false
+						}
+					]
+				},
+				{
+					"type": "Box2DPhysicsComponent",
+					"constrainAngle": true
+				},
+				{
+					"type": "Box2DCollisionComponent",
+					"restitution": 0.1
+				}
+			]
+		},
+		{
+			"type": "Enemy",
+			"name": "Bat",
+			"tag": "Enemy",
+			"persistent": true,
+			"health": 100,
+			"speed": 10,
+			"jump": 8,
+			"immunetime": 2.5,
+			"transform": {
+				"position": [ 400, 400 ],
+				"scale": 1,
+				"rotation": 0
+			},
+			"components": [
+				{
+					"type": "SpriteAnimComponent",
+					"defaultSequenceName": "idle",
+					"sequences": [
+						{
+							"name": "idle",
+							"fps": 12,
+							"numColumns": 4,
+							"numRows": 1,
+							"startFrame": 1,
+							"endFrame": 4,
+							"textureName": "Textures/Bat.png"
+						}
+					]
+				},
+				{
+					"type": "Box2DPhysicsComponent",
+					"constrainAngle": true,
+					"gravityScale": 0.1
+				},
+				{
+					"type": "Box2DCollisionComponent",
+					"restitution": 0.1
+				}
+			]
+		},
+		{
+			"type": "Actor",
+			"tag": "Ground",
+			"transform": {
+				"position": [ 400, 650 ]
+			},
+			"components": [
+				{
+					"type": "Box2DPhysicsComponent",
+					"isDynamic": false
+				},
+				{
+					"type": "Box2DCollisionComponent",
+					"size": [ 900, 20 ]
+				}
+			]
+		},
+		{
+			"type": "Actor",
+			"name": "Crate",
+			"tag": "Ground",
+			"persistent": true,
+			"prototype": true,
+			"transform": {
+				"position": [ 400, 400 ],
+				"scale": 1,
+				"rotation": 0
+			},
+			"components": [
+				{
+					"type": "SpriteComponent",
+					"defaultSequence": "idle",
+					"textureName": "Textures/crate.png"
+				},
+				{
+					"type": "Box2DPhysicsComponent",
+					"constrainAngle": true
+				},
+				{
+					"type": "Box2DCollisionComponent",
+					"restitution": 0.75
+				}
+			]
+		}
 	]
 }

@@ -1,3 +1,5 @@
+INFO : Class registered: Enemy
+INFO : Class registered: Player
 INFO : Class registered: TextRenderComponent
 INFO : Class registered: SpriteComponent
 INFO : Class registered: SpriteAnimComponent
@@ -8,5 +10,4 @@ INFO : Class registered: Box2DPhysicsComponent
 INFO : Class registered: Box2DCollisionComponent
 INFO : Class registered: Actor
 INFO : Loaded Program
-WARNING : Json file cannot be parsed: Scenes/PlatformerScene.json
-ERROR : Couldn't load scene file: Scenes/PlatformerScene.json
+INFO : Class registered: Crate
