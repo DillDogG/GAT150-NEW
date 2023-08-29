@@ -2,6 +2,7 @@
 //#include "Renderer/Texture.h"
 #include "Input/InputSystem.h"
 #include "Renderer/Renderer.h"
+#include "Framework/Framework.h"
 //#include "Framework/Components/EnginePhysicsComponent.h"
 #include "Core/Logger.h"
 
@@ -10,14 +11,7 @@ namespace kiko {
 	bool Player::Initialize() {
 		Actor::Initialize();
 		m_physicsComponent = GetComponent<kiko::PhysicsComponent>();
-		auto collisionComponent = GetComponent<kiko::CollisionComponent>();
-		if (collisionComponent) {
-			auto renderComponent = GetComponent<kiko::RenderComponent>();
-			if (renderComponent) {
-				float scale = transform.scale;
-				collisionComponent->m_radius = GetComponent<kiko::RenderComponent>()->GetRadius() * scale;
-			}
-		}
+		m_spriteAnimComponent = GetComponent<SpriteAnimComponent>();
 		return true;
 	}
 
@@ -44,6 +38,14 @@ namespace kiko {
 			destroyed = true;
 			kiko::EventManager::Instance().DispatchEvent("OnPlayerDead", 0);
 		}
+
+		vec2 velocity = m_physicsComponent->m_velocity;
+		if (dir != 0) m_spriteAnimComponent->flipH = (dir < 0);
+		if (velocity.y < -2) { m_spriteAnimComponent->SetSequence("fall"); }
+		else if (velocity.y > 2) { m_spriteAnimComponent->SetSequence("jump"); }
+		else if (std::fabs(velocity.x) > 0.2f) { m_spriteAnimComponent->SetSequence("walk"); }
+		else if (std::fabs(velocity.x) > 0.7f) { m_spriteAnimComponent->SetSequence("run"); }
+		else m_spriteAnimComponent->SetSequence("idle");
 	}
 
 	void Player::OnCollisionEnter(Actor* other) {

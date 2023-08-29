@@ -15,6 +15,7 @@
 #include "Components/PhysicsComponent.h"
 #include "Components/EnginePhysicsComponent.h"
 #include "Components/TextRenderComponent.h"
+#include "Components/TilemapComponent.h"
 
 #include "Components/CollisionComponent.h"
 #include "Components/CircleCollisionComponent.h"

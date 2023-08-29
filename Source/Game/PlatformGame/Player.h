@@ -1,5 +1,5 @@
 #pragma once
-#include "Framework/Framework.h"
+#include "Framework/Actor.h"
 
 namespace kiko {
 	class Player : public kiko::Actor {
@@ -26,6 +26,7 @@ namespace kiko {
 		void OnCollisionEnter(Actor* other) override;
 		void OnCollisionExit(Actor* other) override;
 		float GetHealth() { return m_health; }
+		float testTimer = 10;
 
 	private:
 		float speed = 0;
@@ -44,7 +45,7 @@ namespace kiko {
 		//bool m_shield = false;
 		//bool m_multi = false;
 
-		PhysicsComponent* m_physicsComponent = nullptr;
-		SpriteComponent* m_spriteComponent = nullptr;
+		class PhysicsComponent* m_physicsComponent = nullptr;
+		class SpriteAnimComponent* m_spriteAnimComponent = nullptr;
 	};
 }

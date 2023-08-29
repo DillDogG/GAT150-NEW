@@ -29,11 +29,11 @@ namespace kiko {
 		Player* player = m_scene->GetActor<Player>();
 		if (player) {
 			dir = player->transform.position - transform.position;
+			m_physicsComponent->ApplyForce(forward * speed * dir);
 		}
 
 
-		auto physicsComponent = GetComponent<kiko::PhysicsComponent>();
-		physicsComponent->ApplyForce(forward * speed * dir);
+		//auto physicsComponent = GetComponent<kiko::PhysicsComponent>();
 		transform.position.x = kiko::Wrap(transform.position.x, (float)kiko::g_renderer.GetWidth());
 		transform.position.y = kiko::Wrap(transform.position.y, (float)kiko::g_renderer.GetHeight());
 		bool onGround = (groundCount > 0);

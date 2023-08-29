@@ -30,6 +30,6 @@ namespace kiko {
 		//bool m_multi = false;
 
 		PhysicsComponent* m_physicsComponent = nullptr;
-		SpriteComponent* m_spriteComponent = nullptr;
+		SpriteAnimComponent* m_spriteComponent = nullptr;
 	};
 }

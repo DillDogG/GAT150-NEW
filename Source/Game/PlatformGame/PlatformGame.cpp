@@ -31,6 +31,7 @@ bool PlatformGame::Initialize() {
 	//makes scene
 	m_scene = std::make_unique<kiko::Scene>();
 	m_scene->Load("Scenes/PlatformerScene.json");
+	m_scene->Load("Scenes/tilemap.json");
 	m_scene->Initialize();
 
 	// add events
@@ -45,10 +46,11 @@ void PlatformGame::Shutdown() {
 void PlatformGame::Update(float dt) {
 	switch (m_state) {
 	case eState::Title: {
-		//auto actor = INSTANTIATE(Actor, "Crate");
-		//actor->transform.position = { kiko::random(kiko::g_renderer.GetWidth()), 100 };
-		//actor->Initialize();
-		//m_scene->Add(std::move(actor));
+		auto actor = INSTANTIATE(Actor, "Crate");
+		actor->transform.position = { kiko::random(kiko::g_renderer.GetWidth()), 100 };
+		actor->Initialize();
+		m_scene->Add(std::move(actor));
+		m_state = eState::StartGame;
 	}
 		break;
 	case eState::StartGame:
