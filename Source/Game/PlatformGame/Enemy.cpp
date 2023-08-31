@@ -82,7 +82,7 @@ namespace kiko {
 				float cSpeed = other->GetComponent<kiko::PhysicsComponent>()->m_velocity.x;
 				if (cSpeed > 5.0f) {
 					m_health -= cSpeed * 2;
-					INFO_LOG("COIN CRIT! DEALT " << cSpeed * 2 << " DAMAGE");
+					INFO_LOG("COIN CRIT! DEALT " << cSpeed * 3 << " DAMAGE");
 					m_immuneTimer = m_immuneTime;
 				}
 			}

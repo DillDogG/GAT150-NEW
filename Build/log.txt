@@ -26,4 +26,3 @@ INFO : Class registered: Crate
 INFO : Class registered: tile01
 INFO : Class registered: tile02
 INFO : Event Subscribed: OnPlayerDead
-INFO : COIN CRIT! DEALT 23.0513 DAMAGE
