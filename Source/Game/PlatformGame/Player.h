@@ -26,10 +26,10 @@ namespace kiko {
 		void OnCollisionEnter(Actor* other) override;
 		void OnCollisionExit(Actor* other) override;
 		float GetHealth() { return m_health; }
-		float testTimer = 10;
 
 	private:
 		float speed = 0;
+		float maxSpeed = 0;
 		float m_health = 0;
 		int groundCount = 0;
 
@@ -38,8 +38,13 @@ namespace kiko {
 		//float m_missileRate = 0;
 		//float m_missileTimer = 0;
 		//float m_adrenaline = 0;
-		float m_immuneTime = 0;
+		float m_attackTimer = 0;
 		float m_immuneTimer = 0;
+		float m_jumpTimer = 0;
+		float m_jumpTime = 0;
+		float m_animationTime = 0;
+		bool animate = true;
+		float m_dashDuration = 0;
 		//float m_powerTimer = 0;
 		//
 		//bool m_shield = false;

@@ -43,24 +43,29 @@ namespace kiko {
 		}
 		m_immuneTimer -= dt;
 
-		//if (m_health < 1) {
-		//	destroyed = true;
-		//	kiko::EventManager::Instance().DispatchEvent("OnPlayerDead", 0);
-		//}
+		if (m_health < 1) {
+			destroyed = true;
+		}
 	}
 
 	void Enemy::OnCollisionEnter(Actor* other) {
 		if (m_immuneTimer <= 0) {
-			if (other->tag == "Player") {
-				m_health--;
+			if (other->tag == "pAttackL") {
+				m_health -= 15;
+				m_immuneTimer = m_immuneTime;
+			}
+			if (other->tag == "pAttackM") {
+				m_health -= 30;
+				m_immuneTimer = m_immuneTime;
+			}
+			if (other->tag == "pAttackH") {
+				m_health -= 45;
 				m_immuneTimer = m_immuneTime;
 			}
 		}
-		if (other->tag == "Ground") groundCount++;
 	}
 
 	void Enemy::OnCollisionExit(Actor* other) {
-		if (other->tag == "Ground") groundCount--;
 	}
 
 	void Enemy::Read(const json_t& value) {

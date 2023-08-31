@@ -1,5 +1,5 @@
 #include "PlatformGame.h"
-
+#include "Enemy.h"
 #include "Framework/Framework.h"
 #include "Audio/AudioSystem.h"
 #include "Input/InputSystem.h"
@@ -53,8 +53,13 @@ void PlatformGame::Update(float dt) {
 		m_state = eState::StartGame;
 	}
 		break;
-	case eState::StartGame:
-		
+	case eState::StartGame: {
+		auto enemy = INSTANTIATE(Enemy, "Bat");
+		enemy->transform.position = { kiko::random(kiko::g_renderer.GetWidth()), 100 };
+		enemy->Initialize();
+		m_scene->Add(std::move(enemy));
+		m_state = eState::StartLevel;
+	}
 		break;
 	case eState::StartLevel:
 		

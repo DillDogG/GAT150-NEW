@@ -17,8 +17,8 @@ namespace kiko {
 		UpdateSource();
 	}
 
-	void SpriteAnimComponent::SetSequence(const std::string& name) {
-		if (m_sequence && m_sequence->name == name) return;
+	void SpriteAnimComponent::SetSequence(const std::string& name, bool update) {
+		if (m_sequence && m_sequence->name == name && !update) return;
 
 		if (m_sequences.find(name) != m_sequences.end()) {
 			// set new sequence
@@ -68,7 +68,7 @@ namespace kiko {
 	}
 	bool SpriteAnimComponent::Initialize() {
 		SpriteComponent::Initialize();
-		SetSequence(defaultSequenceName);
+		SetSequence(defaultSequenceName, false);
 		UpdateSource();
 		return true;
 	}

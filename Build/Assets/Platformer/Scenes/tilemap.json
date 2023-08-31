@@ -1,18 +1,18 @@
 {
 	"actors":[
 		{
-			"type":"Actor",
-			"name":"tile01",
-			"tag":"Ground",
-			"prototype":true,
-			"transform":{
+			"type": "Actor",
+			"name": "tile01",
+			"tag": "Ground",
+			"prototype": true,
+			"transform": {
 				"scale": 2
 			},
-			"components":[
+			"components": [
 				{
-					"type":"SpriteComponent",
-					"textureName":"textures/tileset2_32x32.png",
-					"source":[
+					"type": "SpriteComponent",
+					"textureName": "textures/tileset2_32x32.png",
+					"source": [
 						96,
 						416,
 						32,
@@ -20,21 +20,21 @@
 					]
 				},
 				{
-					"type":"Box2DPhysicsComponent",
-					"isDynamic":false
+					"type": "Box2DPhysicsComponent",
+					"isDynamic": false
 				},
 				{
-					"type":"Box2DCollisionComponent",
-					"restitution":0
+					"type": "Box2DCollisionComponent",
+					"restitution": 0
 				}
 			]
 		},
 		{
-			"type":"Actor",
-			"name":"tile02",
-			"tag":"Ground",
-			"prototype":true,
-			"transform":{
+			"type": "Actor",
+			"name": "tile02",
+			"tag": "Ground",
+			"prototype": true,
+			"transform": {
 				"scale": 2
 			},
 			"components": [

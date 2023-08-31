@@ -12,7 +12,8 @@ namespace kiko {
 			if (data.size.x == 0 && data.size.y == 0) {
 				auto spriteComponent = m_owner->GetComponent<SpriteComponent>();
 				if (spriteComponent) {
-					data.size = vec2{ spriteComponent->source.w, spriteComponent->source.h };
+					if (data.size.x == 0 && data.size.y == 0) { data.size = vec2{ spriteComponent->source.w, spriteComponent->source.h }; }
+					data.offset = spriteComponent->origin - vec2{ 0.5f, 0.5f };
 				}
 			}
 

@@ -25,6 +25,7 @@ namespace kiko {
 			float density = 1;
 			float friction = 1;
 			float restitution = 0.3f;
+			vec2 offset{ 0.5f, 0.5f };
 			bool isTrigger = false;
 		};
 	public:

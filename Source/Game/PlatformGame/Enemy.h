@@ -14,6 +14,7 @@ namespace kiko {
 
 	private:
 		float speed = 0;
+		float maxSpeed = 0;
 		float m_health = 0;
 		int groundCount = 0;
 

@@ -38,6 +38,7 @@
 		{
 			"type": "Actor",
 			"name": "Coin",
+			"tag": "Coin",
 			"persistent": true,
 			"transform": {
 				"position": [ 400, 400 ],
@@ -63,7 +64,8 @@
 				},
 				{
 					"type": "Box2DPhysicsComponent",
-					"constrainAngle": true
+					"constrainAngle": true,
+					"isTrigger": true
 				},
 				{
 					"type": "Box2DCollisionComponent",
@@ -77,18 +79,21 @@
 			"tag": "Player",
 			"persistent": true,
 			"health": 100,
-			"speed": 5,
+			"speed": 50,
+			"maxSpeed": 5,
 			"jump": 8,
-			"immunetime": 2.5,
+			"jumpTime": 2,
 			"transform": {
 				"position": [ 400, 400 ],
-				"scale": 1,
+				"scale": 1.75,
 				"rotation": 0
 			},
 			"components": [
 				{
 					"type": "SpriteAnimComponent",
 					"defaultSequenceName": "idle",
+					"source": [ 0, 0, 16, 35 ],
+					"offset": [ 0.5, 1 ],
 					"sequences": [
 						{
 							"name": "idle",
@@ -158,13 +163,53 @@
 							"loop": false
 						},
 						{
-							"name": "attack",
+							"name": "dead",
 							"fps": 6,
+							"numColumns": 8,
+							"numRows": 9,
+							"startFrame": 57,
+							"endFrame": 64,
+							"textureName": "Textures/Hooded Player.png",
+							"loop": false
+						},
+						{
+							"name": "attackL",
+							"fps": 32,
 							"numColumns": 8,
 							"numRows": 9,
 							"startFrame": 65,
 							"endFrame": 72,
 							"textureName": "Textures/Hooded Player.png",
+							"loop": false
+						},
+						{
+							"name": "attackM",
+							"fps": 16,
+							"numColumns": 8,
+							"numRows": 9,
+							"startFrame": 65,
+							"endFrame": 72,
+							"textureName": "Textures/Hooded Player.png",
+							"loop": false
+						},
+						{
+							"name": "attackH",
+							"fps": 8,
+							"numColumns": 8,
+							"numRows": 9,
+							"startFrame": 65,
+							"endFrame": 72,
+							"textureName": "Textures/Hooded Player.png",
+							"loop": false
+						},
+						{
+							"name": "dash",
+							"fps": 16,
+							"numColumns": 3,
+							"numRows": 3,
+							"startFrame": 1,
+							"endFrame": 7,
+							"textureName": "Textures/Hooded PlayerDash.png",
 							"loop": false
 						}
 					]
@@ -180,12 +225,196 @@
 			]
 		},
 		{
+			"type": "Attack",
+			"name": "pAttackL",
+			"tag": "pAttackL",
+			"lifespan": 0.2,
+			"damage": 15,
+			"persistent": true,
+			"prototype": true,
+			"transform": {
+				"position": [ 400, 400 ],
+				"scale": 1,
+				"rotation": 0
+			},
+			"components": [
+				{
+					"type": "SpriteComponent",
+					"textureName": "Textures/Attack Sprite.png",
+					"offset": [ 0, 0.5 ]
+				},
+				{
+					"type": "Box2DPhysicsComponent",
+					"constrainAngle": true,
+					"isTrigger": true
+				},
+				{
+					"type": "Box2DCollisionComponent",
+					"restitution": 0.75
+				}
+			]
+		},
+		{
+			"type": "Attack",
+			"name": "pAttackM",
+			"tag": "pAttackM",
+			"lifespan": 0.2,
+			"damage": 30,
+			"persistent": true,
+			"prototype": true,
+			"transform": {
+				"position": [ 400, 400 ],
+				"scale": 1.5,
+				"rotation": 0
+			},
+			"components": [
+				{
+					"type": "SpriteComponent",
+					"textureName": "Textures/Attack Sprite.png",
+					"offset": [ 0, 0.5 ]
+				},
+				{
+					"type": "Box2DPhysicsComponent",
+					"constrainAngle": true,
+					"isTrigger": true
+				},
+				{
+					"type": "Box2DCollisionComponent",
+					"restitution": 0.75
+				}
+			]
+		},
+		{
+			"type": "Attack",
+			"name": "pAttackH",
+			"tag": "pAttackH",
+			"lifespan": 0.2,
+			"damage": 45,
+			"persistent": true,
+			"prototype": true,
+			"transform": {
+				"position": [ 400, 400 ],
+				"scale": 2,
+				"rotation": 0
+			},
+			"components": [
+				{
+					"type": "SpriteComponent",
+					"textureName": "Textures/Attack Sprite.png",
+					"offset": [ 0, 0.5 ]
+				},
+				{
+					"type": "Box2DPhysicsComponent",
+					"constrainAngle": true,
+					"isTrigger": true
+				},
+				{
+					"type": "Box2DCollisionComponent",
+					"restitution": 0.75
+				}
+			]
+		},
+		{
+			"type": "Attack",
+			"name": "pAttackLFlipped",
+			"tag": "pAttackL",
+			"lifespan": 0.2,
+			"damage": 15,
+			"persistent": true,
+			"prototype": true,
+			"transform": {
+				"position": [ 400, 400 ],
+				"scale": 1,
+				"rotation": 0
+			},
+			"components": [
+				{
+					"type": "SpriteComponent",
+					"textureName": "Textures/Attack Sprite.png",
+					"flipH": true,
+					"offset": [ 0, 0.5 ]
+				},
+				{
+					"type": "Box2DPhysicsComponent",
+					"constrainAngle": true,
+					"isTrigger": true
+				},
+				{
+					"type": "Box2DCollisionComponent",
+					"restitution": 0.75
+				}
+			]
+		},
+		{
+			"type": "Attack",
+			"name": "pAttackMFlipped",
+			"tag": "pAttackM",
+			"damage": 30,
+			"lifespan": 0.2,
+			"persistent": true,
+			"prototype": true,
+			"transform": {
+				"position": [ 400, 400 ],
+				"scale": 1.5,
+				"rotation": 0
+			},
+			"components": [
+				{
+					"type": "SpriteComponent",
+					"textureName": "Textures/Attack Sprite.png",
+					"flipH": true,
+					"offset": [ 0, 0.5 ]
+				},
+				{
+					"type": "Box2DPhysicsComponent",
+					"constrainAngle": true,
+					"isTrigger": true
+				},
+				{
+					"type": "Box2DCollisionComponent",
+					"restitution": 0.75
+				}
+			]
+		},
+		{
+			"type": "Attack",
+			"name": "pAttackHFlipped",
+			"tag": "pAttackH",
+			"damage": 45,
+			"lifespan": 0.2,
+			"persistent": true,
+			"prototype": true,
+			"transform": {
+				"position": [ 400, 400 ],
+				"scale": 2,
+				"rotation": 0
+			},
+			"components": [
+				{
+					"type": "SpriteComponent",
+					"textureName": "Textures/Attack Sprite.png",
+					"flipH": true,
+					"offset": [ 0, 0.5 ]
+				},
+				{
+					"type": "Box2DPhysicsComponent",
+					"constrainAngle": true,
+					"isTrigger": true
+				},
+				{
+					"type": "Box2DCollisionComponent",
+					"restitution": 0.75
+				}
+			]
+		},
+		{
 			"type": "Enemy",
 			"name": "Bat",
 			"tag": "Enemy",
 			"prototype": true,
 			"health": 100,
-			"speed": 10,
+			"speed": 80,
+			"maxSpeed": 8,
 			"jump": 8,
 			"immunetime": 2.5,
 			"transform": {
@@ -216,25 +445,7 @@
 				},
 				{
 					"type": "Box2DCollisionComponent",
-					"restitution": 0.1,
-					"isTrigger": true
-				}
-			]
-		},
-		{
-			"type": "Actor",
-			"tag": "Ground",
-			"transform": {
-				"position": [ 400, 550 ]
-			},
-			"components": [
-				{
-					"type": "Box2DPhysicsComponent",
-					"isDynamic": false
-				},
-				{
-					"type": "Box2DCollisionComponent",
-					"size": [ 900, 20 ]
+					"restitution": 0.1
 				}
 			]
 		},
