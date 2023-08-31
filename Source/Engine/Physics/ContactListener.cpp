@@ -14,7 +14,7 @@ namespace kiko {
 			if (actorA->destroyed || actorB->destroyed) return;
 
 			actorA->OnCollisionEnter(actorB);
-			actorA->OnCollisionEnter(actorA);
+			actorB->OnCollisionEnter(actorA);
 		}
 	}
 
@@ -29,7 +29,7 @@ namespace kiko {
 			if (actorA->destroyed || actorB->destroyed) return;
 
 			actorA->OnCollisionExit(actorB);
-			actorA->OnCollisionExit(actorA);
+			actorB->OnCollisionExit(actorA);
 		}
 	}
 }

@@ -39,7 +39,7 @@ namespace kiko {
 
 			m_physicsComponent->SetPosition(transform.position);
 		}
-		if (kiko::g_inputSystem.GetKeyDown(SDL_SCANCODE_SPACE) && !kiko::g_inputSystem.GetPreviousKeyDown(SDL_SCANCODE_SPACE) && m_jumpTimer <= 0) {
+		if (kiko::g_inputSystem.GetKeyDown(SDL_SCANCODE_SPACE) && !kiko::g_inputSystem.GetPreviousKeyDown(SDL_SCANCODE_SPACE) && onGround) {
 			vec2 up = vec2{ 0, -1 };
 			m_physicsComponent->SetVelocity(velocity + (up * m_jumpHeight));
 			m_jumpTimer = m_jumpTime;
