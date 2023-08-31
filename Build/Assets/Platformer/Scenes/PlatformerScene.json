@@ -21,7 +21,7 @@
 			"name": "Title",
 			"persistent": true,
 			"transform": {
-				"position": [ 400, 300 ],
+				"position": [ 400, 125 ],
 				"scale": 1,
 				"rotation": 0
 			},
@@ -37,9 +37,48 @@
 		},
 		{
 			"type": "Actor",
+			"name": "PlayerDied",
+			"persistent": true,
+			"transform": {
+				"position": [ 400, 300 ],
+				"scale": 1,
+				"rotation": 0
+			},
+			"components": [
+				{
+					"type": "TextRenderComponent",
+					"fontName": "fonts/Freshman.ttf",
+					"fontSize": 24,
+					"text": "YOU DIED",
+					"color": [ 1, 0, 0, 1 ]
+				}
+			]
+		},
+		{
+			"type": "Actor",
+			"name": "Health",
+			"persistent": true,
+			"transform": {
+				"position": [ 100, 100 ],
+				"scale": 1,
+				"rotation": 0
+			},
+			"components": [
+				{
+					"type": "TextRenderComponent",
+					"fontName": "fonts/Freshman.ttf",
+					"fontSize": 24,
+					"text": "HEALTH: ",
+					"color": [ 1, 0, 0, 1 ]
+				}
+			]
+		},
+		{
+			"type": "Actor",
 			"name": "Coin",
 			"tag": "Coin",
 			"persistent": true,
+			"prototype": true,
 			"transform": {
 				"position": [ 400, 400 ],
 				"scale": 1,
@@ -64,8 +103,7 @@
 				},
 				{
 					"type": "Box2DPhysicsComponent",
-					"constrainAngle": true,
-					"isTrigger": true
+					"constrainAngle": true
 				},
 				{
 					"type": "Box2DCollisionComponent",
@@ -78,6 +116,7 @@
 			"name": "Player",
 			"tag": "Player",
 			"persistent": true,
+			"prototype": true,
 			"health": 100,
 			"speed": 50,
 			"maxSpeed": 5,
@@ -163,16 +202,6 @@
 							"loop": false
 						},
 						{
-							"name": "dead",
-							"fps": 6,
-							"numColumns": 8,
-							"numRows": 9,
-							"startFrame": 57,
-							"endFrame": 64,
-							"textureName": "Textures/Hooded Player.png",
-							"loop": false
-						},
-						{
 							"name": "attackL",
 							"fps": 32,
 							"numColumns": 8,
@@ -225,6 +254,48 @@
 			]
 		},
 		{
+			"type": "Actor",
+			"name": "PlayerBody",
+			"persistent": true,
+			"prototype": true,
+			"lifespan": 0.75,
+			"transform": {
+				"position": [ 400, 400 ],
+				"scale": 1.75,
+				"rotation": 0
+			},
+			"components": [
+				{
+					"type": "SpriteAnimComponent",
+					"defaultSequenceName": "dead",
+					"source": [ 0, 0, 16, 35 ],
+					"offset": [ 0.5, 1 ],
+					"sequences": [
+						{
+							"name": "dead",
+							"fps": 6,
+							"numColumns": 8,
+							"numRows": 9,
+							"startFrame": 57,
+							"endFrame": 64,
+							"textureName": "Textures/Hooded Player.png",
+							"loop": false
+						}
+					]
+				},
+				{
+					"type": "Box2DPhysicsComponent",
+					"constrainAngle": true,
+					"gravityScale": 0
+				},
+				{
+					"type": "Box2DCollisionComponent",
+					"restitution": 0.1,
+					"isTrigger": true
+				}
+			]
+		},
+		{
 			"type": "Attack",
 			"name": "pAttackL",
 			"tag": "pAttackL",
@@ -246,11 +317,12 @@
 				{
 					"type": "Box2DPhysicsComponent",
 					"constrainAngle": true,
-					"isTrigger": true
+					"gravityScale": 0
 				},
 				{
 					"type": "Box2DCollisionComponent",
-					"restitution": 0.75
+					"restitution": 0.75,
+					"isTrigger": true
 				}
 			]
 		},
@@ -276,11 +348,12 @@
 				{
 					"type": "Box2DPhysicsComponent",
 					"constrainAngle": true,
-					"isTrigger": true
+					"gravityScale": 0
 				},
 				{
 					"type": "Box2DCollisionComponent",
-					"restitution": 0.75
+					"restitution": 0.75,
+					"isTrigger": true
 				}
 			]
 		},
@@ -306,11 +379,12 @@
 				{
 					"type": "Box2DPhysicsComponent",
 					"constrainAngle": true,
-					"isTrigger": true
+					"gravityScale": 0
 				},
 				{
 					"type": "Box2DCollisionComponent",
-					"restitution": 0.75
+					"restitution": 0.75,
+					"isTrigger": true
 				}
 			]
 		},
@@ -337,11 +411,12 @@
 				{
 					"type": "Box2DPhysicsComponent",
 					"constrainAngle": true,
-					"isTrigger": true
+					"gravityScale": 0
 				},
 				{
 					"type": "Box2DCollisionComponent",
-					"restitution": 0.75
+					"restitution": 0.75,
+					"isTrigger": true
 				}
 			]
 		},
@@ -368,11 +443,12 @@
 				{
 					"type": "Box2DPhysicsComponent",
 					"constrainAngle": true,
-					"isTrigger": true
+					"gravityScale": 0
 				},
 				{
 					"type": "Box2DCollisionComponent",
-					"restitution": 0.75
+					"restitution": 0.75,
+					"isTrigger": true
 				}
 			]
 		},
@@ -399,11 +475,12 @@
 				{
 					"type": "Box2DPhysicsComponent",
 					"constrainAngle": true,
-					"isTrigger": true
+					"gravityScale": 0
 				},
 				{
 					"type": "Box2DCollisionComponent",
-					"restitution": 0.75
+					"restitution": 0.75,
+					"isTrigger": true
 				}
 			]
 		},
@@ -413,10 +490,10 @@
 			"tag": "Enemy",
 			"prototype": true,
 			"health": 100,
-			"speed": 80,
-			"maxSpeed": 8,
+			"speed": 2,
+			"maxSpeed": 4,
 			"jump": 8,
-			"immunetime": 2.5,
+			"immunetime": 1.5,
 			"transform": {
 				"position": [ 400, 400 ],
 				"scale": 1,
@@ -440,7 +517,6 @@
 				},
 				{
 					"type": "Box2DPhysicsComponent",
-					"constrainAngle": true,
 					"gravityScale": 0.1
 				},
 				{
@@ -477,4 +553,4 @@
 			]
 		}
 	]
-}
+		}

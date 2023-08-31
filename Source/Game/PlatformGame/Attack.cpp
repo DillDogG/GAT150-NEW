@@ -7,10 +7,7 @@ namespace kiko {
 		Actor::Initialize();
 		m_physicsComponent = GetComponent<PhysicsComponent>();
 
-		auto collisionComponent = GetComponent<kiko::CollisionComponent>();
-		if (collisionComponent) {
-
-		}
+		//auto collisionComponent = GetComponent<kiko::CollisionComponent>();
 		return true;
 	}
 

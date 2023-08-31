@@ -12,6 +12,9 @@ INFO : Class registered: Box2DPhysicsComponent
 INFO : Class registered: Box2DCollisionComponent
 INFO : Class registered: Actor
 INFO : Loaded Program
+INFO : Class registered: Coin
+INFO : Class registered: Player
+INFO : Class registered: PlayerBody
 INFO : Class registered: pAttackL
 INFO : Class registered: pAttackM
 INFO : Class registered: pAttackH
@@ -22,3 +25,4 @@ INFO : Class registered: Bat
 INFO : Class registered: Crate
 INFO : Class registered: tile01
 INFO : Class registered: tile02
+INFO : Event Subscribed: OnPlayerDead

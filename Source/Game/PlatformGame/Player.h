@@ -25,12 +25,12 @@ namespace kiko {
 		void Update(float dt) override;
 		void OnCollisionEnter(Actor* other) override;
 		void OnCollisionExit(Actor* other) override;
-		float GetHealth() { return m_health; }
+		int GetHealth() { return m_health; }
 
 	private:
 		float speed = 0;
 		float maxSpeed = 0;
-		float m_health = 0;
+		int m_health = 0;
 		int groundCount = 0;
 
 		float m_jumpHeight = 0;

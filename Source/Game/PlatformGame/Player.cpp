@@ -32,8 +32,13 @@ namespace kiko {
 			m_physicsComponent->SetVelocity(velocity);
 			//m_physicsComponent->ApplyForce(forward * speed * dir);
 		}
-		transform.position.x = kiko::Wrap(transform.position.x, (float)kiko::g_renderer.GetWidth());
-		transform.position.y = kiko::Wrap(transform.position.y, (float)kiko::g_renderer.GetHeight());
+		// check if position is off screen, if so wrap the position and set physics component to new position
+		if ((transform.position.x < 0 || transform.position.x >(float)kiko::g_renderer.GetWidth()) || (transform.position.y < 0 || transform.position.y >(float)kiko::g_renderer.GetHeight())) {
+			transform.position.x = kiko::Wrap(transform.position.x, (float)kiko::g_renderer.GetWidth());
+			transform.position.y = kiko::Wrap(transform.position.y, (float)kiko::g_renderer.GetHeight());
+
+			m_physicsComponent->SetPosition(transform.position);
+		}
 		if (kiko::g_inputSystem.GetKeyDown(SDL_SCANCODE_SPACE) && !kiko::g_inputSystem.GetPreviousKeyDown(SDL_SCANCODE_SPACE) && m_jumpTimer <= 0) {
 			vec2 up = vec2{ 0, -1 };
 			m_physicsComponent->SetVelocity(velocity + (up * m_jumpHeight));
@@ -51,7 +56,10 @@ namespace kiko {
 		if (m_health < 1) {
 			destroyed = true;
 			kiko::EventManager::Instance().DispatchEvent("OnPlayerDead", 0);
-			m_spriteAnimComponent->SetSequence("dead");
+			auto actor = INSTANTIATE(Actor, "PlayerBody");
+			actor->transform = { this->transform.position, this->transform.rotation, 1.75f };
+			actor->Initialize();
+			m_scene->Add(std::move(actor));
 		}
 
 		if (m_animationTime <= 0) { animate = true; }
@@ -60,7 +68,7 @@ namespace kiko {
 			m_dashDuration = 0.5f;
 			m_spriteAnimComponent->SetSequence("dash");
 			animate = false;
-			m_physicsComponent->SetVelocity(velocity * 3);
+			m_physicsComponent->SetVelocity(velocity * 2);
 			m_animationTime = 0.5f;
 		}
 
@@ -86,13 +94,13 @@ namespace kiko {
 			else if (kiko::g_inputSystem.GetKeyDown(SDL_SCANCODE_E)) {
 				if (!this->m_spriteAnimComponent->flipH) {
 					auto attack = INSTANTIATE(Attack, "pAttackM");
-					attack->transform = { vec2{this->transform.position.x + 15, this->transform.position.y}, this->transform.rotation, 1.5 };
+					attack->transform = { vec2{this->transform.position.x + 5, this->transform.position.y}, this->transform.rotation, 1.5 };
 					attack->Initialize();
 					m_scene->Add(std::move(attack));
 				}
 				else {
 					auto attack = INSTANTIATE(Attack, "pAttackMFlipped");
-					attack->transform = { vec2{this->transform.position.x - 15, this->transform.position.y}, this->transform.rotation, 1.5 };
+					attack->transform = { vec2{this->transform.position.x - 5, this->transform.position.y}, this->transform.rotation, 1.5 };
 					attack->Initialize();
 					m_scene->Add(std::move(attack));
 				}
@@ -104,13 +112,13 @@ namespace kiko {
 			else if (kiko::g_inputSystem.GetKeyDown(SDL_SCANCODE_H)) {
 				if (!this->m_spriteAnimComponent->flipH) {
 					auto attack = INSTANTIATE(Attack, "pAttackH");
-					attack->transform = { vec2{this->transform.position.x + 15, this->transform.position.y}, this->transform.rotation, 2 };
+					attack->transform = { vec2{this->transform.position.x + 5, this->transform.position.y}, this->transform.rotation, 2 };
 					attack->Initialize();
 					m_scene->Add(std::move(attack));
 				}
 				else {
 					auto attack = INSTANTIATE(Attack, "pAttackHFlipped");
-					attack->transform = { vec2{this->transform.position.x - 15, this->transform.position.y}, this->transform.rotation, 2 };
+					attack->transform = { vec2{this->transform.position.x - 5, this->transform.position.y}, this->transform.rotation, 2 };
 					attack->Initialize();
 					m_scene->Add(std::move(attack));
 				}
@@ -129,8 +137,8 @@ namespace kiko {
 
 	void Player::OnCollisionEnter(Actor* other) {
 		if (m_immuneTimer <= 0) {
-			if (other->tag == "eAttack") {
-				m_health--;
+			if (other->tag == "Enemy") {
+				m_health -= 15;
 				m_immuneTimer = 2.5f;
 			}
 		}

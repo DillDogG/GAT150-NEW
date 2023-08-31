@@ -25,12 +25,11 @@ public:
 	virtual void Draw(kiko::Renderer& renderer) override;
 
 	void SetState(eState state) { m_state = state; }
-	void OnAddPoints(const kiko::Event& event);
 	void OnPlayerDead(const kiko::Event& event);
 private:
 	eState m_state = eState::Title;
 	float m_spawnTimer = 0;
-	float m_spawnTime = 3;
+	float m_spawnTime = 10;
 
 	float m_stateTimer = 0;
 

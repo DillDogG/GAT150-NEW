@@ -75,11 +75,11 @@ int main(int argc, char* argv[]) {
 		kiko::g_renderer.SetColor(0, 0, 0, 0);
 		kiko::g_renderer.BeginFrame();
 
-		game->Draw(kiko::g_renderer);
 		
 
 		kiko::g_renderer.SetColor(255, 255, 255, 255);
 		game->Update(kiko::g_time.GetDeltaTime());
+		game->Draw(kiko::g_renderer);
 		kiko::g_particleSystem.Update(kiko::g_time.GetDeltaTime());
 		kiko::g_particleSystem.Draw(kiko::g_renderer);
 		//text->Draw(kiko::g_renderer, 400, 300);

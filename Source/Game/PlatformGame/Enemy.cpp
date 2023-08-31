@@ -24,23 +24,39 @@ namespace kiko {
 
 	void Enemy::Update(float dt) {
 		Actor::Update(dt);
-		vec2 dir = 0;
+		/* vec2 dir = 0;
 		kiko::vec2 forward = kiko::vec2{ 1, 0 };
 		Player* player = m_scene->GetActor<Player>();
 		if (player) {
-			dir = player->transform.position - transform.position;
-			m_physicsComponent->ApplyForce(forward * speed * dir);
+			dir = (player->transform.position + 45) - transform.position;
+			dir.x = speed * dir.x;
+			dir.x = Clamp(dir.x, -maxSpeed, maxSpeed);
+			m_physicsComponent->SetVelocity(dir);
+			
+		} */
+
+		kiko::vec2 forward = kiko::vec2{ 0, -1 }.Rotate(transform.rotation);
+		float angle = 0;
+		Player* player = m_scene->GetActor<Player>();
+		if (player) {
+			Vector2 direction = player->transform.position - transform.position;
+			float turnAngle = vec2::SignedAngle(forward, direction.Normalized());
+			//transform.rotation += turnAngle * 3 * dt;
+			m_physicsComponent->ApplyTorque(turnAngle * 0.3f);
+
+			angle = vec2::Angle(forward, direction.Normalized());
+
 		}
-
-
+		m_physicsComponent->ApplyForce(forward * speed);
 		//auto physicsComponent = GetComponent<kiko::PhysicsComponent>();
-		transform.position.x = kiko::Wrap(transform.position.x, (float)kiko::g_renderer.GetWidth());
-		transform.position.y = kiko::Wrap(transform.position.y, (float)kiko::g_renderer.GetHeight());
-		bool onGround = (groundCount > 0);
-		if (kiko::g_inputSystem.GetKeyDown(SDL_SCANCODE_SPACE) && !kiko::g_inputSystem.GetPreviousKeyDown(SDL_SCANCODE_SPACE) && onGround) {
-			vec2 up = vec2{ 0, -1 };
-			m_physicsComponent->SetVelocity(up * m_jumpHeight);
+		// check if position is off screen, if so wrap the position and set physics component to new position
+		if ((transform.position.x < 0 || transform.position.x >(float)kiko::g_renderer.GetWidth()) || (transform.position.y < 0 || transform.position.y >(float)kiko::g_renderer.GetHeight())) {
+			transform.position.x = kiko::Wrap(transform.position.x, (float)kiko::g_renderer.GetWidth());
+			transform.position.y = kiko::Wrap(transform.position.y, (float)kiko::g_renderer.GetHeight());
+
+			m_physicsComponent->SetPosition(transform.position);
 		}
+		bool onGround = (groundCount > 0);
 		m_immuneTimer -= dt;
 
 		if (m_health < 1) {
@@ -54,13 +70,21 @@ namespace kiko {
 				m_health -= 15;
 				m_immuneTimer = m_immuneTime;
 			}
-			if (other->tag == "pAttackM") {
+			else if (other->tag == "pAttackM") {
 				m_health -= 30;
 				m_immuneTimer = m_immuneTime;
 			}
-			if (other->tag == "pAttackH") {
+			else if (other->tag == "pAttackH") {
 				m_health -= 45;
 				m_immuneTimer = m_immuneTime;
+			}
+			else if (other->tag == "Coin") {
+				float cSpeed = other->GetComponent<kiko::PhysicsComponent>()->m_velocity.x;
+				if (cSpeed > 5.0f) {
+					m_health -= cSpeed * 2;
+					INFO_LOG("COIN CRIT! DEALT " << cSpeed * 2 << " DAMAGE");
+					m_immuneTimer = m_immuneTime;
+				}
 			}
 		}
 	}
@@ -72,6 +96,7 @@ namespace kiko {
 		Actor::Read(value);
 
 		READ_DATA(value, speed);
+		READ_DATA(value, maxSpeed);
 		READ_NAME_DATA(value, "health", m_health);
 		READ_NAME_DATA(value, "jump", m_jumpHeight);
 		READ_NAME_DATA(value, "immunetime", m_immuneTime);
